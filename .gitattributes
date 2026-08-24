@@ -1,0 +1,21 @@
+# This repo stores sha256 hashes of every tracked input file and verifies them in
+# CI. Any line-ending translation would change those hashes per platform and break
+# every check, so text normalization is disabled outright. Do NOT add `text=auto`.
+* -text
+
+# Weather files are text but must stay byte-identical across platforms.
+*.epw -text
+*.ddy -text
+*.stat -text
+
+# Binaries.
+*.db binary
+*.zip binary
+*.parquet binary
+*.pq binary
+*.xlsx binary
+
+# No git-lfs filters anywhere. Inputs are small enough for plain git (the largest
+# tracked file is ~4.5 MB) and LFS would break the "download it from GitHub with no
+# setup" requirement. Large GIS files live in globi-partners-data instead; see
+# docs/SCHEMA.md, `external_files`.

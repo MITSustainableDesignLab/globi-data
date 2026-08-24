@@ -1,0 +1,123 @@
+[project]
+name = "globi-data"
+version = "0.1.0"
+description = "Versioned inputs and outputs for Global Building Inventory (GloBI) simulation runs"
+readme = "README.md"
+authors = [
+    { name = "Darya Guettler", email = "daryag@mit.edu" }
+]
+requires-python = ">=3.12,<3.14"
+dependencies = [
+    "click",
+    "pydantic>=2.0",
+    "pyyaml",
+    "rich>=15.0.0",
+]
+
+[project.optional-dependencies]
+# Only the S3-touching commands need these. `globi-data check --offline` and the
+# whole inputs workflow install and run without them, which is what lets CI
+# validate pull requests with no AWS credentials.
+s3 = [
+    "boto3",
+]
+
+[project.scripts]
+globi-data = "globi_data.cli:cli"
+
+[build-system]
+requires = ["uv_build>=0.11.18,<0.12.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pyright>=1.1.410",
+    "pytest>=9.0.3",
+    "ruff>=0.15.16",
+]
+
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+markers = [
+    "s3: tests that require AWS credentials and network access",
+]
+
+
+[tool.pyright]
+include = ["src/globi_data"]
+typeCheckingMode = "standard"
+ignore = ["tests/"]
+venvPath = "."
+venv = ".venv"
+
+
+[tool.ruff]
+target-version = "py312"
+line-length = 88
+fix = true
+
+[tool.ruff.lint]
+select = [
+    # flake8-2020
+    "YTT",
+    # flake8-bandit
+    "S",
+    # flake8-bugbear
+    "B",
+    # flake8-builtins
+    "A",
+    # flake8-comprehensions
+    "C4",
+    # flake8-debugger
+    "T10",
+    # flake8-simplify
+    "SIM",
+    # isort
+    "I",
+    # mccabe
+    "C90",
+    # pycodestyle
+    "E", "W",
+    # pyflakes
+    "F",
+    # pygrep-hooks
+    "PGH",
+    # pyupgrade
+    "UP",
+    # ruff
+    "RUF",
+    # tryceratops
+    "TRY",
+    "D"
+]
+ignore = [
+    # LineTooLong
+    "E501",
+    # DoNotAssignLambda
+    "E731",
+    # Long messages outside the exception class. Every GlobiDataError here is a
+    # message a person reads in their terminal and has to act on ("v003 would be
+    # byte-identical to v002", "run `git lfs pull`"). Hoisting those into
+    # exception subclasses would scatter the wording away from the check that
+    # produces it and make the errors worse, not better.
+    "TRY003",
+]
+
+[tool.ruff.lint.mccabe]
+# A few functions here are long but linear: walk a list, classify each item,
+# return. Splitting them further to satisfy the default limit of 10 would hide
+# the sequence rather than clarify it.
+max-complexity = 15
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.format]
+preview = true

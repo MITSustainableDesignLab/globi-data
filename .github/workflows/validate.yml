@@ -1,0 +1,70 @@
+name: validate
+
+# The real gate. Deliberately needs no AWS credentials and no git-lfs, so a pull
+# request from anyone validates: everything checked here is derivable from the
+# text and small binaries in the repository itself.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Full history so the immutability check can find the merge base.
+          fetch-depth: 0
+          lfs: false
+
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Install
+        run: uv sync --frozen
+
+      - name: Lint and typecheck
+        run: |
+          uv run ruff check src/ tests/
+          uv run ruff format --check src/ tests/
+          uv run pyright
+
+      - name: Tests
+        run: uv run pytest -q
+
+      - name: Validate manifests, hashes and generated pages
+        run: uv run globi-data check
+
+      - name: Enforce immutability of published versions
+        if: github.event_name == 'pull_request'
+        # The published ledger is read as of the merge base, so a version created
+        # in this PR stays editable here and freezes once merged.
+        run: uv run globi-data check --since origin/${{ github.base_ref }}
+
+      - name: Reject oversized inputs
+        # The whole design rests on inputs staying small enough to clone and
+        # browse. A stray geojson or result parquet would quietly break that.
+        run: |
+          oversized=$(find inputs -type f -size +25M -print)
+          if [ -n "$oversized" ]; then
+            echo "::error::Files over 25 MB are not allowed under inputs/:"
+            echo "$oversized"
+            exit 1
+          fi
+
+      - name: Reject git-lfs pointers
+        # Inputs must be real files. An LFS pointer would download as 133 bytes
+        # of text for anyone who has not installed git-lfs.
+        run: |
+          if grep -rl "^version https://git-lfs" inputs/ 2>/dev/null; then
+            echo "::error::git-lfs pointer files found under inputs/."
+            exit 1
+          fi
+
+      - name: Results status
+        # Informational: never fails the build.
+        continue-on-error: true
+        run: uv run globi-data status

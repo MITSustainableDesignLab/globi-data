@@ -1,0 +1,43 @@
+name: status
+
+# Keeps outputs/STATUS.md current so anyone can see which results are stale by
+# looking at GitHub, without installing anything. Only commits when something
+# substantive changed — the generated-at stamp alone is not a reason to commit.
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Install
+        run: uv sync --frozen
+
+      - name: Regenerate index and status pages
+        run: uv run globi-data index --write
+
+      - name: Commit if anything changed
+        run: |
+          if git diff --quiet; then
+            echo "Nothing changed."
+            exit 0
+          fi
+          git config user.name "globi-data bot"
+          git config user.email "noreply@github.com"
+          git add inputs outputs
+          git commit -m "refresh generated index and status pages"
+          git push

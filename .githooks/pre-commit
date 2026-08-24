@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# Refuse commits that modify a published version directory.
+#
+# Published versions are permanent records: results recorded elsewhere pin them
+# by hash, so editing one silently invalidates that lineage. The fix is always a
+# new version, never an edit.
+#
+# Install with:  globi-data init-hooks   (sets core.hooksPath to .githooks)
+#
+# This is the fast, local layer. It can be bypassed with `git commit --no-verify`,
+# which is why CI enforces the same rule on every pull request.
+
+set -euo pipefail
+
+repo_root="$(git rev-parse --show-toplevel)"
+cd "$repo_root"
+
+run_check() {
+    if command -v globi-data >/dev/null 2>&1; then
+        globi-data check-staged
+    elif command -v uv >/dev/null 2>&1; then
+        uv run --quiet globi-data check-staged
+    else
+        echo "pre-commit: globi-data not found; skipping the immutability check." >&2
+        echo "            Install it with 'uv sync' so published versions stay protected." >&2
+        return 0
+    fi
+}
+
+run_check
