@@ -38,10 +38,13 @@ jobs:
       - name: Validate manifests, hashes and generated pages
         run: uv run globi-data check
 
-      - name: Enforce immutability of published versions
+      - name: Report edits to published versions
         if: github.event_name == 'pull_request'
-        # The published ledger is read as of the merge base, so a version created
-        # in this PR stays editable here and freezes once merged.
+        # Advisory for now, by request — it reports but does not block. To make
+        # it a gate, drop continue-on-error. The published ledger is read as of
+        # the merge base, so a version created in this PR stays editable here and
+        # would freeze once merged.
+        continue-on-error: true
         run: uv run globi-data check --since origin/${{ github.base_ref }}
 
       - name: Reject oversized inputs

@@ -1,10 +1,9 @@
 # globi-data
 
-Input and output files for [GloBI](https://github.com/MITSustainableDesignLab/globi-partners-data)
-building-energy simulation runs, kept in versions so nothing is ever overwritten.
+Input and output files for the GloBI project. 
 
-The simulations themselves run from
-[globi-partners-data](https://github.com/MITSustainableDesignLab/globi-partners-data).
+The simulations themselves can be run from run from
+[globi](https://github.com/MITSustainableDesignLab/globi).
 This repository is where their **files** live.
 
 ---
@@ -45,8 +44,8 @@ Two rules make this trustworthy:
 
 **Published versions are never edited.** If an input needs to change, that is a
 new version. The old one stays exactly as it was, so results produced from it
-remain reproducible. This is enforced by a git hook and by CI, not just by
-convention.
+remain reproducible. `globi-data check` will tell you if a published version has
+been altered.
 
 **Every version says whether it can change results.** A version is either
 `simulation-affecting` (a component library, a weather file, a component map) or
@@ -93,11 +92,10 @@ globi-data outputs download Ahmedabad/tmy/BAU --dest ./results
 
 ```bash
 uv sync                  # or: uv sync --extra s3   for the S3 commands
-uv run globi-data init-hooks
 ```
 
-`init-hooks` installs the pre-commit check that refuses edits to published
-versions. Do this once per clone.
+Optionally, `uv run globi-data init-hooks` installs a pre-commit check that
+refuses edits to published versions. It is **not** enabled by default.
 
 To work with the sibling repo, point at it once:
 
