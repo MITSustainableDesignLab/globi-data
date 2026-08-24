@@ -1,0 +1,69 @@
+name: finalize draft
+
+# Recomputes fingerprints for draft versions edited through the web UI, where
+# the person making the change has no way to hash anything themselves. Runs on
+# every push to a draft branch and commits the corrected manifest back.
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - "inputs/partners/**"
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    # Only for the draft branches the "Start a new input version" action opens.
+    if: startsWith(github.head_ref, 'draft/')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          lfs: false
+
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Install
+        run: uv sync --frozen
+
+      - name: Recompute fingerprints for every draft version
+        run: |
+          set -euo pipefail
+          # A draft is any version listed in versions.yml with status: draft.
+          uv run python - <<'PY'
+          import subprocess
+          from pathlib import Path
+          from globi_data import paths
+
+          root = paths.repo_root(Path.cwd())
+          for partner in sorted(p.name for p in (root / paths.INPUTS_DIR).iterdir() if p.is_dir()):
+              ledger = paths.read_versions(paths.partner_dir(root, partner))
+              for entry in ledger.versions:
+                  if entry.status != "draft":
+                      continue
+                  print(f"finalizing {partner} {entry.version}")
+                  subprocess.run(
+                      ["globi-data", "inputs", "finalize", partner, entry.version],
+                      check=True,
+                  )
+          PY
+
+      - name: Regenerate the version README
+        run: uv run globi-data index --write
+
+      - name: Commit if anything changed
+        run: |
+          if git diff --quiet; then
+            echo "Fingerprints already correct."
+            exit 0
+          fi
+          git config user.name "globi-data bot"
+          git config user.email "noreply@github.com"
+          git add inputs
+          git commit -m "recompute fingerprints for draft version"
+          git push

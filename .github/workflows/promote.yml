@@ -1,0 +1,75 @@
+name: promote draft
+
+# When a draft pull request merges, publish the version: make it current, freeze
+# it in published.yml, and tag it so the release workflow builds a download zip.
+
+on:
+  pull_request:
+    types: [closed]
+    paths:
+      - "inputs/partners/**"
+
+permissions:
+  contents: write
+
+jobs:
+  promote:
+    if: github.event.pull_request.merged == true && startsWith(github.head_ref, 'draft/')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          lfs: false
+
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Install
+        run: uv sync --frozen
+
+      - name: Promote every draft version
+        id: promote
+        run: |
+          set -euo pipefail
+          uv run python - <<'PY'
+          import subprocess
+          from pathlib import Path
+          from globi_data import paths
+
+          root = paths.repo_root(Path.cwd())
+          promoted = []
+          for partner in sorted(p.name for p in (root / paths.INPUTS_DIR).iterdir() if p.is_dir()):
+              ledger = paths.read_versions(paths.partner_dir(root, partner))
+              for entry in list(ledger.versions):
+                  if entry.status != "draft":
+                      continue
+                  subprocess.run(
+                      ["globi-data", "inputs", "promote", partner, entry.version],
+                      check=True,
+                  )
+                  promoted.append(f"{partner}-{entry.version}")
+          Path("promoted.txt").write_text("\n".join(promoted))
+          PY
+          echo "tags=$(tr '\n' ' ' < promoted.txt)" >> "$GITHUB_OUTPUT"
+          rm -f promoted.txt
+
+      - name: Regenerate index pages
+        run: uv run globi-data index --write
+
+      - name: Commit and tag
+        run: |
+          set -euo pipefail
+          if git diff --quiet; then
+            echo "Nothing to promote."
+            exit 0
+          fi
+          git config user.name "globi-data bot"
+          git config user.email "noreply@github.com"
+          git add inputs outputs published.yml
+          git commit -m "publish ${{ steps.promote.outputs.tags }}"
+          for tag in ${{ steps.promote.outputs.tags }}; do
+            git tag "$tag"
+          done
+          git push --follow-tags

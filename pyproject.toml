@@ -114,7 +114,10 @@ ignore = [
 max-complexity = 15
 
 [tool.ruff.lint.per-file-ignores]
-"tests/*" = ["S101"]
+# S101: assert is the point of a test.
+# S603/S607: the fixtures shell out to `git` with literal arguments to build
+# throwaway repositories in tmp_path. No untrusted input is involved.
+"tests/*" = ["S101", "S603", "S607"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"

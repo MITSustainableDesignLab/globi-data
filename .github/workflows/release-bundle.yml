@@ -1,0 +1,78 @@
+name: release bundle
+
+# GitHub has no "download this folder" button, so every published version gets a
+# zip attached to a release. This is what makes the repository genuinely usable
+# by someone who is not going to install anything: one click, one file, a
+# complete input bundle.
+
+on:
+  push:
+    tags:
+      - "*-v[0-9]*"
+  workflow_dispatch:
+    inputs:
+      partner:
+        description: "Partner name"
+        required: true
+        type: string
+      version:
+        description: "Version label, e.g. v002"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Install
+        run: uv sync --frozen
+
+      - name: Work out what to bundle
+        id: target
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            partner="${{ inputs.partner }}"
+            version="${{ inputs.version }}"
+          else
+            tag="${GITHUB_REF_NAME}"
+            # Tags are "<Partner>-<vNNN>"; partner names may contain hyphens.
+            version="${tag##*-}"
+            partner="${tag%-*}"
+          fi
+          echo "partner=$partner" >> "$GITHUB_OUTPUT"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "tag=${partner}-${version}" >> "$GITHUB_OUTPUT"
+
+      - name: Build the zip
+        run: |
+          uv run globi-data inputs bundle "${{ steps.target.outputs.partner }}" \
+              --version "${{ steps.target.outputs.version }}" \
+              --out "${{ steps.target.outputs.tag }}.zip"
+
+      - name: Publish the release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.target.outputs.tag }}
+          name: ${{ steps.target.outputs.partner }} ${{ steps.target.outputs.version }}
+          files: ${{ steps.target.outputs.tag }}.zip
+          body: |
+            Complete input bundle for **${{ steps.target.outputs.partner }}**,
+            version **${{ steps.target.outputs.version }}**.
+
+            Download the zip below — it contains everything for this version.
+
+            Building footprint files (`buildings.geojson`) are not included; they
+            are too large for this repository. The bundle records their exact size
+            and fingerprint, and `README.md` inside says where to get them.

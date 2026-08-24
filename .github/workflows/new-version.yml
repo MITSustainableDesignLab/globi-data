@@ -1,0 +1,72 @@
+name: Start a new input version
+
+# The browser-based route for adding a version, for people who are not going to
+# install anything. Run this, then edit the new folder through GitHub's web UI
+# (Add file -> Upload files, or Delete file) and merge the pull request.
+
+on:
+  workflow_dispatch:
+    inputs:
+      partner:
+        description: "Which partner's inputs are you changing?"
+        required: true
+        type: string
+      summary:
+        description: "One line: what are you changing and why?"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Install
+        run: uv sync --frozen
+
+      - name: Create the draft version
+        id: draft
+        run: |
+          uv run globi-data inputs draft "${{ inputs.partner }}" \
+              --summary "${{ inputs.summary }}"
+          # The draft is the highest-numbered directory; CURRENT.yml still points
+          # at the published one, which is the whole point of a draft.
+          draft=$(basename "$(ls -d inputs/partners/"${{ inputs.partner }}"/v* | sort -V | tail -1)")
+          echo "version=$draft" >> "$GITHUB_OUTPUT"
+
+      - name: Open a pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: draft/${{ inputs.partner }}-${{ steps.draft.outputs.version }}
+          commit-message: "draft ${{ inputs.partner }} ${{ steps.draft.outputs.version }}"
+          title: "${{ inputs.partner }} ${{ steps.draft.outputs.version }} (draft)"
+          body: |
+            Draft version **${{ steps.draft.outputs.version }}** for
+            **${{ inputs.partner }}**, copied from the current version.
+
+            > ${{ inputs.summary }}
+
+            ### What to do next
+
+            1. Open `inputs/partners/${{ inputs.partner }}/${{ steps.draft.outputs.version }}/`
+               on the **Files changed** tab, or browse to it on this branch.
+            2. Replace, add or delete files using GitHub's **Add file → Upload files**
+               and **Delete file** buttons. You do not need anything installed.
+            3. Every time you push, a bot recomputes the fingerprints and updates
+               `input-version.yml` and `README.md` for you.
+            4. When it looks right, merge. That publishes the version and makes it
+               current.
+
+            If you decide nothing needs to change after all, just close this pull
+            request — a version identical to its parent will be rejected anyway.
