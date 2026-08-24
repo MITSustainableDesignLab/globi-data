@@ -1,0 +1,108 @@
+Name: MA Residential Model
+Fields:
+  - Name: Region
+    Options:
+      - MA
+  - Name: Typology
+    Options:
+      - SFH
+      - MFH
+  - Name: Age_bracket
+    Options:
+      - pre_1975
+      - btw_1975_2003
+      - post_2003
+  - Name: AtticVentilation
+    Options:
+      - UnventilatedAttic
+      - VentilatedAttic
+
+  - Name: AtticFloorInsulation
+    Options:
+      - NoInsulation
+      - Insulated
+      - HighlyInsulated
+
+  - Name: RoofInsulation
+    Options:
+      - UninsulatedRoof
+      - InsulatedRoof
+      - HighlyInsulatedRoof
+
+  - Name: BasementCeilingInsulation
+    Options:
+      - UninsulatedCeiling
+      - InsulatedCeiling
+  - Name: BasementWallsInsulation
+    Options:
+      - UninsulatedWalls
+      - InsulatedWalls
+
+  - Name: GroundSlabInsulation
+    Options:
+      - UninsulatedGroundSlab
+      - InsulatedGroundSlab
+
+  - Name: Weatherization
+    Options:
+      - LeakyEnvelope
+      - SomewhatLeakyEnvelope
+      - TightEnvelope
+      - TightEnvelopeHRV
+  - Name: Walls
+    Options:
+      - UninsulatedWalls
+      - SomeInsulationWalls
+      - SIP
+      - FullInsulationWallsCavity
+      - FullInsulationWallsCavityExterior
+  - Name: Windows
+    Options:
+      - SinglePane
+      - SinglePaneStormWindows
+      - DoublePaneLowE
+      - TriplePaneLowE
+  - Name: Heating
+    Options:
+      - ElectricResistance
+      - OilHeating
+      - NaturalGasHeating
+      - NaturalGasCondensingHeating
+      - ASHPHeating
+      - GSHPHeating
+  - Name: Cooling
+    Options:
+      - ACWindow
+      - ACCentral
+      - WindowASHP
+      - ASHPCooling
+      - GSHPCooling
+  - Name: Distribution
+    Options:
+      - Steam
+      - HotWaterUninsulated
+      - AirDuctsUninsulated
+      - AirDuctsConditionedUninsulated
+      - HotWaterInsulated
+      - AirDuctsInsulated
+  - Name: DHW
+    Options:
+      - ElectricResistanceDHW
+      - NaturalGasDHW
+      - NaturalGasHeatingDHWCombo
+      - HPWH
+  - Name: Lighting
+    Options:
+      - NoLED
+      - LED
+  - Name: Thermostat
+    Options:
+      - NoControls
+      - Controls
+  - Name: Equipment
+    Options:
+      - LowEfficiencyEquipment
+      - HighEfficiencyEquipment
+
+Building_ID_col: building_id
+Num_Floors_col: num_floors

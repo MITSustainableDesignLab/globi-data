@@ -1,0 +1,45 @@
+Envelope:
+  selector:
+    source_fields:
+    - Region
+    - Typology
+    - Fabric
+    - Windows
+Operations:
+  SpaceUse:
+    Occupancy:
+      selector:
+        source_fields:
+        - Region
+        - Floor_use
+    Lighting:
+      selector:
+        source_fields:
+        - Region
+        - Floor_use
+    Equipment:
+      selector:
+        source_fields:
+        - Region
+        - Floor_use
+    Thermostat:
+      selector:
+        source_fields:
+        - Region
+        - Floor_use
+        - Scenario
+    WaterUse:
+      selector:
+        source_fields:
+        - Region
+        - Floor_use
+  HVAC:
+    selector:
+      source_fields:
+      - Region
+      - Typology
+  DHW:
+    selector:
+      source_fields:
+        - Region
+        - Typology

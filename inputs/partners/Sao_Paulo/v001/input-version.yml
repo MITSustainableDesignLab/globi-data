@@ -1,0 +1,148 @@
+schema_version: 1
+kind: input-version
+partner: Sao_Paulo
+version: v001
+parent_version: null
+created_at: '2026-08-24T16:22:13Z'
+created_by:
+  name: daryaguettler
+  email: daryag@mit.edu
+summary: Initial import of Sao_Paulo inputs from globi-partners-data.
+impact: simulation-affecting
+changes: []
+not_carried_over:
+  - Guaratingueta_BRA_ftmy_2050_ssp245_CanESM5.epw.txt - FTMY build intermediate; the real .epw is under
+    weather_ftmy/
+  - components-lib-old.db - superseded backup of components-lib.db
+source:
+  repo: globi-partners-data
+  remote: https://github.com/MITSustainableDesignLab/globi-partners-data.git
+  commit: a12d78a61c49db39fbbae916ccfaad14ed8697b1
+  dirty: true
+  path: data/partners/Sao_Paulo
+globi:
+  bundle_kind: experiment
+  scenarios:
+    baseline: noAC
+    alternative: withAC
+  roles:
+    experiment_manifest: manifest.yml
+    file_config: artifacts.yml
+    db_file: components-lib.db
+    semantic_fields_file: semantic-fields.yml
+    component_map_file: component-map.yml
+    epwzip_file: https://climate.onebuilding.org/WMO_Region_3_South_America/BRA_Brazil/SP_Sao_Paulo/BRA_SP_Guaratingueta.AP.837080_TMYx.2009-2023.zip
+    gis_file: external:buildings.geojson
+    gis_preprocessor_config: gis-preprocessor.yml
+    overheating_config: overheating-config.yml
+    hourly_data_config: hourly-data-config.yml
+  notes: null
+files:
+  - path: README.md
+    role: null
+    bytes: 2772
+    sha256: 315568d3db23d169aae9b1fd721a13e98889bbfdb02c963486019def197cf51a
+    simulation_affecting: false
+    changed_from_parent: false
+  - path: artifacts.yml
+    role: file_config
+    bytes: 379
+    sha256: 5f5b5be4f10e24eb39d24f8511a0d5444d4d1185890ba2993a3df71bec805967
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: component-map.yml
+    role: component_map_file
+    bytes: 394
+    sha256: df622aac40b976ffb09773d30fd3947f616ad9cf20ba4c97bd1da69d83580a0f
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: components-lib.db
+    role: db_file
+    bytes: 425984
+    sha256: a5761247c7ba2c09c2351e6f0555a2ca1d997a672896aa3ca1e8bd404e94f83e
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: gis-preprocessor.yml
+    role: gis_preprocessor_config
+    bytes: 387
+    sha256: f63df67fe978f91a931c0cfbba99c6061a7d0a1551eefc7b492f0e227272bf57
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: hourly-data-config.yml
+    role: hourly_data_config
+    bytes: 98
+    sha256: 0e7b843c928a7ffd7e6ed9565e1253c6f79ccccc6fbe1a471da7891c1bb1bdcc
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: manifest.yml
+    role: experiment_manifest
+    bytes: 230
+    sha256: 664d65783f44893171f67df5fcd56ddf3d5b44f1822690e34c9522088685b803
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: overheating-config.yml
+    role: overheating_config
+    bytes: 292
+    sha256: 0c5273fa6d10e7b2efb0df99033d16f56d640cdd857ada8baf7f5fc4bd2cfa07
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: semantic-fields.yml
+    role: semantic_fields_file
+    bytes: 2043
+    sha256: e9b3fce9975904c0f8ad69137479c3a6ea43a86796f93de1b67f9b6ae7cf3922
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/BRA_SP_Guaratingueta.AP.837080_TMYx.2009-2023.ddy
+    role: null
+    bytes: 13335
+    sha256: d54e59f818ad71380620672468e6052f2a697db7b95d5710528d2f9d77c9df26
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/BRA_SP_Guaratingueta.AP.837080_TMYx.2009-2023.epw
+    role: null
+    bytes: 1589778
+    sha256: f29c6a82f6edcf9ad91e34b557b6a5685a84d2f0e939482590569f9e09ff89f4
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/BRA_SP_Guaratingueta.AP.837080_TMYx.2009-2023.zip
+    role: null
+    bytes: 284539
+    sha256: 1e7f898fd9feb1d41240ae3b8746a0a6e05b1eece1d8546eba9dadcc6bf98056
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather_ftmy/Guaratingueta_BRA_ftmy_2050_ssp245_CanESM5.ddy
+    role: null
+    bytes: 13335
+    sha256: d54e59f818ad71380620672468e6052f2a697db7b95d5710528d2f9d77c9df26
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather_ftmy/Guaratingueta_BRA_ftmy_2050_ssp245_CanESM5.epw
+    role: null
+    bytes: 1654423
+    sha256: b8252e06e02ae173554f8f969c49fc0d8663c48df48774f2c4e53726c5307046
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather_ftmy/Guaratingueta_BRA_ftmy_2050_ssp245_CanESM5.zip
+    role: null
+    bytes: 302620
+    sha256: dd5a2bdf505a0060671dbe1dc978122a65cdaf95ac9ed3313c9b4a741e9ba565
+    simulation_affecting: true
+    changed_from_parent: false
+external_files:
+  - path: buildings.geojson
+    role: gis_file
+    bytes: 7488890
+    sha256: 018293ab01496747ab049055bd378b3a5dffd8f90e4a3eca9f5b2600a73a7b32
+    stored_in:
+      repo: globi-partners-data
+      remote: https://github.com/MITSustainableDesignLab/globi-partners-data.git
+      commit: a12d78a61c49db39fbbae916ccfaad14ed8697b1
+      path: data/partners/Sao_Paulo/buildings.geojson
+      storage: git-lfs
+    resolver: $GLOBI_GIS_ROOT/Sao_Paulo/buildings.geojson
+    reason: 7 MB of geometry - kept under git-lfs in globi-partners-data where it already lives.
+remote_files: []
+totals:
+  file_count: 15
+  bytes: 4290609
+bundle_sha256: 1dd5337fb5084dc13005d19e6733138b66e2dc359b850c45e927dffe5936e665

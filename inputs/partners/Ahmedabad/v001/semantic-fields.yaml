@@ -1,0 +1,36 @@
+Name: India code compliance model
+Fields:
+  - Name: region
+    Options:
+      - India
+  - Name: type
+    Options:
+      - Residential
+      - Retail
+      - Office
+      - Restaurant
+      - Health
+      - Hotel
+      - Manufacturing
+      - School
+      - Assembly
+
+  - Name: age_bracket
+    Options:
+      - "1940-1950"
+      - "1950-1960"
+      - "1960-1970"
+      - "1970-1980"
+      - "1980-1990"
+      - "1990-2000"
+      - "2000-2010"
+      - "2010-2020"
+
+  - Name: scenario
+    Options:
+      - BAU
+      - CC
+
+
+Height_col: ActualHeig
+Building_ID_col: UNIQUE_ID

@@ -1,0 +1,5 @@
+gis_file: data/partners/Singapore/buildings-singapore.geojson
+db_file: data/partners/Singapore/components-lib.db
+semantic_fields_file: data/partners/Singapore/semantic-fields.yaml
+epwzip_file: data/partners/Singapore/weather/SGP_Singapore.486980_IWEC.zip
+component_map_file: data/partners/Singapore/component-map.yaml

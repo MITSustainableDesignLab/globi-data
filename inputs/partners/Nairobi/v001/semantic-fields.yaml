@@ -1,0 +1,24 @@
+Name: Nairobi overheating model
+Fields:
+  - Name: region
+    Options:
+      - NRB
+  - Name: type
+    Options:
+      - NRB_informal settlement_Households
+      - NRB_Lower_income_Households
+      - NRB_Middle_Income_Households
+      - NRB_Affluent Households
+      - NRB_Office_buildings_pre_2000
+      - NRB_Office_buildings_Post_2000
+      - NRB_institutional_buildings
+
+  - Name: scenario
+    Options:
+      - withAC
+      - noAC
+
+Height_col: height
+Building_ID_col: id
+GFA_col: footprint_area
+Num_Floors_col: num_storeys

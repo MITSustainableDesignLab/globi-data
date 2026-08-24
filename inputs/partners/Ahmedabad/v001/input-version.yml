@@ -1,0 +1,147 @@
+schema_version: 1
+kind: input-version
+partner: Ahmedabad
+version: v001
+parent_version: null
+created_at: '2026-08-24T16:22:11Z'
+created_by:
+  name: daryaguettler
+  email: daryag@mit.edu
+summary: Initial import of Ahmedabad inputs from globi-partners-data.
+impact: simulation-affecting
+changes: []
+not_carried_over:
+  - Ahmedabad_IND_ftmy_2050_ssp245_CanESM5.epw.txt - FTMY build intermediate; the real .epw is under weather_ftmy/
+  - components-lib-old.db - superseded backup of components-lib.db
+source:
+  repo: globi-partners-data
+  remote: https://github.com/MITSustainableDesignLab/globi-partners-data.git
+  commit: a12d78a61c49db39fbbae916ccfaad14ed8697b1
+  dirty: true
+  path: data/partners/Ahmedabad
+globi:
+  bundle_kind: experiment
+  scenarios:
+    baseline: BAU
+    alternative: CC
+  roles:
+    experiment_manifest: manifest.yml
+    file_config: artifacts.yml
+    db_file: components-lib.db
+    semantic_fields_file: semantic-fields.yaml
+    component_map_file: component-map.yaml
+    epwzip_file: https://climate.onebuilding.org/WMO_Region_2_Asia/IND_India/GJ_Gujarat/IND_GJ_Ahmedabad.Intl.AP.426470_TMYx.2009-2023.zip
+    gis_file: external:buildings.geojson
+    gis_preprocessor_config: gis-preprocessor.yml
+    overheating_config: overheating-config.yml
+    hourly_data_config: hourly-data-config.yml
+  notes: null
+files:
+  - path: README.md
+    role: null
+    bytes: 2766
+    sha256: e4f1d570bcb56acaa08ce19f862db9f9af63031a20b943ad6f930280ebc53abb
+    simulation_affecting: false
+    changed_from_parent: false
+  - path: artifacts.yml
+    role: file_config
+    bytes: 370
+    sha256: ccb5d8af9bb68e92dfc93208de3a73e15475bc708854ac5a45aceb5345de3e2d
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: component-map.yaml
+    role: component_map_file
+    bytes: 343
+    sha256: 793ae0c6d852d7481f00f8d2c7016622aa2ce31880043df9ce85d1e651d8280a
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: components-lib.db
+    role: db_file
+    bytes: 507904
+    sha256: 1961471e62f1a3533b362b800d22801a3e76b6c6879538bc053434b141341882
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: gis-preprocessor.yml
+    role: gis_preprocessor_config
+    bytes: 387
+    sha256: 042b7ef854cf97f0865ca0a3967504990a82abad6127718be05919719f81ab4f
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: hourly-data-config.yml
+    role: hourly_data_config
+    bytes: 98
+    sha256: 0e7b843c928a7ffd7e6ed9565e1253c6f79ccccc6fbe1a471da7891c1bb1bdcc
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: manifest.yml
+    role: experiment_manifest
+    bytes: 176
+    sha256: cc50ac3753b9787cf79aad1b3fbd071a7d9dacdfe83b7b2ac3f49202f6d6a5d3
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: overheating-config.yml
+    role: overheating_config
+    bytes: 292
+    sha256: 0c5273fa6d10e7b2efb0df99033d16f56d640cdd857ada8baf7f5fc4bd2cfa07
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: semantic-fields.yaml
+    role: semantic_fields_file
+    bytes: 569
+    sha256: 5e6082c66eb75bf1c4d69dde4cf70a0ddc5853a524644675521110a137f59ace
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/IND_GJ_Ahmedabad.Intl.AP.426470_TMYx.2009-2023.ddy
+    role: null
+    bytes: 182641
+    sha256: 3d4e6a4d3f931c8268fd15f85f40b5f2fd39b63be373cde9125f95f99a8e0ac6
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/IND_GJ_Ahmedabad.Intl.AP.426470_TMYx.2009-2023.epw
+    role: null
+    bytes: 1619221
+    sha256: 2a984ac7601827d47314287fe6fcddb890de752274dda06198a3e79f2ab447ec
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/IND_GJ_Ahmedabad.Intl.AP.426470_TMYx.2009-2023.zip
+    role: null
+    bytes: 264903
+    sha256: 7a1be6e0874bae8f4811946701b192b55606539b21522e3bdc5dc7be42aff2fd
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather_ftmy/Ahmedabad_IND_ftmy_2050_ssp245_CanESM5.ddy
+    role: null
+    bytes: 182641
+    sha256: 3d4e6a4d3f931c8268fd15f85f40b5f2fd39b63be373cde9125f95f99a8e0ac6
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather_ftmy/Ahmedabad_IND_ftmy_2050_ssp245_CanESM5.epw
+    role: null
+    bytes: 1681945
+    sha256: 0648b8623851d552f46f66cb870769394e63de7655e0f38290add7830bbaaaed
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather_ftmy/Ahmedabad_IND_ftmy_2050_ssp245_CanESM5.zip
+    role: null
+    bytes: 279183
+    sha256: 43bb93cc07f2b935dae9702c07beb54b09f05ae2f49b8e26a598f7dbbf68fefd
+    simulation_affecting: true
+    changed_from_parent: false
+external_files:
+  - path: buildings.geojson
+    role: gis_file
+    bytes: 122168816
+    sha256: 28665539f9255f471c44371823154d5fd2a4902df51afbe24deac8467e7b797b
+    stored_in:
+      repo: globi-partners-data
+      remote: https://github.com/MITSustainableDesignLab/globi-partners-data.git
+      commit: a12d78a61c49db39fbbae916ccfaad14ed8697b1
+      path: data/partners/Ahmedabad/buildings.geojson
+      storage: git-lfs
+    resolver: $GLOBI_GIS_ROOT/Ahmedabad/buildings.geojson
+    reason: 122 MB of geometry - kept under git-lfs in globi-partners-data where it already lives.
+remote_files: []
+totals:
+  file_count: 15
+  bytes: 4723439
+bundle_sha256: 1707a65e325c925e5cb8bfa906f8f017aa84f60cfae9948f41c7c0adb2ad6b80

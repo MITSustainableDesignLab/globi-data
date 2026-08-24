@@ -1,0 +1,142 @@
+schema_version: 1
+kind: input-version
+partner: Singapore
+version: v001
+parent_version: null
+created_at: '2026-08-24T16:22:13Z'
+created_by:
+  name: daryaguettler
+  email: daryag@mit.edu
+summary: Initial import of Singapore inputs from globi-partners-data.
+impact: simulation-affecting
+changes: []
+not_carried_over:
+  - SGP_Singapore-Changi_TMYx_2009-2023_patched.zip - not a recognised bundle file
+  - Singapore_ftmy_2050_ssp245_CanESM5.epw.txt - FTMY build intermediate; the real .epw is under weather_ftmy/
+  - sg_buildings_v5 2.geojson - GIS geometry is not stored in this repo
+source:
+  repo: globi-partners-data
+  remote: https://github.com/MITSustainableDesignLab/globi-partners-data.git
+  commit: a12d78a61c49db39fbbae916ccfaad14ed8697b1
+  dirty: true
+  path: data/partners/Singapore
+globi:
+  bundle_kind: experiment
+  scenarios:
+    baseline: Baseline
+    alternative: Retrofit
+  roles:
+    experiment_manifest: manifest.yml
+    file_config: artifacts.yml
+    db_file: components-lib.db
+    semantic_fields_file: semantic-fields.yaml
+    component_map_file: component-map.yaml
+    epwzip_file: null
+    epwzip_file_local: weather/SGP_Singapore.486980_IWEC.zip
+    gis_file: external:buildings-singapore.geojson
+    gis_preprocessor_config: gis-preprocessor.yml
+    overheating_config: overheating-config.yml
+  notes: null
+files:
+  - path: README.md
+    role: null
+    bytes: 2721
+    sha256: 80a201afb7fd31a780eae51a1d4d62be906a5577092f6925cba0d43c88059e49
+    simulation_affecting: false
+    changed_from_parent: false
+  - path: artifacts.yml
+    role: file_config
+    bytes: 318
+    sha256: be3d812a1c824ede26300eb424050a0a8e611a927e01543af418f5b24a5fd0b9
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: component-map.yaml
+    role: component_map_file
+    bytes: 326
+    sha256: 64e4fd3178d6e62275cc651f5940b8f97aca89f6e1d87fcffbb1b01fc663597c
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: components-lib.db
+    role: db_file
+    bytes: 577536
+    sha256: 1895c3fd32940b99b98251ac7ba6861bb85a63e0cb5757884cb71754e71c8f4f
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: gis-preprocessor.yml
+    role: gis_preprocessor_config
+    bytes: 387
+    sha256: f63df67fe978f91a931c0cfbba99c6061a7d0a1551eefc7b492f0e227272bf57
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: manifest.yml
+    role: experiment_manifest
+    bytes: 171
+    sha256: 567b3a4e06ebe3eb403dbf434786aa3048fc8115a1213b328a4765ec2b52c407
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: overheating-config.yml
+    role: overheating_config
+    bytes: 292
+    sha256: 0c5273fa6d10e7b2efb0df99033d16f56d640cdd857ada8baf7f5fc4bd2cfa07
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: semantic-fields.yaml
+    role: semantic_fields_file
+    bytes: 722
+    sha256: fac5ffd3aaf792a2dc7624f622139a8702db39afd000f99b1a963a5c1ba1d81c
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/SGP_Singapore.486980_IWEC.ddy
+    role: null
+    bytes: 29687
+    sha256: 13798b8cd78c3fee28f4e8feb30de4442ad7483c75b3f1864a46ba38ef201036
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/SGP_Singapore.486980_IWEC.epw
+    role: null
+    bytes: 1567127
+    sha256: b96fcb505cb4d64e16d24322b8bb7f98f5dfe32416ffbb77eb7726cb6ec6b506
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/SGP_Singapore.486980_IWEC.zip
+    role: epwzip_file_local
+    bytes: 222540
+    sha256: fe94e44778709e1e22002f609d4ff347489a732357fa7a6d539a9112623f30cf
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather_ftmy/Singapore_ftmy_2050_ssp245_CanESM5.ddy
+    role: null
+    bytes: 29687
+    sha256: 13798b8cd78c3fee28f4e8feb30de4442ad7483c75b3f1864a46ba38ef201036
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather_ftmy/Singapore_ftmy_2050_ssp245_CanESM5.epw
+    role: null
+    bytes: 1650474
+    sha256: ce1ab2956d989eeecaaedf9760a47067386a8a21c2c1b93bfdb923301d17574d
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather_ftmy/Singapore_ftmy_2050_ssp245_CanESM5.zip
+    role: null
+    bytes: 241172
+    sha256: 8181826b42b992f4498f1e79cbc3e4ee8744f07eac5cc5fe0da7cb499307c19f
+    simulation_affecting: true
+    changed_from_parent: false
+external_files:
+  - path: buildings-singapore.geojson
+    role: gis_file
+    bytes: 147459915
+    sha256: e7866b5f125298fa33c038b9478d9955e783e06593e19dd0205795327b1eb73b
+    stored_in:
+      repo: globi-partners-data
+      remote: https://github.com/MITSustainableDesignLab/globi-partners-data.git
+      commit: a12d78a61c49db39fbbae916ccfaad14ed8697b1
+      path: data/partners/Singapore/buildings-singapore.geojson
+      storage: git-lfs
+    resolver: $GLOBI_GIS_ROOT/Singapore/buildings-singapore.geojson
+    reason: 147 MB of geometry - kept under git-lfs in globi-partners-data where it already lives.
+remote_files: []
+totals:
+  file_count: 14
+  bytes: 4323160
+bundle_sha256: a73e157857bf6c50456e34b9a3bc71c33d9536719ca5f27039aa94635f59d298

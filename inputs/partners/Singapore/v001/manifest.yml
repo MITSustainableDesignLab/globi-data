@@ -1,0 +1,5 @@
+name: Singapore
+scenario: Retrofit
+hourly_data_config: null
+file_config: partners/Singapore/artifacts.yml
+gis_preprocessor_config: partners/Singapore/gis-preprocessor.yml

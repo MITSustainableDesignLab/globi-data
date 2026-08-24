@@ -1,0 +1,206 @@
+schema_version: 1
+kind: input-version
+partner: MA
+version: v001
+parent_version: null
+created_at: '2026-08-24T16:22:12Z'
+created_by:
+  name: daryaguettler
+  email: daryag@mit.edu
+summary: Initial import of MA inputs from globi-partners-data.
+impact: simulation-affecting
+changes: []
+not_carried_over:
+  - weather/Boston/Boston__MA__USA_ftmy_2050_ssp245_CanESM5.epw.txt - FTMY build intermediate; the real
+    .epw is under weather_ftmy/
+  - weather/Pittsfield/Pittsfield_MA_ftmy_2050_ssp245_CanESM5.epw.txt - FTMY build intermediate; the real
+    .epw is under weather_ftmy/
+  - weather/Worcester/Worcester_MA_ftmy_2050_ssp245_CanESM5.epw.txt - FTMY build intermediate; the real
+    .epw is under weather_ftmy/
+source:
+  repo: globi-partners-data
+  remote: https://github.com/MITSustainableDesignLab/globi-partners-data.git
+  commit: a12d78a61c49db39fbbae916ccfaad14ed8697b1
+  dirty: true
+  path: data/partners/MA
+globi:
+  bundle_kind: raw
+  scenarios: {}
+  roles:
+    db_file: components-lib.db
+    semantic_fields_file: semantic-fields.yml
+    component_map_file: component-map.yml
+    overheating_config: overheating-config.yml
+    weather_lookup: weather-lookup.yml
+    context: context-small.parquet
+  notes: 'Raw drop: this partner has no artifacts.yml or manifest.yml and is not wired into experiments.yaml.
+    Files are carried as-is for preservation.'
+files:
+  - path: README.md
+    role: null
+    bytes: 4325
+    sha256: 2e9b4aed90bffc8fb3f693d9ea9df8bd37aa61f5281e297861a7c202b6697659
+    simulation_affecting: false
+    changed_from_parent: false
+  - path: component-map.yml
+    role: component_map_file
+    bytes: 3269
+    sha256: 367cfb551d26644d81cd9d9d15e26f0c7a9a9dcffa183451f6db42b501159d36
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: components-lib.db
+    role: db_file
+    bytes: 569344
+    sha256: d4bdfa4aa642cc85264a64a4d784b375579e71c9b2bbfed525916c8d3f251b86
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: context-small.parquet
+    role: context
+    bytes: 2710671
+    sha256: 72390b431fa377b507b83ee28848aee631e1fe4e8b8a6d43dbbc0c967f52e967
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: overheating-config.yml
+    role: overheating_config
+    bytes: 292
+    sha256: 0c5273fa6d10e7b2efb0df99033d16f56d640cdd857ada8baf7f5fc4bd2cfa07
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: runs/ma/allocation-manifest.csv
+    role: null
+    bytes: 1457665
+    sha256: 5de079ebdd7ac4135852d739f99d784322d30e5d9a24cff2db07fabd15dd093f
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: semantic-fields.yml
+    role: semantic_fields_file
+    bytes: 2178
+    sha256: f52b9d87c60f8ade20d89a2d8f9e6ab7a68fc1db320c6c57a79d767de877cd2d
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: tl_2024_25_tract.zip
+    role: null
+    bytes: 4507195
+    sha256: 4106553ef300cbcff2ce7beb02b2a2123a77b61d27dfdef1dc738724d45c4fa4
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather-lookup.yml
+    role: weather_lookup
+    bytes: 124238
+    sha256: 13e7e7828517f0eabfac7916834dbaab80decc184c37958ecbde54b66e4dfbba
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/Boston/weather/USA_MA_Boston-Logan.Intl.AP.725090_TMYx.2009-2023.ddy
+    role: null
+    bytes: 183037
+    sha256: 83c444c06e8be32a20316ffd3f354854ca5f99aa5725c11112326c5c0154787b
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/Boston/weather/USA_MA_Boston-Logan.Intl.AP.725090_TMYx.2009-2023.epw
+    role: null
+    bytes: 1599439
+    sha256: cc0a9b0689df9a80387f906e417afe4b65931d96f35962fe924e4fdc917494db
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/Boston/weather/USA_MA_Boston-Logan.Intl.AP.725090_TMYx.2009-2023.zip
+    role: null
+    bytes: 278820
+    sha256: cae4357b4abfe784a26155a4abe140b6617037348ea06e48eacbbfa06b3b67ce
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/Boston/weather_ftmy/Boston__MA__USA_ftmy_2050_ssp245_CanESM5.ddy
+    role: null
+    bytes: 183037
+    sha256: 83c444c06e8be32a20316ffd3f354854ca5f99aa5725c11112326c5c0154787b
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/Boston/weather_ftmy/Boston__MA__USA_ftmy_2050_ssp245_CanESM5.epw
+    role: null
+    bytes: 1577712
+    sha256: e38e0d67fe8b2ffdcea19c30f98ec6ae948a2be52f037b66c7352d9e1ce04368
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/Boston/weather_ftmy/Boston__MA__USA_ftmy_2050_ssp245_CanESM5.zip
+    role: null
+    bytes: 280104
+    sha256: 9fc1c9829d9bf961456066c0ccf1427ebeeacd2c9ce196b7df0c351205b10b51
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/Pittsfield/weather/USA_MA_Pittsfield.Muni.AP.744104_TMYx.2009-2023.ddy
+    role: null
+    bytes: 182554
+    sha256: d60b6f577e04dfd7e8f8f05ec5dfefca12c57a29c5fd349fccd9a4df78c921b0
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/Pittsfield/weather/USA_MA_Pittsfield.Muni.AP.744104_TMYx.2009-2023.epw
+    role: null
+    bytes: 1594745
+    sha256: 1312421e023598aee63c0c76c689e9cfbd4d4cae1b4e321aad692a27bcf65a49
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/Pittsfield/weather/USA_MA_Pittsfield.Muni.AP.744104_TMYx.2009-2023.zip
+    role: null
+    bytes: 292079
+    sha256: a89d5fd46ccb5cbec58573f942b9b01c431039b8080dcf6eab9c00115c5a6f2f
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/Pittsfield/weather_ftmy/Pittsfield_MA_ftmy_2050_ssp245_CanESM5.ddy
+    role: null
+    bytes: 182554
+    sha256: d60b6f577e04dfd7e8f8f05ec5dfefca12c57a29c5fd349fccd9a4df78c921b0
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/Pittsfield/weather_ftmy/Pittsfield_MA_ftmy_2050_ssp245_CanESM5.epw
+    role: null
+    bytes: 1663112
+    sha256: ae445a666c761335f8b6cfc175d88086e9beaa587ee2f6a03d453ba80b86dec4
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/Pittsfield/weather_ftmy/Pittsfield_MA_ftmy_2050_ssp245_CanESM5.zip
+    role: null
+    bytes: 310341
+    sha256: aa7938df886a05939100ba28192fbc916c893a69da932e6374c695a4d9d48770
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/Worcester/weather/USA_MA_Worcester.Rgnl.AP.725100_TMYx.2009-2023.ddy
+    role: null
+    bytes: 182317
+    sha256: 231c97b76cb2d37c180e781732e6e3de68bd3deb3e9b9333f312b7fdb972ce15
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/Worcester/weather/USA_MA_Worcester.Rgnl.AP.725100_TMYx.2009-2023.epw
+    role: null
+    bytes: 1590777
+    sha256: c99cece1144cd28f34fe861dea693aa89a10212eeac4b0328ab83b3b60cea0e2
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/Worcester/weather/USA_MA_Worcester.Rgnl.AP.725100_TMYx.2009-2023.zip
+    role: null
+    bytes: 284043
+    sha256: 83fc7a7b12bc2d4665beef322a8807ce11a9ca857fa0e14f9a544187dd836b41
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/Worcester/weather_ftmy/Worcester_MA_ftmy_2050_ssp245_CanESM5.ddy
+    role: null
+    bytes: 182317
+    sha256: 231c97b76cb2d37c180e781732e6e3de68bd3deb3e9b9333f312b7fdb972ce15
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/Worcester/weather_ftmy/Worcester_MA_ftmy_2050_ssp245_CanESM5.epw
+    role: null
+    bytes: 1658544
+    sha256: d73669364860f161b90822cbb536429da731f8d2914c536887b08f9941d3d5d3
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/Worcester/weather_ftmy/Worcester_MA_ftmy_2050_ssp245_CanESM5.zip
+    role: null
+    bytes: 306405
+    sha256: 63983e107b01604ea47c31301f54fdd9947f9344e584da42bd47fee54b749527
+    simulation_affecting: true
+    changed_from_parent: false
+external_files: []
+remote_files: []
+totals:
+  file_count: 27
+  bytes: 21911114
+bundle_sha256: d53a3ab202de33c5d25f132c40302f058776efcad7ec5e5d572b25d0dde54ebb

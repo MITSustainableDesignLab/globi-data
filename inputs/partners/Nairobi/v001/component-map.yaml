@@ -1,0 +1,21 @@
+Envelope:
+  selector:
+    source_fields:
+      - type
+
+Operations:
+  SpaceUse:
+    selector:
+      source_fields:
+        - type
+        - scenario
+  HVAC:
+    selector:
+      source_fields:
+        - type
+        - scenario
+
+  DHW:
+    selector:
+      source_fields:
+        - region

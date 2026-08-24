@@ -1,0 +1,43 @@
+Envelope:
+  selector:
+    source_fields:
+      - Region
+      - Typology_construction
+      - Age_bracket
+      - Scenario
+Operations:
+  SpaceUse:
+    selector:
+      source_fields:
+        - Region
+        - Typology_spaceuse
+        - Scenario
+  HVAC:
+    ConditioningSystems:
+      Heating:
+        selector:
+          source_fields:
+            - Region
+            - Heating
+            - Size_buckets
+            - Height_buckets
+      Cooling:
+        selector:
+          source_fields:
+            - Region
+            - Cooling
+            - Size_buckets
+            - Height_buckets
+    Ventilation:
+      selector:
+        source_fields:
+          - Region
+          - Typology_hvac
+          - Weatherization
+  DHW:
+    selector:
+      source_fields:
+        - Region
+        - DHW
+        - Size_buckets
+        - Height_buckets

@@ -1,0 +1,156 @@
+schema_version: 1
+kind: input-version
+partner: Manchester
+version: v001
+parent_version: null
+created_at: '2026-08-24T16:22:13Z'
+created_by:
+  name: daryaguettler
+  email: daryag@mit.edu
+summary: Initial import of Manchester inputs from globi-partners-data.
+impact: simulation-affecting
+changes: []
+not_carried_over:
+  - GloBI_manchester.db - not a recognised bundle file
+  - GloBI_manchester.xlsx - source spreadsheet; the simulation reads the .db built from it
+  - Manchester_ENG_ftmy_2050_ssp126_CanESM5.epw.txt - FTMY build intermediate; the real .epw is under
+    weather_ftmy/
+  - manchester_floors_DSR.geojson - GIS geometry is not stored in this repo
+  - manchester_floors_No_DSR.geojson - GIS geometry is not stored in this repo
+source:
+  repo: globi-partners-data
+  remote: https://github.com/MITSustainableDesignLab/globi-partners-data.git
+  commit: a12d78a61c49db39fbbae916ccfaad14ed8697b1
+  dirty: true
+  path: data/partners/Manchester
+globi:
+  bundle_kind: experiment
+  scenarios:
+    baseline: No_DSR
+    alternative: DSR
+  roles:
+    experiment_manifest: manifest.yml
+    file_config: artifacts.yml
+    db_file: components-lib.db
+    semantic_fields_file: semantic-fields.yaml
+    component_map_file: component-map.yaml
+    epwzip_file: https://climate.onebuilding.org/WMO_Region_6_Europe/GBR_United_Kingdom/ENG_England/GBR_ENG_Manchester.AP.033340_TMYx.2009-2023.zip
+    gis_file: external:buildings.geojson
+    gis_preprocessor_config: gis-preprocessor.yml
+    overheating_config: overheating-config.yml
+  notes: null
+files:
+  - path: README.md
+    role: null
+    bytes: 3027
+    sha256: 32fee70e506c327fb89c9ac7a2d5b6da6a3fe03a8efd493f6309b12c215357a3
+    simulation_affecting: false
+    changed_from_parent: false
+  - path: artifacts.yml
+    role: file_config
+    bytes: 383
+    sha256: 0d5aaa9df6df2cebee6ef45064b690301ae71d6ebdaf49cbe80d11d27d4844c5
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: component-map-manchester-dsr.yml
+    role: null
+    bytes: 1892
+    sha256: a28d25e9fd71904c5e032cdbb6dfc631a131da493e8761b354b5b61b15bc4df7
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: component-map.yaml
+    role: component_map_file
+    bytes: 746
+    sha256: 80836bea38cb6161dd48211ec9055f4c88dacb6981e1b7152f7a8de605ec8c62
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: components-lib.db
+    role: db_file
+    bytes: 2830336
+    sha256: 8739882ce694a2a4856ff5bf57db9f761eefb6d62b4fde1970dbe4621576bccc
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: gis-preprocessor.yml
+    role: gis_preprocessor_config
+    bytes: 387
+    sha256: 75d21ca385777b7d0ef83f472fd19f9de9b4bad26b074e7d562b2abc30e1a7b0
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: manifest.yml
+    role: experiment_manifest
+    bytes: 161
+    sha256: a56bca386b4d3be8ad8df13eb5a6d10c586847f48376ca9c8701362715824c2e
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: overheating-config.yml
+    role: overheating_config
+    bytes: 292
+    sha256: 0c5273fa6d10e7b2efb0df99033d16f56d640cdd857ada8baf7f5fc4bd2cfa07
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: semantic-fields-manchester-dsr.yml
+    role: null
+    bytes: 4689
+    sha256: 6314a9a039d16dd935cd1a4d38ea26f75307881abf0a68bce4f35b49e6755215
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: semantic-fields.yaml
+    role: semantic_fields_file
+    bytes: 4765
+    sha256: 318497a1a5a6d19aa3656db081e8c6afa9740061f0d771bc043f30c4926487f8
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/GBR_ENG_Manchester.AP.033340_TMYx.2009-2023.ddy
+    role: null
+    bytes: 181483
+    sha256: 053dbbd5e0845422e1626852394cb8f3df23c37f58065937344658b71f0dc40f
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/GBR_ENG_Manchester.AP.033340_TMYx.2009-2023.epw
+    role: null
+    bytes: 1590047
+    sha256: cd3afbbda8c5663ad193355343036b4469e6eb3227de367b190f9ed56cd4184f
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/GBR_ENG_Manchester.AP.033340_TMYx.2009-2023.zip
+    role: null
+    bytes: 262345
+    sha256: c8c7f3a5b9fee14582f09648f5da31b89d53de540f2fa331b3b43a3bc1a63f55
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather_ftmy/Manchester_ENG_ftmy_2050_ssp126_CanESM5.ddy
+    role: null
+    bytes: 181483
+    sha256: 053dbbd5e0845422e1626852394cb8f3df23c37f58065937344658b71f0dc40f
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather_ftmy/Manchester_ENG_ftmy_2050_ssp126_CanESM5.epw
+    role: null
+    bytes: 1658774
+    sha256: 700087cb5e88f533b4f8094f46910f7811e2a6855ee2752e052df2c94f6fcb3f
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather_ftmy/Manchester_ENG_ftmy_2050_ssp126_CanESM5.zip
+    role: null
+    bytes: 276285
+    sha256: b862ab7d376d5dd7dbd067a1f215f5521d1cb777ff91277cd3255f683f7be870
+    simulation_affecting: true
+    changed_from_parent: false
+external_files:
+  - path: buildings.geojson
+    role: gis_file
+    bytes: 8118969
+    sha256: 62a2441580bcda9dabf67d6d59746d590257014e5d31f324211e1bd38c6c1067
+    stored_in:
+      repo: globi-partners-data
+      remote: https://github.com/MITSustainableDesignLab/globi-partners-data.git
+      commit: a12d78a61c49db39fbbae916ccfaad14ed8697b1
+      path: data/partners/Manchester/buildings.geojson
+      storage: git-lfs
+    resolver: $GLOBI_GIS_ROOT/Manchester/buildings.geojson
+    reason: 8 MB of geometry - kept under git-lfs in globi-partners-data where it already lives.
+remote_files: []
+totals:
+  file_count: 16
+  bytes: 6997095
+bundle_sha256: e5ff2749ec5e7beaf381337b96a3a68e9aef4e3ae43bf253dea44de44df42352

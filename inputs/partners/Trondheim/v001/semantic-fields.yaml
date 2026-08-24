@@ -1,0 +1,39 @@
+Name: Trondheim Building Model
+Fields:
+  - Name: Region
+    Options:
+      - TRD
+  - Name: Typology
+    Options:
+      - SFH
+      - MFH
+      - AB
+  - Name: scenario
+    Options:
+      - LowEfficiency
+      - HighEfficiency
+  - Name: Age_bracket
+    Options:
+      - pre_1956
+      - btw_1956_1970
+      - btw_1971_1980
+      - btw_1981_1990
+      - btw_1991_2000
+      - btw_2001_2010
+      - post_2011
+  - Name: Construction_type
+    Options:
+      - HIS
+      - ORI
+      - REN
+  - Name: DHW_type
+    Options:
+      - ElectricResistanceDHW
+      - HPAWDHW
+      - HPBWDHW
+      - DHDHW
+
+  
+
+Num_Floors_col: num_floors
+Building_ID_col: id

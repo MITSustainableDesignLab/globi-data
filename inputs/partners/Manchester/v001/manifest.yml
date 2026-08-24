@@ -1,0 +1,5 @@
+name: GB
+scenario: DSR
+hourly_data_config: null
+file_config: partners/Manchester/artifacts.yml
+gis_preprocessor_config: partners/Manchester/gis-preprocessor.yml

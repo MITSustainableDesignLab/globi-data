@@ -1,0 +1,133 @@
+schema_version: 1
+kind: input-version
+partner: Lisbon
+version: v001
+parent_version: null
+created_at: '2026-08-24T16:22:12Z'
+created_by:
+  name: daryaguettler
+  email: daryag@mit.edu
+summary: Initial import of Lisbon inputs from globi-partners-data.
+impact: simulation-affecting
+changes: []
+not_carried_over:
+  - .DS_Store - macOS metadata
+  - Lisbon_POR_ftmy_2050_ssp245_CanESM5.epw.txt - FTMY build intermediate; the real .epw is under weather_ftmy/
+source:
+  repo: globi-partners-data
+  remote: https://github.com/MITSustainableDesignLab/globi-partners-data.git
+  commit: a12d78a61c49db39fbbae916ccfaad14ed8697b1
+  dirty: true
+  path: data/partners/Lisbon
+globi:
+  bundle_kind: experiment
+  scenarios:
+    baseline: Baseline
+    alternative: Retrofit
+  roles:
+    experiment_manifest: manifest.yml
+    file_config: artifacts.yml
+    db_file: components-lib.db
+    semantic_fields_file: semantic-fields.yaml
+    component_map_file: component-map.yaml
+    epwzip_file: https://climate.onebuilding.org/WMO_Region_6_Europe/PRT_Portugal/LB_Lisboa/PRT_LB_Lisboa.Portela.AP.085360_TMYx.2009-2023.zip
+    gis_file: external:buildings.geojson
+    gis_preprocessor_config: gis-preprocessor.yml
+  notes: null
+files:
+  - path: README.md
+    role: null
+    bytes: 2540
+    sha256: 5cb13091689184cd901177d82e8ca8fe0fb37c7c70ef219115bcb585be559945
+    simulation_affecting: false
+    changed_from_parent: false
+  - path: artifacts.yml
+    role: file_config
+    bytes: 362
+    sha256: a9d611ad91153345c8620d051e74d70facbf2d09067f916b4f623838bcd2f9da
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: component-map.yaml
+    role: component_map_file
+    bytes: 1571
+    sha256: 858ec2158166f4e9bb580979da0db19f5073d89daa2a9f5996d70803b049765e
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: components-lib.db
+    role: db_file
+    bytes: 888832
+    sha256: 69c4134784c353c21cda92aae1000b1aeb3b5e3011a52373395e721880e1e94e
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: gis-preprocessor.yml
+    role: gis_preprocessor_config
+    bytes: 387
+    sha256: 3a8d31b33c1e5496d92313888631c01e55a380110108bc7ee0edcf528b6e7f93
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: manifest.yml
+    role: experiment_manifest
+    bytes: 172
+    sha256: 4331600ec0267ced0af2ec81711d4dc82a4a63af42c3957557fc9423af204935
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: semantic-fields.yaml
+    role: semantic_fields_file
+    bytes: 1830
+    sha256: 944972c603efe5ed4a56347b14a9052232b9237557e38903fc09657ec9cecdbe
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/PRT_LB_Lisboa.Portela.AP.085360_TMYx.2009-2023.ddy
+    role: null
+    bytes: 182321
+    sha256: e726832c884468927cdd3f4b99058180e364c43457665cc7a757db499a31f70c
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/PRT_LB_Lisboa.Portela.AP.085360_TMYx.2009-2023.epw
+    role: null
+    bytes: 1593640
+    sha256: b1009234da807454f1316731b2959b5441afc11392775a44a0ea4af856694d31
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/PRT_LB_Lisboa.Portela.AP.085360_TMYx.2009-2023.zip
+    role: null
+    bytes: 257353
+    sha256: 5be033a1943f45168627ffad7a2f94728d6054d980f80dbae599543e6321a524
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather_ftmy/Lisbon_POR_ftmy_2050_ssp245_CanESM5.ddy
+    role: null
+    bytes: 182321
+    sha256: e726832c884468927cdd3f4b99058180e364c43457665cc7a757db499a31f70c
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather_ftmy/Lisbon_POR_ftmy_2050_ssp245_CanESM5.epw
+    role: null
+    bytes: 1659599
+    sha256: 9fb6652f62b7ed1bcad3534b9912e2fa7ee7eb6396a8c4e7435089f2adfa2177
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather_ftmy/Lisbon_POR_ftmy_2050_ssp245_CanESM5.zip
+    role: null
+    bytes: 266347
+    sha256: 3cea12398c119774be2ef7afaf20140cc8684b5e6f8381c0151a2c611bc87278
+    simulation_affecting: true
+    changed_from_parent: false
+external_files:
+  - path: buildings.geojson
+    role: gis_file
+    bytes: 1129469887
+    sha256: 9a544bc480a79c9cecef7583b3eb45d04fbad0f0d9e44c7bd16ab61147d23a15
+    stored_in:
+      repo: globi-partners-data
+      remote: https://github.com/MITSustainableDesignLab/globi-partners-data.git
+      commit: a12d78a61c49db39fbbae916ccfaad14ed8697b1
+      path: data/partners/Lisbon/buildings.geojson
+      storage: git-lfs
+    resolver: $GLOBI_GIS_ROOT/Lisbon/buildings.geojson
+    reason: 1129 MB of geometry - kept under git-lfs in globi-partners-data where it already lives.
+remote_files: []
+totals:
+  file_count: 13
+  bytes: 5037275
+bundle_sha256: f6bb368cabadeace556a4f2311cda15adf863f03c19ecf667085f10ad78d39a9

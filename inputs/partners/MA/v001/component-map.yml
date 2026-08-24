@@ -1,0 +1,169 @@
+Envelope:
+  Infiltration:
+    selector:
+      source_fields:
+        - Region
+        - Typology
+        - Weatherization
+      suffix: Main
+  AtticInfiltration:
+    selector:
+      source_fields:
+        - Region
+        - Typology
+        - AtticVentilation
+        - Weatherization
+      suffix: Attic
+
+  BasementInfiltration:
+    selector:
+      source_fields:
+        - Region
+        - Typology
+        - BasementWallsInsulation
+        - Weatherization
+      suffix: Basement
+
+  Window:
+    selector:
+      source_fields:
+        - Region
+        - Windows
+
+  Assemblies:
+    selector:
+      source_fields:
+        - Region
+    ExternalFloorAssembly:
+      selector:
+        source_fields:
+          - Region
+          - Typology
+        suffix: ExternalFloor
+    PartitionAssembly:
+      selector:
+        source_fields:
+          - Region
+          - Typology
+        suffix: Partition
+
+    GroundWallAssembly:
+      selector:
+        source_fields:
+          - Region
+          - Typology
+          - BasementWallsInsulation
+        suffix: GroundWall
+
+    GroundSlabAssembly:
+      selector:
+        source_fields:
+          - Region
+          - Typology
+          - GroundSlabInsulation
+        suffix: GroundSlab
+
+    BasementCeilingAssembly:
+      selector:
+        source_fields:
+          - Region
+          - Typology
+          - BasementCeilingInsulation
+        suffix: BasementCeiling
+
+    FloorCeilingAssembly:
+      selector:
+        source_fields:
+          - Region
+          - Typology
+        suffix: FloorCeiling
+
+    FlatRoofAssembly:
+      selector:
+        source_fields:
+          - Region
+          - Typology
+          - Age_bracket
+          - RoofInsulation
+        suffix: FlatRoof
+
+    AtticRoofAssembly:
+      selector:
+        source_fields:
+          - Region
+          - Typology
+          - Age_bracket
+          - RoofInsulation
+        suffix: AtticRoof
+
+    AtticFloorAssembly:
+      selector:
+        source_fields:
+          - Region
+          - Typology
+          - AtticFloorInsulation
+        suffix: AtticFloor
+
+    FacadeAssembly:
+      selector:
+        source_fields:
+          - Region
+          - Typology
+          - Age_bracket
+          - Walls
+        suffix: Facade
+Operations:
+  SpaceUse:
+    Occupancy:
+      selector:
+        source_fields:
+          - Region
+          - Typology
+    Lighting:
+      selector:
+        source_fields:
+          - Region
+          - Typology
+          - Lighting
+    Equipment:
+      selector:
+        source_fields:
+          - Region
+          - Typology
+          - Equipment
+    Thermostat:
+      selector:
+        source_fields:
+          - Region
+          - Thermostat
+    WaterUse:
+      selector:
+        source_fields:
+          - Region
+          - Typology
+  HVAC:
+    ConditioningSystems:
+      Heating:
+        selector:
+          source_fields:
+            - Region
+            - Heating
+            - Distribution
+      Cooling:
+        selector:
+          source_fields:
+            - Region
+            - Cooling
+            - Distribution
+    Ventilation:
+      selector:
+        source_fields:
+          - Region
+          - Typology
+          - Weatherization
+  DHW:
+    selector:
+      source_fields:
+        - Region
+        - Typology
+        - DHW

@@ -1,0 +1,145 @@
+schema_version: 1
+kind: input-version
+partner: Trondheim
+version: v001
+parent_version: null
+created_at: '2026-08-24T16:22:13Z'
+created_by:
+  name: daryaguettler
+  email: daryag@mit.edu
+summary: Initial import of Trondheim inputs from globi-partners-data.
+impact: simulation-affecting
+changes: []
+not_carried_over:
+  - Trondheim_NOR_ftmy_2050_ssp126_CanESM5.epw.txt - FTMY build intermediate; the real .epw is under weather_ftmy/
+source:
+  repo: globi-partners-data
+  remote: https://github.com/MITSustainableDesignLab/globi-partners-data.git
+  commit: a12d78a61c49db39fbbae916ccfaad14ed8697b1
+  dirty: true
+  path: data/partners/Trondheim
+globi:
+  bundle_kind: experiment
+  scenarios:
+    baseline: LowEfficiency
+    alternative: HighEfficiency
+  roles:
+    experiment_manifest: manifest_HighEfficiency.yml
+    file_config: artifacts.yml
+    db_file: components-lib.db
+    semantic_fields_file: semantic-fields.yaml
+    component_map_file: component-map.yaml
+    epwzip_file: https://climate.onebuilding.org/WMO_Region_6_Europe/NOR_Norway/TR_Troms/NOR_TR_Trondheim.AP-Vaernes.012710_TMYx.2009-2023.zip
+    gis_file: external:buildings.geojson
+    gis_preprocessor_config: gis-preprocessor.yml
+    overheating_config: overheating-config.yml
+  notes: null
+files:
+  - path: README.md
+    role: null
+    bytes: 2976
+    sha256: 226df852ee7c2970c82605b0a4b7ebaf0db99f05d5048907e2402c3efd1bef64
+    simulation_affecting: false
+    changed_from_parent: false
+  - path: artifacts.yml
+    role: file_config
+    bytes: 374
+    sha256: b572cb47fa42c34fec0c14cfaff3d7909b6af80c5931d4a54adac1d578e803a4
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: component-map.yaml
+    role: component_map_file
+    bytes: 412
+    sha256: f579bc814f29e6c6764a4d06a832ba10353af7f1d88a8ed3d704c3dac3329c09
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: components-lib.db
+    role: db_file
+    bytes: 647168
+    sha256: 28518bed6ccba2d5685ebeb6c45ee2f61af1d0cd5bbb26381254c8daaa6e3179
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: gis-preprocessor.yml
+    role: gis_preprocessor_config
+    bytes: 387
+    sha256: 855b69a04cd7086ef6754d24581e760cb3b4a1d77cc40a9a6dc3b0e537089bc4
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: manifest_HighEfficiency.yml
+    role: experiment_manifest
+    bytes: 187
+    sha256: edd4a490df49ebbcf11df8d4701427ac80e8bdbbbc683d3319f025a5588543e5
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: manifest_LowEfficiency.yml
+    role: null
+    bytes: 186
+    sha256: 282f83aa8f92ae3e0e7cd38e28e079fb9d607de876d1de749d33979cec28ee49
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: overheating-config.yml
+    role: overheating_config
+    bytes: 292
+    sha256: 0c5273fa6d10e7b2efb0df99033d16f56d640cdd857ada8baf7f5fc4bd2cfa07
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: semantic-fields.yaml
+    role: semantic_fields_file
+    bytes: 641
+    sha256: 843668677aa9955cd73de70f3f04da6c558bef7a6a876e2571e8816b17a27509
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/NOR_TR_Trondheim.AP-Vaernes.012710_TMYx.2009-2023.ddy
+    role: null
+    bytes: 182978
+    sha256: 76c0fc2f9799fe5934def7e2bf0e06b53f4b15905148fe20ad0a2f4bd8b46ade
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/NOR_TR_Trondheim.AP-Vaernes.012710_TMYx.2009-2023.epw
+    role: null
+    bytes: 1582415
+    sha256: 310c0ba4afbba439959aa65daf77b0a9c02c743dd2fd15a06d9692ad5aec70a8
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/NOR_TR_Trondheim.AP-Vaernes.012710_TMYx.2009-2023.zip
+    role: null
+    bytes: 295256
+    sha256: 2d79f192685b24be23fb2e36dbbbedda8bd312aff881cfffcfaace1b7fd54b90
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather_ftmy/Trondheim_NOR_ftmy_2050_ssp126_CanESM5.ddy
+    role: null
+    bytes: 182978
+    sha256: 76c0fc2f9799fe5934def7e2bf0e06b53f4b15905148fe20ad0a2f4bd8b46ade
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather_ftmy/Trondheim_NOR_ftmy_2050_ssp126_CanESM5.epw
+    role: null
+    bytes: 1650832
+    sha256: 56cb8fbaff04bb05ec749fe6b4a2319901630c6cb9b19f87fd68aea12ad27a84
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather_ftmy/Trondheim_NOR_ftmy_2050_ssp126_CanESM5.zip
+    role: null
+    bytes: 327694
+    sha256: 9857bafcc920ed71bf0ae29966a3a36526c92f5737a1d2238b60e3231c40ad70
+    simulation_affecting: true
+    changed_from_parent: false
+external_files:
+  - path: buildings.geojson
+    role: gis_file
+    bytes: 1162853
+    sha256: 70bf7a28c6629ed12c8e603189fc139bb7761377165935e33839bfaa32b7d2a3
+    stored_in:
+      repo: globi-partners-data
+      remote: https://github.com/MITSustainableDesignLab/globi-partners-data.git
+      commit: a12d78a61c49db39fbbae916ccfaad14ed8697b1
+      path: data/partners/Trondheim/buildings.geojson
+      storage: git-lfs
+    resolver: $GLOBI_GIS_ROOT/Trondheim/buildings.geojson
+    reason: 1 MB of geometry - kept under git-lfs in globi-partners-data where it already lives.
+remote_files: []
+totals:
+  file_count: 15
+  bytes: 4874776
+bundle_sha256: 00ce4d0038514c9b3179804ad481170876993dc85437b11e26414863c660e20d

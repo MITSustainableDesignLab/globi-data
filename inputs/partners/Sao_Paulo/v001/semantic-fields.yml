@@ -1,0 +1,106 @@
+Name: SP Bela Vista Model
+Fields:
+  - Name: region
+    Options:
+      - SP
+  - Name: typology
+    Options:
+      - CommercialUse # Comércio e Serviço
+      - School #Escola
+      - Residential # Residencial (Baixo, Médio, Alto padrão)
+      - CollectiveUse #Uso coletivo
+      - SpecialUse #Uso especial
+      - Hospital
+      - Hotel
+      - Church # Igreja
+      - ShoppingMall
+
+  - Name: income
+    Options:
+      - Low
+      - Medium
+      - High
+      - General
+
+  - Name: scenario
+    Options:
+      - withAC
+      - noAC
+
+Height_col: height
+Num_Floors_col: num_storeys
+WWR_col: WWR
+GFA_col: area
+Building_ID_col: id
+      
+  # - Name: RoofInsulation
+  #  Options:
+  #    - UninsulatedRoof # U Referencia
+  #    - InsulatedRoof   # U melhorado para alto padrão
+  #
+  # - Name: GroundSlabInsulation # Slab com contato com o solo sempre
+  #  Options:
+  #    - GroundSlab
+  #
+  # - Name: Weatherization # Infiltration
+  #  Options:
+  #    - LeakyEnvelope
+  #    - SomewhatLeakyEnvelope
+  #    - TightEnvelope # alto padrão
+  #
+  # - Name: Walls
+  #  Options:
+  #    - MansoryWalls
+  #    - SomeInsulationWalls # alto padrão
+  #
+  # - Name: Windows
+  #  Options:
+  #    - SinglePane
+  #    - DoublePaneLowE # alto padrão
+  #
+  # - Name: Heating
+  #  Options:
+  #    - Heated
+  #    - NoHeated
+  #
+  # - Name: Cooling
+  #  Options:
+  #    - Window
+  #    - SplitUnit_Inverter
+  #    - SpliUnit_OnOff
+  #    - Central
+  #
+  # - Name: DHW
+  #  Options:
+  #    - ElectricResistanceDHW
+  #    - NaturalGasDHW
+  #
+  # - Name: Equipment
+  #  Options:
+  #    - HighDensity
+  #    - MediumDensity
+  #    - LowDensity
+  #    - Residential
+  #
+  # - Name: Lighting
+  #  Options:
+  #    - HighDensity
+  #    - MediumDensity
+  #    - LowDensity
+  #    - Residential
+  #
+  # - Name: Thermostat
+  #  Options:
+  #    - NoControls
+  #    - Controls
+  #
+  # - Name: Equipment
+  #  Options:
+  #    - LowEfficiencyEquipment
+  #    - HighEfficiencyEquipment
+  #
+  # - Name: NaturalVentilation
+  #  Options:
+  #    - NoVentilation
+  #    - Ventilated
+  #

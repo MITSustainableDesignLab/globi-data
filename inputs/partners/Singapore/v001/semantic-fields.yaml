@@ -1,0 +1,40 @@
+Name: SG Model
+Fields:
+  - Name: Region
+    Description: Geographic region
+    Options:
+      - SG
+  - Name: typology
+    Description: Building use type
+    Options:
+    - HDB_PPVC
+    - HDB_Non_PPVC
+    - Landed_Property
+    - Private_Apartment_Condo
+    - Retail
+    - Mixed_Development
+    - Office
+    - Nursing_Home
+    - IHL
+    - Civic_Community_Cultural
+    - Non_IHL
+    - Restaurant
+    - Sports
+    - Hotel
+    - Supermarket
+    - Shophouse
+    - Clinic
+    - Hospital
+    - Data_Center
+    - Industrial_B2
+    - Industrial_B1
+    - Business_Park
+  - Name: Scenario
+    Description: Scenario
+    Options:
+      - Baseline
+      - Retrofit
+
+Height_col: height
+Num_Floors_col: building_levels
+Building_ID_col: id

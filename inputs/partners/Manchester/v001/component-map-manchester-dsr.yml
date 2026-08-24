@@ -1,0 +1,102 @@
+Version: '1.0'
+Envelope:
+  Infiltration:
+    selector:
+      source_fields:
+      - Region
+      - Typology
+    suffix: Main
+  Window:
+    selector:
+      source_fields:
+      - Region
+      - Windows
+  Assemblies:
+    selector:
+      source_fields:
+      - Region
+    PartitionAssembly:
+      selector:
+        source_fields:
+        - Region
+      suffix: Partition
+    FloorCeilingAssembly:
+      selector:
+        source_fields:
+        - Region
+      suffix: FloorCeiling
+    ExternalFloorAssembly:
+      selector:
+        source_fields:
+        - Region
+      suffix: ExternalFloor
+    FlatRoofAssembly:
+      selector:
+        source_fields:
+        - Region
+        - Fabric
+      suffix: FlatRoof
+    FacadeAssembly:
+      selector:
+        source_fields:
+        - Region
+        - Fabric
+      suffix: Facade
+    GroundSlabAssembly:
+      selector:
+        source_fields:
+        - Region
+        - Fabric
+      suffix: GroundSlab
+Operations:
+  SpaceUse:
+    Occupancy:
+      selector:
+        source_fields:
+        - Region
+        - Floor_use
+    Lighting:
+      selector:
+        source_fields:
+        - Region
+        - Floor_use
+    Equipment:
+      selector:
+        source_fields:
+        - Region
+        - Floor_use
+    Thermostat:
+      selector:
+        source_fields:
+        - Region
+        - Floor_use
+        - Scenario
+    WaterUse:
+      selector:
+        source_fields:
+        - Region
+        - Floor_use
+  HVAC:
+    ConditioningSystems:
+      Heating:
+        selector:
+          source_fields:
+          - Region
+          - Heating
+          - Distribution
+      Cooling:
+        selector:
+          source_fields:
+          - Region
+          - Cooling
+          - Distribution
+    Ventilation:
+      selector:
+        source_fields:
+        - Region
+        - Typology
+    DHW:
+      selector:
+        source_fields:
+        - Region
+        - Typology

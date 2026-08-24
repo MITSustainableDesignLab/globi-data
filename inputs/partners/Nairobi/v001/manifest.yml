@@ -1,0 +1,5 @@
+name: Nairobi
+scenario: withAC
+hourly_data_config: null
+file_config: data/partners/Nairobi/artifacts.yml
+gis_preprocessor_config: data/partners/Nairobi/gis-preprocessor.yml

@@ -1,0 +1,5 @@
+gis_file: data/partners/Ahmedabad/buildings.geojson
+db_file: data/partners/Ahmedabad/components-lib.db
+semantic_fields_file: data/partners/Ahmedabad/semantic-fields.yaml
+epwzip_file: "https://climate.onebuilding.org/WMO_Region_2_Asia/IND_India/GJ_Gujarat/IND_GJ_Ahmedabad.Intl.AP.426470_TMYx.2009-2023.zip"
+component_map_file: data/partners/Ahmedabad/component-map.yaml

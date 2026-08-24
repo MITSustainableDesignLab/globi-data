@@ -1,0 +1,5 @@
+gis_file: data/partners/Nairobi/buildings.geojson
+db_file: data/partners/Nairobi/components-lib.db
+semantic_fields_file: data/partners/Nairobi/semantic-fields.yaml
+epwzip_file: "https://climate.onebuilding.org/WMO_Region_1_Africa/KEN_Kenya/NB_Nairobi/KEN_NB_Nairobi-Kenyatta.Intl.AP.637400_TMYx.2009-2023.zip"
+component_map_file: data/partners/Nairobi/component-map.yaml

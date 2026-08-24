@@ -1,0 +1,24 @@
+Envelope:
+  selector:
+    source_fields:
+      - age_bracket
+      - scenario
+
+Operations:
+  SpaceUse:
+    selector:
+      source_fields:
+        - region
+        - type
+        - scenario
+  HVAC:
+    selector:
+      source_fields:
+        - region
+        - type
+        - scenario
+
+  DHW:
+    selector:
+      source_fields:
+        - region

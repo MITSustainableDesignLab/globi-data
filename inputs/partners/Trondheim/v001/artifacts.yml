@@ -1,0 +1,5 @@
+gis_file: data/partners/Trondheim/buildings.geojson
+db_file: data/partners/Trondheim/components-lib.db
+semantic_fields_file: data/partners/Trondheim/semantic-fields.yaml
+epwzip_file: "https://climate.onebuilding.org/WMO_Region_6_Europe/NOR_Norway/TR_Troms/NOR_TR_Trondheim.AP-Vaernes.012710_TMYx.2009-2023.zip"
+component_map_file: data/partners/Trondheim/component-map.yaml

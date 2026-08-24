@@ -1,0 +1,148 @@
+schema_version: 1
+kind: input-version
+partner: Nairobi
+version: v001
+parent_version: null
+created_at: '2026-08-24T16:22:13Z'
+created_by:
+  name: daryaguettler
+  email: daryag@mit.edu
+summary: Initial import of Nairobi inputs from globi-partners-data.
+impact: simulation-affecting
+changes: []
+not_carried_over:
+  - Nairobi_KEN_ftmy_2050_ssp245_CanESM5.epw.txt - FTMY build intermediate; the real .epw is under weather_ftmy/
+  - components-lib-og.db - superseded backup of components-lib.db
+  - manifest_noAC.yml - redundant scenario manifest; manifest.yml is the one carried
+source:
+  repo: globi-partners-data
+  remote: https://github.com/MITSustainableDesignLab/globi-partners-data.git
+  commit: a12d78a61c49db39fbbae916ccfaad14ed8697b1
+  dirty: true
+  path: data/partners/Nairobi
+globi:
+  bundle_kind: experiment
+  scenarios:
+    baseline: noAC
+    alternative: withAC
+  roles:
+    experiment_manifest: manifest.yml
+    file_config: artifacts.yml
+    db_file: components-lib.db
+    semantic_fields_file: semantic-fields.yaml
+    component_map_file: component-map.yaml
+    epwzip_file: https://climate.onebuilding.org/WMO_Region_1_Africa/KEN_Kenya/NB_Nairobi/KEN_NB_Nairobi-Kenyatta.Intl.AP.637400_TMYx.2009-2023.zip
+    gis_file: external:buildings.geojson
+    gis_preprocessor_config: gis-preprocessor.yml
+    overheating_config: overheating-config.yml
+    hourly_data_config: hourly-data-config.yml
+  notes: null
+files:
+  - path: README.md
+    role: null
+    bytes: 2851
+    sha256: d8ae578f9035ed3e391e7cca88eabe1b1176d9e7915445168396884f85e5135b
+    simulation_affecting: false
+    changed_from_parent: false
+  - path: artifacts.yml
+    role: file_config
+    bytes: 371
+    sha256: 4f3b4bf05776669ebbb350595175e05a3cd2236cf9657988f79468193d58fbac
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: component-map.yaml
+    role: component_map_file
+    bytes: 285
+    sha256: 6d3e4714748685c3852f6155f66041d749b29054bbcfce7bbb2aff791ebdb7e6
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: components-lib.db
+    role: db_file
+    bytes: 462848
+    sha256: 77e38c6e4389c6d9dcce018b0c94f21fe23847bd63c9d71a911fd79aaa807c04
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: gis-preprocessor.yml
+    role: gis_preprocessor_config
+    bytes: 387
+    sha256: 042b7ef854cf97f0865ca0a3967504990a82abad6127718be05919719f81ab4f
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: hourly-data-config.yml
+    role: hourly_data_config
+    bytes: 98
+    sha256: 0e7b843c928a7ffd7e6ed9565e1253c6f79ccccc6fbe1a471da7891c1bb1bdcc
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: manifest.yml
+    role: experiment_manifest
+    bytes: 173
+    sha256: 98ea7d953154e064776d0fe4f88265ade3925ed0f9a554becfd5eae7cace423d
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: overheating-config.yml
+    role: overheating_config
+    bytes: 292
+    sha256: 0c5273fa6d10e7b2efb0df99033d16f56d640cdd857ada8baf7f5fc4bd2cfa07
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: semantic-fields.yaml
+    role: semantic_fields_file
+    bytes: 523
+    sha256: d540d0de068e2f85cf0edfc3b58d576ffadbd9a286fb269ac0bfe55600bfbbc2
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/KEN_NB_Nairobi-Kenyatta.Intl.AP.637400_TMYx.2009-2023.ddy
+    role: null
+    bytes: 183851
+    sha256: 10b028cdb47377a44c2b665ebbc4f1ac45f5b9593d58d8e636105d82d87d164a
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/KEN_NB_Nairobi-Kenyatta.Intl.AP.637400_TMYx.2009-2023.epw
+    role: null
+    bytes: 1593484
+    sha256: 50082b0acecac81708f782ab123cf64ff7113086b677378cea4a73bc22671036
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather/KEN_NB_Nairobi-Kenyatta.Intl.AP.637400_TMYx.2009-2023.zip
+    role: null
+    bytes: 269806
+    sha256: a6004a15aab3fff27c5f5df17b81ba46629935813e78f38cf4905438e3df8213
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather_ftmy/Nairobi_KEN_ftmy_2050_ssp245_CanESM5.ddy
+    role: null
+    bytes: 183851
+    sha256: 10b028cdb47377a44c2b665ebbc4f1ac45f5b9593d58d8e636105d82d87d164a
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather_ftmy/Nairobi_KEN_ftmy_2050_ssp245_CanESM5.epw
+    role: null
+    bytes: 1659471
+    sha256: c34ca15657cd954983efbef18169df110f187b750d16e9a1e106d7b3704881e2
+    simulation_affecting: true
+    changed_from_parent: false
+  - path: weather_ftmy/Nairobi_KEN_ftmy_2050_ssp245_CanESM5.zip
+    role: null
+    bytes: 288157
+    sha256: 836a8290813844f805d0694deb6225124e57611b96c4bc74de84eeea09a25c8f
+    simulation_affecting: true
+    changed_from_parent: false
+external_files:
+  - path: buildings.geojson
+    role: gis_file
+    bytes: 43839251
+    sha256: c6fd18736bc458e171d49aceb97f0b3d2cc00b888e33540c6b2f490ff49a7e34
+    stored_in:
+      repo: globi-partners-data
+      remote: https://github.com/MITSustainableDesignLab/globi-partners-data.git
+      commit: a12d78a61c49db39fbbae916ccfaad14ed8697b1
+      path: data/partners/Nairobi/buildings.geojson
+      storage: git-lfs
+    resolver: $GLOBI_GIS_ROOT/Nairobi/buildings.geojson
+    reason: 44 MB of geometry - kept under git-lfs in globi-partners-data where it already lives.
+remote_files: []
+totals:
+  file_count: 15
+  bytes: 4646448
+bundle_sha256: 1612a3709614df96e89bd99da8fc47b40ac93eb6a091b797415431826d2d2e86

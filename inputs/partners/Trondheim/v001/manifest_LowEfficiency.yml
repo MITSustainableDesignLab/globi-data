@@ -1,0 +1,5 @@
+name: Trondheim
+scenario: LowEfficiency
+hourly_data_config: null
+file_config: data/partners/Trondheim/artifacts.yml
+gis_preprocessor_config: data/partners/Trondheim/gis-preprocessor.yml

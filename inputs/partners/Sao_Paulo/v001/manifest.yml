@@ -1,0 +1,5 @@
+name: Sao_Paulo_Bela_Vista
+scenario: noAC
+hourly_data_config: data/partners/Sao_Paulo/hourly-data-config.yml
+file_config: data/partners/Sao_Paulo/artifacts.yml
+gis_preprocessor_config: data/partners/Sao_Paulo/gis-preprocessor.yml

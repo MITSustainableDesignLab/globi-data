@@ -1,0 +1,5 @@
+name: Cambridge_UK
+scenario: Baseline
+hourly_data_config: null
+file_config: data/partners/Cambridge_UK/artifacts.yml
+gis_preprocessor_config: data/partners/Cambridge_UK/gis-preprocessor.yml

@@ -1,0 +1,102 @@
+schema_version: 1
+generated_at: '2026-08-24T16:22:20Z'
+partners:
+  - partner: Ahmedabad
+    current: v001
+    versions:
+      - version: v001
+        status: active
+        impact: simulation-affecting
+        created_at: '2026-08-24T16:22:11Z'
+    bundle_sha256: 1707a65e325c925e5cb8bfa906f8f017aa84f60cfae9948f41c7c0adb2ad6b80
+    bundle_kind: experiment
+  - partner: Cambridge_UK
+    current: v001
+    versions:
+      - version: v001
+        status: active
+        impact: simulation-affecting
+        created_at: '2026-08-24T16:22:11Z'
+    bundle_sha256: 37793b20fd82d9959ea85ae0437a5fae044d12611ad519719051ae27166b9d0c
+    bundle_kind: experiment
+  - partner: Korea
+    current: v001
+    versions:
+      - version: v001
+        status: active
+        impact: simulation-affecting
+        created_at: '2026-08-24T16:22:12Z'
+    bundle_sha256: 73142d0e238baaede6a1ebb653460adc9b238ef85395e69280fc50bbbe168bdf
+    bundle_kind: raw
+  - partner: Lisbon
+    current: v001
+    versions:
+      - version: v001
+        status: active
+        impact: simulation-affecting
+        created_at: '2026-08-24T16:22:12Z'
+    bundle_sha256: f6bb368cabadeace556a4f2311cda15adf863f03c19ecf667085f10ad78d39a9
+    bundle_kind: experiment
+  - partner: MA
+    current: v001
+    versions:
+      - version: v001
+        status: active
+        impact: simulation-affecting
+        created_at: '2026-08-24T16:22:12Z'
+    bundle_sha256: d53a3ab202de33c5d25f132c40302f058776efcad7ec5e5d572b25d0dde54ebb
+    bundle_kind: raw
+  - partner: MACommercial
+    current: v001
+    versions:
+      - version: v001
+        status: active
+        impact: simulation-affecting
+        created_at: '2026-08-24T16:22:13Z'
+    bundle_sha256: bfa4ea0679f2a7dd8fa2d0220441707f8c7e026d26383302ec1910f8a49a0ac4
+    bundle_kind: experiment
+  - partner: Manchester
+    current: v001
+    versions:
+      - version: v001
+        status: active
+        impact: simulation-affecting
+        created_at: '2026-08-24T16:22:13Z'
+    bundle_sha256: e5ff2749ec5e7beaf381337b96a3a68e9aef4e3ae43bf253dea44de44df42352
+    bundle_kind: experiment
+  - partner: Nairobi
+    current: v001
+    versions:
+      - version: v001
+        status: active
+        impact: simulation-affecting
+        created_at: '2026-08-24T16:22:13Z'
+    bundle_sha256: 1612a3709614df96e89bd99da8fc47b40ac93eb6a091b797415431826d2d2e86
+    bundle_kind: experiment
+  - partner: Sao_Paulo
+    current: v001
+    versions:
+      - version: v001
+        status: active
+        impact: simulation-affecting
+        created_at: '2026-08-24T16:22:13Z'
+    bundle_sha256: 1dd5337fb5084dc13005d19e6733138b66e2dc359b850c45e927dffe5936e665
+    bundle_kind: experiment
+  - partner: Singapore
+    current: v001
+    versions:
+      - version: v001
+        status: active
+        impact: simulation-affecting
+        created_at: '2026-08-24T16:22:13Z'
+    bundle_sha256: a73e157857bf6c50456e34b9a3bc71c33d9536719ca5f27039aa94635f59d298
+    bundle_kind: experiment
+  - partner: Trondheim
+    current: v001
+    versions:
+      - version: v001
+        status: active
+        impact: simulation-affecting
+        created_at: '2026-08-24T16:22:13Z'
+    bundle_sha256: 00ce4d0038514c9b3179804ad481170876993dc85437b11e26414863c660e20d
+    bundle_kind: experiment

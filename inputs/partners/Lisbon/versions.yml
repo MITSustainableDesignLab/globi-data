@@ -1,0 +1,18 @@
+# Mutable status of every version. This file lives OUTSIDE the frozen
+# version directories so a version can be retracted without editing it.
+schema_version: 1
+partner: Lisbon
+experiment: null
+versions:
+  - version: v001
+    status: superseded
+    created_at: '2026-08-24T16:22:12Z'
+    impact: simulation-affecting
+    summary: Initial import of Lisbon inputs from globi-partners-data.
+    retracted_reason: null
+  - version: v002
+    status: active
+    created_at: '2026-08-24T16:23:28Z'
+    impact: simulation-affecting
+    summary: mutate db
+    retracted_reason: null

@@ -1,0 +1,10 @@
+# Which version is current. Generated - edit by creating a new version
+# with `globi-data inputs new`, not by hand.
+schema_version: 1
+partner: Manchester
+experiment: null
+current: v001
+manifest: v001/input-version.yml
+manifest_sha256: e3c1b7ef8598d00ef1f3fbf06981cc57613428d1cc29662f0bf7324ef06a4d3e
+bundle_sha256: e5ff2749ec5e7beaf381337b96a3a68e9aef4e3ae43bf253dea44de44df42352
+updated_at: '2026-08-24T16:22:13Z'

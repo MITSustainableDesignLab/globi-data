@@ -1,0 +1,114 @@
+Name: MA Commercial Model
+Fields:
+  - Name: Region
+    Options:
+      - MA
+  - Name: Typology_spaceuse
+    Options:
+      - Office
+      - Warehouse
+      - StripMall
+      - SecondarySchool
+      - PrimarySchool
+      - Retail
+      - Restaurant
+      - Hotel
+      - Hospital
+      - Outpatient
+  - Name: Typology_hvac
+    Options:
+      - Office
+      - Warehouse
+      - Education
+      - Retail
+      - Restaurant
+      - Hotel
+      - Hospital
+      - Outpatient
+  - Name: Height_buckets
+    Options:
+      - 1-3 stories
+      - 4-6 stories
+      - 7+ stories
+  - Name: Size_buckets
+    Options:
+      - 1000-20000 sq ft
+      - 20000-100000 sq ft
+      - 100000+ sq ft
+  - Name: Typology_construction
+    Options:
+      - Office
+      - Education
+      - Healthcare
+      - Hospitality
+      - Retail
+      - Industrial
+      - Other
+  - Name: Age_bracket
+    Options:
+      - pre_1975
+      - btw_1975_2003
+      - post_2003
+  - Name: Scenario
+    Options:
+      - Baseline
+      - EfficiencyOnly
+      - InsulationOnly
+      - FullRetrofit
+  # - Name: RoofInsulation
+  #   Options:
+  #     - UninsulatedRoof
+  #     - InsulatedRoof
+
+  # - Name: GroundSlabInsulation
+  #   Options:
+  #     - UninsulatedGroundSlab
+  #     - InsulatedGroundSlab
+
+  - Name: Weatherization
+    Options:
+      - LeakyEnvelope
+      - SomewhatLeakyEnvelope
+      - TightEnvelope
+
+  # - Name: Walls
+  #   Options:
+  #     - UninsulatedWalls
+  #     - SomeInsulationWalls
+  #     - FullInsulationWalls
+  # - Name: Windows
+  #   Options:
+  #     - SinglePane
+  #     - DoublePaneLowE
+  #     - TriplePaneLowE
+  - Name: Heating
+    Options:
+      - NaturalGasHeating
+      - ElectricResistanceHeating
+      - ASHPHeating
+      - GSHPHeating
+  - Name: Cooling
+    Options:
+      - ACCooling
+      - ASHPCooling
+      - GSHPCooling
+  - Name: DHW
+    Options:
+      - ElectricResistanceDHW
+      - NaturalGasDHW
+      - HPWH
+  # - Name: Lighting
+  #   Options:
+  #     - NoLED
+  #     - LED
+  # - Name: Thermostat
+  #   Options:
+  #     - NoControls
+  #     - Controls
+  # - Name: Equipment
+  #   Options:
+  #     - LowEfficiencyEquipment
+  #     - HighEfficiencyEquipment
+Height_col: height
+Building_ID_col: id
+GFA_col: footprint_area

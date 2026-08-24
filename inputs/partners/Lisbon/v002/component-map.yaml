@@ -1,0 +1,67 @@
+Envelope:
+  selector:
+    source_fields:
+      - Region
+      - Typology
+      - Age_buckets
+      - scenario
+
+Operations:
+  SpaceUse:
+    Occupancy: # People density + schedule
+      selector:
+        source_fields:
+          - Region
+          - Typology
+          - Age_buckets
+    Lighting: # Lighting Power Density + schedule
+      selector:
+        source_fields:
+          - City
+    Equipment: # Equipment Power Density + schedule
+      selector:
+        source_fields:
+          - Region
+          - Typology
+          - Age_buckets
+    Thermostat: # Setpoints + heating/cooling schedules
+      selector:
+        source_fields:
+          - Region
+          - Typology # Use patterns vary
+          - Age_buckets # Comfort expectations/systems change
+    WaterUse: # DHW demand side: Flow rate + schedule
+      selector:
+        source_fields:
+          - Region
+          - Typology
+          - Age_buckets # Fixture efficiency changes
+
+  HVAC:
+    ConditioningSystems:
+      Heating:
+        selector:
+          source_fields:
+            - Region
+            - Typology
+            - Age_buckets
+            - scenario
+          suffix: Heating
+      Cooling: # Cooling system properties (COP, Fuel, etc.)
+        selector:
+          source_fields:
+            - Region
+            - Typology
+            - Age_buckets
+            - scenario
+          suffix: Cooling
+    Ventilation: # Ventilation properties (Rates, HRV, Econ, Schedule, etc.)
+      selector:
+        source_fields:
+          - City
+
+  DHW:
+    selector:
+      source_fields:
+        - City
+
