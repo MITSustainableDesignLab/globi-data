@@ -3,7 +3,7 @@ kind: input-version
 partner: Singapore
 version: v001
 parent_version: null
-created_at: '2026-08-24T16:22:13Z'
+created_at: '2026-08-24T16:26:23Z'
 created_by:
   name: daryaguettler
   email: daryag@mit.edu
@@ -41,7 +41,7 @@ files:
   - path: README.md
     role: null
     bytes: 2721
-    sha256: 80a201afb7fd31a780eae51a1d4d62be906a5577092f6925cba0d43c88059e49
+    sha256: 0e0d99d354bf8c80391603d9606b7b92c36bb6718e4e58b474d010ad03b103f6
     simulation_affecting: false
     changed_from_parent: false
   - path: artifacts.yml

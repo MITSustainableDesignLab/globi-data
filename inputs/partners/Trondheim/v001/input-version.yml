@@ -3,7 +3,7 @@ kind: input-version
 partner: Trondheim
 version: v001
 parent_version: null
-created_at: '2026-08-24T16:22:13Z'
+created_at: '2026-08-24T16:26:23Z'
 created_by:
   name: daryaguettler
   email: daryag@mit.edu
@@ -38,7 +38,7 @@ files:
   - path: README.md
     role: null
     bytes: 2976
-    sha256: 226df852ee7c2970c82605b0a4b7ebaf0db99f05d5048907e2402c3efd1bef64
+    sha256: 9421839b8ec57241e3534904529dbbc532a25eeb7cd19d091cc7489c3133a659
     simulation_affecting: false
     changed_from_parent: false
   - path: artifacts.yml

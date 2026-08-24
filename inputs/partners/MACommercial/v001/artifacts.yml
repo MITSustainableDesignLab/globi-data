@@ -1,5 +1,0 @@
-gis_file: partners/MACommercial/buildings.geojson
-db_file: partners/MACommercial/components.db
-semantic_fields_file: partners/MACommercial/semantic-fields.yaml
-epwzip_file: "https://climate.onebuilding.org/WMO_Region_4_North_and_Central_America/USA_United_States_of_America/MA_Massachusetts/USA_MA_Boston-Logan.Intl.AP.725090_TMYx.2009-2023.zip"
-component_map_file: partners/MACommercial/component-map.yaml

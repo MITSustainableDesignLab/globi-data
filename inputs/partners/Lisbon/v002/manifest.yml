@@ -1,5 +1,0 @@
-name: Lisbon
-scenario: Baseline
-hourly_data_config: null
-file_config: data/partners/Lisbon/artifacts.yml
-gis_preprocessor_config: data/partners/Lisbon/gis-preprocessor.yml

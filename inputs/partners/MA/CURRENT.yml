@@ -5,6 +5,6 @@ partner: MA
 experiment: null
 current: v001
 manifest: v001/input-version.yml
-manifest_sha256: aa86462fbb3757ce0f21a64a1927d0a1924b40a1b116e6c54bc425e64d06bec9
+manifest_sha256: 5e7870efe45298c3bb3b6c3bb138e7ec1513c7f5c5087a6af1ac8662c0e3460b
 bundle_sha256: d53a3ab202de33c5d25f132c40302f058776efcad7ec5e5d572b25d0dde54ebb
-updated_at: '2026-08-24T16:22:12Z'
+updated_at: '2026-08-24T16:26:22Z'

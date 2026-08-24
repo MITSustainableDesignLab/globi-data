@@ -3,7 +3,7 @@ kind: input-version
 partner: Lisbon
 version: v001
 parent_version: null
-created_at: '2026-08-24T16:22:12Z'
+created_at: '2026-08-24T16:26:21Z'
 created_by:
   name: daryaguettler
   email: daryag@mit.edu
@@ -38,7 +38,7 @@ files:
   - path: README.md
     role: null
     bytes: 2540
-    sha256: 5cb13091689184cd901177d82e8ca8fe0fb37c7c70ef219115bcb585be559945
+    sha256: 8dd18a054f3a1597af88fd4cc1870cad8ccee12e7dab0c7237bf82a3424db59d
     simulation_affecting: false
     changed_from_parent: false
   - path: artifacts.yml

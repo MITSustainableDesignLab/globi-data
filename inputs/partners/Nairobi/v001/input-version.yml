@@ -3,7 +3,7 @@ kind: input-version
 partner: Nairobi
 version: v001
 parent_version: null
-created_at: '2026-08-24T16:22:13Z'
+created_at: '2026-08-24T16:26:22Z'
 created_by:
   name: daryaguettler
   email: daryag@mit.edu
@@ -41,7 +41,7 @@ files:
   - path: README.md
     role: null
     bytes: 2851
-    sha256: d8ae578f9035ed3e391e7cca88eabe1b1176d9e7915445168396884f85e5135b
+    sha256: 45565b21dc6d80db0cc6cf1cea79ae8df299c902077b1ca68bf6971cc37a79f4
     simulation_affecting: false
     changed_from_parent: false
   - path: artifacts.yml

@@ -5,6 +5,6 @@ partner: Singapore
 experiment: null
 current: v001
 manifest: v001/input-version.yml
-manifest_sha256: 8f0e8bac189fb0958c3723d57278a24d5afb1f2ddc679f51c01508c6a9cb874e
+manifest_sha256: 498d5fff5e1e8170a96a688824ba5c210a0c3b20cb1b9a073db44655592e692f
 bundle_sha256: a73e157857bf6c50456e34b9a3bc71c33d9536719ca5f27039aa94635f59d298
-updated_at: '2026-08-24T16:22:13Z'
+updated_at: '2026-08-24T16:26:23Z'

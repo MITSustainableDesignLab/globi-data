@@ -2,7 +2,7 @@
 
 Initial import of Nairobi inputs from globi-partners-data.
 
-- **Created:** 2026-08-24T16:22:13Z
+- **Created:** 2026-08-24T16:26:22Z
 - **Impact:** `simulation-affecting`  (changes here can change simulation results)
 - **Assembled from:** `globi-partners-data` @ `a12d78a6` (`data/partners/Nairobi`)
 

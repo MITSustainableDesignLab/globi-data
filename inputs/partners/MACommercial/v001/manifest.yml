@@ -1,5 +1,0 @@
-name: MA_Commercial
-scenario: EfficiencyInsulationOnly
-hourly_data_config: null
-file_config: partners/MACommercial/artifacts.yml
-gis_preprocessor_config: partners/MACommercial/gis-preprocessor.yml

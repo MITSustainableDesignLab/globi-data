@@ -5,6 +5,6 @@ partner: Trondheim
 experiment: null
 current: v001
 manifest: v001/input-version.yml
-manifest_sha256: 45998b91fe7c98e6afe01731e92eb7745b7a27f6fb228519a33ba21aeaf146b9
+manifest_sha256: 8ae5b4fab20407ade4f7ec2f844c7a21ccadab46aa560dbb3c2dcda50db9f428
 bundle_sha256: 00ce4d0038514c9b3179804ad481170876993dc85437b11e26414863c660e20d
-updated_at: '2026-08-24T16:22:13Z'
+updated_at: '2026-08-24T16:26:23Z'

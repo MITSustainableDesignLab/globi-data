@@ -3,7 +3,7 @@ kind: input-version
 partner: Ahmedabad
 version: v001
 parent_version: null
-created_at: '2026-08-24T16:22:11Z'
+created_at: '2026-08-24T16:26:20Z'
 created_by:
   name: daryaguettler
   email: daryag@mit.edu
@@ -40,7 +40,7 @@ files:
   - path: README.md
     role: null
     bytes: 2766
-    sha256: e4f1d570bcb56acaa08ce19f862db9f9af63031a20b943ad6f930280ebc53abb
+    sha256: fcd473c23d77932e18507e5d87574e3a34c6aacbe79f3097c038e4f6cdc6af0d
     simulation_affecting: false
     changed_from_parent: false
   - path: artifacts.yml

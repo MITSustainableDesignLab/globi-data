@@ -5,6 +5,6 @@ partner: Manchester
 experiment: null
 current: v001
 manifest: v001/input-version.yml
-manifest_sha256: e3c1b7ef8598d00ef1f3fbf06981cc57613428d1cc29662f0bf7324ef06a4d3e
+manifest_sha256: 93f49040b529b357375c68d5d1941fde771678ca30285d05f34bcbaeca4d442d
 bundle_sha256: e5ff2749ec5e7beaf381337b96a3a68e9aef4e3ae43bf253dea44de44df42352
-updated_at: '2026-08-24T16:22:13Z'
+updated_at: '2026-08-24T16:26:22Z'

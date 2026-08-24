@@ -3,8 +3,8 @@
 schema_version: 1
 partner: Lisbon
 experiment: null
-current: v002
-manifest: v002/input-version.yml
-manifest_sha256: 57ebbcb84e786d0bf74676138467eb8aba5466637fcc8a148efec2f6c9cf1194
-bundle_sha256: 3079f5379d817c7509607906209dd12262388fde70a814954847a572779c0bef
-updated_at: '2026-08-24T16:23:28Z'
+current: v001
+manifest: v001/input-version.yml
+manifest_sha256: 2a587ca3a003539907e72606479ed2be43ff67c7a2b1d8a35671b4bac5eea679
+bundle_sha256: f6bb368cabadeace556a4f2311cda15adf863f03c19ecf667085f10ad78d39a9
+updated_at: '2026-08-24T16:26:21Z'
