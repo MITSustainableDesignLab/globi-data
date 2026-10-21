@@ -21,6 +21,12 @@ dependencies = [
 s3 = [
     "boto3",
 ]
+# For running a surrogate (examples/ma-surrogate.ipynb), not for recording one.
+surrogate = [
+    "boto3",
+    "lightgbm>=4.6",
+    "pandas",
+]
 
 [project.scripts]
 globi-data = "globi_data.cli:cli"

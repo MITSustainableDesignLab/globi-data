@@ -128,11 +128,14 @@ def _diff_against_parent(
     if parent is None:
         return [], "simulation-affecting"
 
-    old = {entry.path: entry.sha256 for entry in parent.files}
+    # Compare simulation-affecting content only. README.md is written after this
+    # runs, so including it would report a spurious "removed README.md" on every
+    # version — and a regenerated README is not a change worth reporting anyway.
+    old = {e.path: e.sha256 for e in parent.files if e.simulation_affecting}
     old.update({
         entry.path: entry.sha256 for entry in parent.external_files if entry.sha256
     })
-    new = {entry.path: entry.sha256 for entry in files}
+    new = {e.path: e.sha256 for e in files if e.simulation_affecting}
     new.update({entry.path: entry.sha256 for entry in externals if entry.sha256})
 
     sim = {entry.path for entry in files if entry.simulation_affecting}

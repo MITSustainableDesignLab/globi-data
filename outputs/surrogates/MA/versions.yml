@@ -1,0 +1,12 @@
+# Mutable status of every version. This file lives OUTSIDE the frozen
+# version directories so a version can be retracted without editing it.
+schema_version: 1
+partner: MA
+experiment: null
+versions:
+  - version: v001
+    status: active
+    created_at: '2026-10-19T14:10:47Z'
+    impact: simulation-affecting
+    summary: 'ma-webapp v5 (2025-10-01) iteration 2: LightGBM per end use, used by MA-stock-analysis.'
+    retracted_reason: null

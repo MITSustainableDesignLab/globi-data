@@ -1,0 +1,205 @@
+# Append-only ledger of frozen version directories.
+# Anything listed here must never be modified in place - publish a new
+# version instead. Enforced by .githooks/pre-commit and CI.
+schema_version: 1
+entries:
+  - path: inputs/partners/Ahmedabad/v001
+    tree_sha: null
+    bundle_sha256: 1707a65e325c925e5cb8bfa906f8f017aa84f60cfae9948f41c7c0adb2ad6b80
+    published_at: '2026-08-24T16:26:20Z'
+    published_commit: null
+  - path: inputs/partners/Cambridge_UK/v001
+    tree_sha: null
+    bundle_sha256: 37793b20fd82d9959ea85ae0437a5fae044d12611ad519719051ae27166b9d0c
+    published_at: '2026-08-24T16:26:21Z'
+    published_commit: null
+  - path: inputs/partners/Korea/v001
+    tree_sha: null
+    bundle_sha256: 73142d0e238baaede6a1ebb653460adc9b238ef85395e69280fc50bbbe168bdf
+    published_at: '2026-08-24T16:26:21Z'
+    published_commit: null
+  - path: inputs/partners/Lisbon/v001
+    tree_sha: null
+    bundle_sha256: f6bb368cabadeace556a4f2311cda15adf863f03c19ecf667085f10ad78d39a9
+    published_at: '2026-08-24T16:26:21Z'
+    published_commit: null
+  - path: inputs/partners/MA/v001
+    tree_sha: null
+    bundle_sha256: d53a3ab202de33c5d25f132c40302f058776efcad7ec5e5d572b25d0dde54ebb
+    published_at: '2026-08-24T16:26:22Z'
+    published_commit: null
+  - path: inputs/partners/MACommercial/v001
+    tree_sha: null
+    bundle_sha256: bfa4ea0679f2a7dd8fa2d0220441707f8c7e026d26383302ec1910f8a49a0ac4
+    published_at: '2026-08-24T16:26:22Z'
+    published_commit: null
+  - path: inputs/partners/Manchester/v001
+    tree_sha: null
+    bundle_sha256: e5ff2749ec5e7beaf381337b96a3a68e9aef4e3ae43bf253dea44de44df42352
+    published_at: '2026-08-24T16:26:22Z'
+    published_commit: null
+  - path: inputs/partners/Nairobi/v001
+    tree_sha: null
+    bundle_sha256: 1612a3709614df96e89bd99da8fc47b40ac93eb6a091b797415431826d2d2e86
+    published_at: '2026-08-24T16:26:22Z'
+    published_commit: null
+  - path: inputs/partners/Sao_Paulo/v001
+    tree_sha: null
+    bundle_sha256: 1dd5337fb5084dc13005d19e6733138b66e2dc359b850c45e927dffe5936e665
+    published_at: '2026-08-24T16:26:22Z'
+    published_commit: null
+  - path: inputs/partners/Singapore/v001
+    tree_sha: null
+    bundle_sha256: a73e157857bf6c50456e34b9a3bc71c33d9536719ca5f27039aa94635f59d298
+    published_at: '2026-08-24T16:26:23Z'
+    published_commit: null
+  - path: inputs/partners/Trondheim/v001
+    tree_sha: null
+    bundle_sha256: 00ce4d0038514c9b3179804ad481170876993dc85437b11e26414863c660e20d
+    published_at: '2026-08-24T16:26:23Z'
+    published_commit: null
+  - path: outputs/runs/Ahmedabad/ftmy/BAU/v001
+    tree_sha: null
+    bundle_sha256: null
+    published_at: '2026-08-24T16:26:23Z'
+    published_commit: null
+  - path: outputs/runs/Ahmedabad/ftmy/CC/v001
+    tree_sha: null
+    bundle_sha256: null
+    published_at: '2026-08-24T16:26:23Z'
+    published_commit: null
+  - path: outputs/runs/Ahmedabad/tmy/BAU/v001
+    tree_sha: null
+    bundle_sha256: null
+    published_at: '2026-08-24T16:26:23Z'
+    published_commit: null
+  - path: outputs/runs/Ahmedabad/tmy/CC/v001
+    tree_sha: null
+    bundle_sha256: null
+    published_at: '2026-08-24T16:26:24Z'
+    published_commit: null
+  - path: outputs/runs/Lisbon/ftmy/Baseline/v001
+    tree_sha: null
+    bundle_sha256: null
+    published_at: '2026-08-24T16:26:24Z'
+    published_commit: null
+  - path: outputs/runs/Lisbon/ftmy/Retrofit/v001
+    tree_sha: null
+    bundle_sha256: null
+    published_at: '2026-08-24T16:26:24Z'
+    published_commit: null
+  - path: outputs/runs/Lisbon/tmy/Baseline/v001
+    tree_sha: null
+    bundle_sha256: null
+    published_at: '2026-08-24T16:26:24Z'
+    published_commit: null
+  - path: outputs/runs/Lisbon/tmy/Retrofit/v001
+    tree_sha: null
+    bundle_sha256: null
+    published_at: '2026-08-24T16:26:24Z'
+    published_commit: null
+  - path: outputs/runs/Manchester/ftmy/DSR/v001
+    tree_sha: null
+    bundle_sha256: null
+    published_at: '2026-08-24T16:26:24Z'
+    published_commit: null
+  - path: outputs/runs/Manchester/ftmy/No_DSR/v001
+    tree_sha: null
+    bundle_sha256: null
+    published_at: '2026-08-24T16:26:25Z'
+    published_commit: null
+  - path: outputs/runs/Manchester/tmy/DSR/v001
+    tree_sha: null
+    bundle_sha256: null
+    published_at: '2026-08-24T16:26:25Z'
+    published_commit: null
+  - path: outputs/runs/Manchester/tmy/No_DSR/v001
+    tree_sha: null
+    bundle_sha256: null
+    published_at: '2026-08-24T16:26:25Z'
+    published_commit: null
+  - path: outputs/runs/Nairobi/ftmy/noAC/v001
+    tree_sha: null
+    bundle_sha256: null
+    published_at: '2026-08-24T16:26:25Z'
+    published_commit: null
+  - path: outputs/runs/Nairobi/ftmy/withAC/v001
+    tree_sha: null
+    bundle_sha256: null
+    published_at: '2026-08-24T16:26:25Z'
+    published_commit: null
+  - path: outputs/runs/Nairobi/tmy/noAC/v001
+    tree_sha: null
+    bundle_sha256: null
+    published_at: '2026-08-24T16:26:25Z'
+    published_commit: null
+  - path: outputs/runs/Nairobi/tmy/withAC/v001
+    tree_sha: null
+    bundle_sha256: null
+    published_at: '2026-08-24T16:26:26Z'
+    published_commit: null
+  - path: outputs/runs/Sao_Paulo_Bela_Vista/ftmy/noAC/v001
+    tree_sha: null
+    bundle_sha256: null
+    published_at: '2026-08-24T16:26:26Z'
+    published_commit: null
+  - path: outputs/runs/Sao_Paulo_Bela_Vista/ftmy/withAC/v001
+    tree_sha: null
+    bundle_sha256: null
+    published_at: '2026-08-24T16:26:26Z'
+    published_commit: null
+  - path: outputs/runs/Sao_Paulo_Bela_Vista/tmy/noAC/v001
+    tree_sha: null
+    bundle_sha256: null
+    published_at: '2026-08-24T16:26:26Z'
+    published_commit: null
+  - path: outputs/runs/Sao_Paulo_Bela_Vista/tmy/withAC/v001
+    tree_sha: null
+    bundle_sha256: null
+    published_at: '2026-08-24T16:26:26Z'
+    published_commit: null
+  - path: outputs/runs/Singapore/ftmy/Baseline/v001
+    tree_sha: null
+    bundle_sha256: null
+    published_at: '2026-08-24T16:26:26Z'
+    published_commit: null
+  - path: outputs/runs/Singapore/ftmy/Retrofit/v001
+    tree_sha: null
+    bundle_sha256: null
+    published_at: '2026-08-24T16:26:27Z'
+    published_commit: null
+  - path: outputs/runs/Singapore/tmy/Baseline/v001
+    tree_sha: null
+    bundle_sha256: null
+    published_at: '2026-08-24T16:26:27Z'
+    published_commit: null
+  - path: outputs/runs/Singapore/tmy/Retrofit/v001
+    tree_sha: null
+    bundle_sha256: null
+    published_at: '2026-08-24T16:26:27Z'
+    published_commit: null
+  - path: outputs/runs/Trondheim/ftmy/HighEfficiency/v001
+    tree_sha: null
+    bundle_sha256: null
+    published_at: '2026-08-24T16:26:27Z'
+    published_commit: null
+  - path: outputs/runs/Trondheim/ftmy/LowEfficiency/v001
+    tree_sha: null
+    bundle_sha256: null
+    published_at: '2026-08-24T16:26:27Z'
+    published_commit: null
+  - path: outputs/runs/Trondheim/tmy/HighEfficiency/v001
+    tree_sha: null
+    bundle_sha256: null
+    published_at: '2026-08-24T16:26:27Z'
+    published_commit: null
+  - path: outputs/runs/Trondheim/tmy/LowEfficiency/v001
+    tree_sha: null
+    bundle_sha256: null
+    published_at: '2026-08-24T16:26:27Z'
+    published_commit: null
+  - path: outputs/surrogates/MA/v001
+    tree_sha: null
+    bundle_sha256: null
+    published_at: '2026-10-19T14:10:47Z'
+    published_commit: null

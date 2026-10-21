@@ -17,6 +17,7 @@ from pathlib import Path
 from . import gitutil, index, paths, yamlio
 from . import inputs as inputs_mod
 from . import outputs as outputs_mod
+from . import surrogates as surrogates_mod
 from .models import PublishedLedger
 from .paths import GlobiDataError
 
@@ -166,6 +167,19 @@ def _check_outputs(root: Path) -> list[Problem]:
     return problems
 
 
+def _check_surrogates(root: Path) -> list[Problem]:
+    """Validate every surrogate version against its transforms and pinned inputs."""
+    problems: list[Problem] = []
+    for partner in paths.list_surrogates(root):
+        for version in paths.list_versions(paths.surrogate_dir(root, partner)):
+            where = f"surrogates/{partner}/{version}"
+            problems.extend(
+                Problem(f.level, where, f.message)
+                for f in surrogates_mod.validate_surrogate(root, partner, version)
+            )
+    return problems
+
+
 def _check_generated(root: Path, partners_repo: Path | None) -> list[Problem]:
     """Report generated pages that are out of date."""
     changes = index.rebuild(root, write=False, partners_repo=partners_repo)
@@ -262,6 +276,7 @@ def run_checks(
     problems: list[Problem] = []
     problems.extend(_check_inputs(root, gis_root))
     problems.extend(_check_outputs(root))
+    problems.extend(_check_surrogates(root))
     problems.extend(_check_generated(root, partners_repo))
     if since:
         problems.extend(check_immutability(root, base=since))

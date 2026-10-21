@@ -37,6 +37,36 @@ ROLE_DESCRIPTIONS: dict[str, str] = {
 }
 
 
+# What each weather file extension actually is, so the table has no blank rows.
+_WEATHER_KINDS: dict[str, str] = {
+    ".epw": "hourly weather data",
+    ".ddy": "design-day conditions",
+    ".zip": "packaged weather files",
+    ".stat": "weather summary statistics",
+}
+
+
+def _describe(path: str, role: str) -> str:
+    """Explain a file in plain language, by role or by where it sits."""
+    if role and role in ROLE_DESCRIPTIONS:
+        return ROLE_DESCRIPTIONS[role]
+
+    parts = path.split("/")
+    suffix = "." + path.rsplit(".", 1)[-1] if "." in parts[-1] else ""
+    kind = _WEATHER_KINDS.get(suffix.lower(), "")
+    if "weather_ftmy" in parts:
+        return (
+            f"Future climate (2050) — {kind}."
+            if kind
+            else "Future-climate weather file."
+        )
+    if "weather" in parts:
+        return f"Current climate — {kind}." if kind else "Current-climate weather file."
+    if "runs" in parts:
+        return "Record of how a previous batch of runs was allocated."
+    return ""
+
+
 def _bytes(size: int | None) -> str:
     """Format a byte count for humans."""
     if size is None:
@@ -104,8 +134,11 @@ def input_version_readme(
         if entry.path == "README.md":
             continue
         role = entry.role or role_by_path.get(entry.path, "")
-        desc = ROLE_DESCRIPTIONS.get(role, "")
-        rows.append([f"`{entry.path}`", _bytes(entry.size_bytes), desc])
+        rows.append([
+            f"`{entry.path}`",
+            _bytes(entry.size_bytes),
+            _describe(entry.path, role),
+        ])
     lines.append(_table(["File", "Size", "What it is"], rows))
 
     if m.external_files:

@@ -28,7 +28,6 @@ from .models import (
     InputPin,
     OutputVersionManifest,
     Provenance,
-    PublishedEntry,
     ResultFileEntry,
     RunProvenance,
     StorageProvenance,
@@ -321,26 +320,15 @@ def _publish_output(
     root: Path, experiment: str, manifest: OutputVersionManifest, version_dir: Path
 ) -> None:
     """Update pointers and ledgers after an output version is written."""
-    edir = paths.experiment_dir(root, experiment)
-
-    ledger = paths.read_versions(edir)
-    ledger.experiment = experiment
-    for entry in ledger.versions:
-        if entry.status == "active":
-            entry.status = "superseded"
-    ledger.versions.append(
+    paths.publish_version(
+        root,
+        paths.experiment_dir(root, experiment),
         VersionEntry(
             version=manifest.output_version,
             status="active",
             created_at=manifest.created_at,
             summary=manifest.summary,
-        )
-    )
-    ledger.versions.sort(key=lambda entry: paths.version_number(entry.version))
-    paths.write_versions(edir, ledger)
-
-    paths.write_current(
-        edir,
+        ),
         CurrentPointer(
             experiment=experiment,
             current=manifest.output_version,
@@ -349,15 +337,6 @@ def _publish_output(
             updated_at=manifest.created_at,
         ),
     )
-
-    published = paths.read_published(root)
-    rel = str(version_dir.relative_to(root))
-    if rel not in published.paths():
-        published.entries.append(
-            PublishedEntry(path=rel, published_at=manifest.created_at)
-        )
-        published.entries.sort(key=lambda entry: entry.path)
-        paths.write_published(root, published)
 
 
 def load_latest_results_csv(path: Path) -> dict[str, dict[str, str]]:

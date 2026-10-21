@@ -14,15 +14,23 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 from . import yamlio
-from .models import CurrentPointer, PublishedLedger, VersionsLedger
+from .models import (
+    CurrentPointer,
+    PublishedEntry,
+    PublishedLedger,
+    VersionEntry,
+    VersionsLedger,
+)
 
 INPUTS_DIR = "inputs/partners"
 OUTPUT_RUNS_DIR = "outputs/runs"
 OUTPUT_BATCHES_DIR = "outputs/batches"
+OUTPUT_SURROGATES_DIR = "outputs/surrogates"
 PUBLISHED_FILE = "published.yml"
 
 INPUT_MANIFEST_NAME = "input-version.yml"
 OUTPUT_MANIFEST_NAME = "output-version.yml"
+SURROGATE_MANIFEST_NAME = "surrogate-version.yml"
 CURRENT_NAME = "CURRENT.yml"
 VERSIONS_NAME = "versions.yml"
 
@@ -196,6 +204,37 @@ def write_published(root: Path, ledger: PublishedLedger) -> None:
     )
 
 
+def publish_version(
+    root: Path, directory: Path, entry: VersionEntry, pointer: CurrentPointer
+) -> None:
+    """Make ``entry`` the single active version, point CURRENT at it, freeze it.
+
+    Shared by output and surrogate versions. Any earlier entry for the same
+    version (a draft) is replaced; whatever was active becomes superseded.
+    """
+    ledger = read_versions(directory)
+    ledger.partner = pointer.partner or ledger.partner
+    ledger.experiment = pointer.experiment or ledger.experiment
+    ledger.versions = [v for v in ledger.versions if v.version != entry.version]
+    for other in ledger.versions:
+        if other.status == "active":
+            other.status = "superseded"
+    ledger.versions.append(entry)
+    ledger.versions.sort(key=lambda e: version_number(e.version))
+    write_versions(directory, ledger)
+
+    write_current(directory, pointer)
+
+    published = read_published(root)
+    rel = str((directory / entry.version).relative_to(root))
+    if rel not in published.paths():
+        published.entries.append(
+            PublishedEntry(path=rel, published_at=entry.created_at)
+        )
+        published.entries.sort(key=lambda e: e.path)
+        write_published(root, published)
+
+
 def resolve_version(directory: Path, requested: str = "current") -> str:
     """Resolve a version request against a partner or run directory.
 
@@ -260,6 +299,19 @@ def list_experiments(root: Path) -> list[str]:
 def list_batches(root: Path) -> list[str]:
     """Return every batch that has at least one output version."""
     base = root / OUTPUT_BATCHES_DIR
+    if not base.is_dir():
+        return []
+    return sorted(p.name for p in base.iterdir() if p.is_dir() and list_versions(p))
+
+
+def surrogate_dir(root: Path, partner: str) -> Path:
+    """Return the directory holding all versions of one partner's surrogate."""
+    return root / OUTPUT_SURROGATES_DIR / partner
+
+
+def list_surrogates(root: Path) -> list[str]:
+    """Return every partner that has at least one surrogate version."""
+    base = root / OUTPUT_SURROGATES_DIR
     if not base.is_dir():
         return []
     return sorted(p.name for p in base.iterdir() if p.is_dir() and list_versions(p))

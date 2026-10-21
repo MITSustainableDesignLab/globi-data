@@ -1,0 +1,10 @@
+# Which version is current. Generated - edit by creating a new version
+# with `globi-data inputs new`, not by hand.
+schema_version: 1
+partner: MA
+experiment: null
+current: v001
+manifest: v001/surrogate-version.yml
+manifest_sha256: 8401e7379c7249145d90e11266816cb7d3e86b7cbb8166e38be439b9deef7496
+bundle_sha256: null
+updated_at: '2026-10-19T14:12:29Z'

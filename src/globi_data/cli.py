@@ -22,6 +22,7 @@ from . import index as index_mod
 from . import inputs as inputs_mod
 from . import outputs as outputs_mod
 from . import status as status_mod
+from . import surrogates as surrogates_mod
 from .models import Author
 from .paths import GlobiDataError
 
@@ -736,6 +737,137 @@ def outputs_download(
 
 
 # --------------------------------------------------------------------------- #
+# surrogates
+# --------------------------------------------------------------------------- #
+
+
+@cli.group()
+def surrogates() -> None:
+    """Work with trained surrogate models."""
+
+
+@surrogates.command("list")
+@click.pass_context
+def surrogates_list(ctx: click.Context) -> None:
+    """List every partner with a surrogate, and its versions."""
+    root = _root(ctx)
+    table = Table(title="Surrogates")
+    for column in ("Partner", "Version", "Status", "Created", "Summary"):
+        table.add_column(column)
+    for partner in paths.list_surrogates(root):
+        ledger = paths.read_versions(paths.surrogate_dir(root, partner))
+        for entry in ledger.versions:
+            table.add_row(
+                partner,
+                entry.version,
+                entry.status,
+                entry.created_at[:10],
+                entry.summary,
+            )
+    console.print(table)
+
+
+@surrogates.command("show")
+@click.argument("partner")
+@click.argument("version", default="current")
+@click.pass_context
+def surrogates_show(ctx: click.Context, partner: str, version: str) -> None:
+    """Show one surrogate version: files, targets, inputs it pins."""
+    root = _root(ctx)
+    sdir = paths.surrogate_dir(root, partner)
+    try:
+        resolved = paths.resolve_version(sdir, version)
+    except GlobiDataError as exc:
+        _fail(str(exc))
+        return
+    s = surrogates_mod.read_surrogate_manifest(sdir / resolved)
+    pin = s.provenance.input
+    status = (paths.read_versions(sdir).get(resolved) or s).status
+    console.print(f"[bold]{partner} {resolved}[/] ({status}) — {s.summary}")
+    console.print(f"training run: {s.provenance.training.experiment_id}")
+    console.print(f"pins input {pin.partner}/{pin.version or '?'} ({pin.confidence})")
+    console.print(
+        f"{len(s.features)} features, {s.transforms.path} ({s.transforms.format})"
+    )
+    table = Table(title="Model files")
+    for column in ("Target", "Unit", "Size", "URI"):
+        table.add_column(column)
+    units = {t.name: t.unit for t in s.targets}
+    for part in surrogates_mod.model_parts(s):
+        table.add_row(
+            part.target,
+            units.get(part.target, "-"),
+            render._bytes(part.size_bytes),
+            part.s3_uri,
+        )
+    console.print(table)
+
+
+@surrogates.command("fetch")
+@click.argument("partner")
+@click.option("--version", default="current")
+@click.option(
+    "--dest", default=None, help="Cache root (default ~/.cache/globi-data/surrogates)."
+)
+@click.pass_context
+def surrogates_fetch(
+    ctx: click.Context, partner: str, version: str, dest: str | None
+) -> None:
+    """Download a surrogate's model files, verified against their sha256."""
+    try:
+        out = surrogates_mod.fetch_surrogate(
+            _root(ctx), partner, version, Path(dest) if dest else None
+        )
+    except GlobiDataError as exc:
+        _fail(str(exc))
+        return
+    console.print(f"[green]↓[/] {out}")
+
+
+@surrogates.command("record")
+@click.argument("partner")
+@click.option(
+    "--from", "prefix", required=True, help="s3:// prefix of an epengine models/ dir."
+)
+@click.option("--summary", required=True, help="One line describing this model.")
+@click.pass_context
+def surrogates_record(
+    ctx: click.Context, partner: str, prefix: str, summary: str
+) -> None:
+    """Record a trained surrogate from S3 as a draft version."""
+    root = _root(ctx)
+    try:
+        s = surrogates_mod.record_surrogate(
+            root, partner, prefix, summary=summary, author=_git_author(root)
+        )
+    except GlobiDataError as exc:
+        _fail(str(exc))
+        return
+    console.print(
+        f"[bold green]drafted[/] {partner} [bold]{s.surrogate_version}[/]: "
+        f"{len(s.model.files)} model files, {len(s.features)} features. "
+        f"Set target units, then `globi-data surrogates promote {partner} "
+        f"{s.surrogate_version}`."
+    )
+
+
+@surrogates.command("promote")
+@click.argument("partner")
+@click.argument("version")
+@click.pass_context
+def surrogates_promote(ctx: click.Context, partner: str, version: str) -> None:
+    """Publish a draft surrogate: make it current and freeze it."""
+    try:
+        surrogates_mod.promote_surrogate(_root(ctx), partner, version)
+    except GlobiDataError as exc:
+        _fail(str(exc))
+        return
+    console.print(
+        f"[bold green]promoted[/] {partner} [bold]{version}[/] — now current and frozen."
+    )
+
+
+# --------------------------------------------------------------------------- #
 # status, index, check
 # --------------------------------------------------------------------------- #
 
@@ -924,11 +1056,20 @@ def migrate() -> None:
     """One-off commands for seeding this repo from globi-partners-data."""
 
 
+EXCLUDED_PARTNERS = frozenset()
+
+
 @migrate.command("inputs")
 @click.option(
     "--from", "source_repo", required=True, help="Path to globi-partners-data."
 )
 @click.option("--partner", "partners", multiple=True, help="Only these partners.")
+@click.option(
+    "--exclude",
+    "excluded",
+    multiple=True,
+    help=f"Skip a partner. Defaults to: {', '.join(sorted(EXCLUDED_PARTNERS))}.",
+)
 @click.option("--summary", default="", help="Summary for the created versions.")
 @click.option("--no-hash-external", is_flag=True)
 @click.option("--dry-run", is_flag=True)
@@ -937,6 +1078,7 @@ def migrate_inputs(
     ctx: click.Context,
     source_repo: str,
     partners: tuple[str, ...],
+    excluded: tuple[str, ...],
     summary: str,
     no_hash_external: bool,
     dry_run: bool,
@@ -950,11 +1092,17 @@ def migrate_inputs(
     all_scenarios = registry.load_partner_scenarios(
         Path(source_repo).expanduser().resolve() / "data" / "experiments.yaml"
     )
+    # An explicit --partner overrides the default exclusions; a bare run honours
+    # them, so re-running this command never resurrects an out-of-scope partner.
+    skip = set(excluded) | (set() if partners else EXCLUDED_PARTNERS)
     names = list(partners) or sorted(
         p.name for p in base.iterdir() if p.is_dir() and not p.name.startswith(".")
     )
     for name in names:
         source = base / name
+        if name in skip:
+            console.print(f"[dim]skip[/] {name}: excluded from this repo")
+            continue
         if not source.is_dir():
             console.print(f"[yellow]skip[/] {name}: no such directory")
             continue

@@ -125,4 +125,5 @@ installed — see [docs/HOW-TO-ADD-A-VERSION.md](docs/HOW-TO-ADD-A-VERSION.md).
 - [docs/HOW-TO-DOWNLOAD-INPUTS.md](docs/HOW-TO-DOWNLOAD-INPUTS.md) — no CLI needed
 - [docs/HOW-TO-ADD-A-VERSION.md](docs/HOW-TO-ADD-A-VERSION.md) — both routes
 - [docs/SCHEMA.md](docs/SCHEMA.md) — every manifest field
+- [docs/DATA-COMPONENTS.md](docs/DATA-COMPONENTS.md) — what makes up a region, and the minimum GIS data
 - [CONTRIBUTING.md](CONTRIBUTING.md) — the rules that keep this trustworthy

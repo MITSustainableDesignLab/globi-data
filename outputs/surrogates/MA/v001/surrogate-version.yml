@@ -1,0 +1,1496 @@
+# Schema: docs/SCHEMA.md#surrogate-versionyml
+schema_version: 1
+kind: surrogate-version
+partner: MA
+surrogate_version: v001
+parent_version: null
+status: active
+created_at: '2026-10-19T14:10:47Z'
+created_by:
+  name: daryaguettler
+  email: daryag@mit.edu
+summary: 'ma-webapp v5 (2025-10-01) iteration 2: LightGBM per end use, used by MA-stock-analysis.'
+example: false
+model:
+  backend: lgb
+  format: lightgbm-text
+  s3_uri: null
+  bytes: null
+  sha256: null
+  files:
+    - target: Energy.Cooling
+      s3_uri: s3://ml-for-bem/hatchet/ma-webapp/v5-20251001-105947/iter-002/train/0/models/Energy.Cooling.lgb
+      bytes: 11640745
+      sha256: b7799e3b6a71d1a29077866300abce4d417ad5ed7f70693301428308e3ada6bd
+    - target: Energy.Domestic Hot Water
+      s3_uri: s3://ml-for-bem/hatchet/ma-webapp/v5-20251001-105947/iter-002/train/0/models/Energy.Domestic
+        Hot Water.lgb
+      bytes: 9062154
+      sha256: e6eedea290b0c48eadc66144559d67df04bb0e707ef32808d1e74c03a4b5af19
+    - target: Energy.Equipment
+      s3_uri: s3://ml-for-bem/hatchet/ma-webapp/v5-20251001-105947/iter-002/train/0/models/Energy.Equipment.lgb
+      bytes: 6217212
+      sha256: c6d8d17b2c153d41213db870f0bad726418b848068f94b914231d7d5ebb7a7f7
+    - target: Energy.Heating
+      s3_uri: s3://ml-for-bem/hatchet/ma-webapp/v5-20251001-105947/iter-002/train/0/models/Energy.Heating.lgb
+      bytes: 11768755
+      sha256: 5bb611364f5b4b9b8df553621515562349eba602ec69b124adc676a729f3ead3
+    - target: Energy.Lighting
+      s3_uri: s3://ml-for-bem/hatchet/ma-webapp/v5-20251001-105947/iter-002/train/0/models/Energy.Lighting.lgb
+      bytes: 4649595
+      sha256: 861a63c3cfa8c037d0a0f057a0f18bf3905564d949d98c47141cee7e65f8fc92
+    - target: Peak.Cooling
+      s3_uri: s3://ml-for-bem/hatchet/ma-webapp/v5-20251001-105947/iter-002/train/0/models/Peak.Cooling.lgb
+      bytes: 8416308
+      sha256: 2f1277dd2658e587b81efe476f2c595289f4d61ebd3a9e438267d4cddddb167e
+    - target: Peak.Domestic Hot Water
+      s3_uri: s3://ml-for-bem/hatchet/ma-webapp/v5-20251001-105947/iter-002/train/0/models/Peak.Domestic
+        Hot Water.lgb
+      bytes: 5642797
+      sha256: e90310ed758274425d4ad025e293990032109dcc6c90b9864987b8243de4efd1
+    - target: Peak.Equipment
+      s3_uri: s3://ml-for-bem/hatchet/ma-webapp/v5-20251001-105947/iter-002/train/0/models/Peak.Equipment.lgb
+      bytes: 4616075
+      sha256: 8b195bbb6ddb16b1f86a8560727863d7f89a3fa1496cf294df9c3fdd25ad856a
+    - target: Peak.Heating
+      s3_uri: s3://ml-for-bem/hatchet/ma-webapp/v5-20251001-105947/iter-002/train/0/models/Peak.Heating.lgb
+      bytes: 12666565
+      sha256: 7f5fa19d6068ed0adc1aa2e6aa45e0efa643b6aed114b91cc93ee6a9ca3d55f8
+    - target: Peak.Lighting
+      s3_uri: s3://ml-for-bem/hatchet/ma-webapp/v5-20251001-105947/iter-002/train/0/models/Peak.Lighting.lgb
+      bytes: 5998058
+      sha256: 3536b32a8ba034fd1dad23756c837a2c8d0bdb97da3970da1c85f524dd71da2e
+  hyperparameters: {}
+transforms:
+  path: space.yml
+  format: epengine-space
+  sha256: ecb765faa07e6ab6cf2e9beedebc2241881de2ddfa53a1b1341171244b407d17
+  s3_uri: s3://ml-for-bem/hatchet/ma-webapp/v5-20251001-105947/iter-002/train/0/models/space.yml
+features:
+  - name: feature.geometry.long_edge
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.short_edge
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.orientation
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.orientation.cos
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.orientation.sin
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.aspect_ratio
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.wwr
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.num_floors
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.f2f_height
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.zoning
+    source: geometry
+    kind: categorical
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.energy_model_conditioned_area
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.energy_model_occupied_area
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.attic_height
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.exposed_basement_frac
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_00
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_01
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_02
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_03
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_04
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_05
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_06
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_07
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_08
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_09
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_10
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_11
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_12
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_13
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_14
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_15
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_16
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_17
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_18
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_19
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_20
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_21
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_22
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_23
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_24
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_25
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_26
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_27
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_28
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_29
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_30
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_31
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_32
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_33
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_34
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_35
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_36
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_37
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_38
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_39
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_40
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_41
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_42
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_43
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_44
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_45
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_46
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.geometry.shading_mask_47
+    source: geometry
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.semantic.DHW
+    source: semantic
+    kind: categorical
+    semantic_field: DHW
+    unit: null
+    default: null
+    description: null
+  - name: feature.semantic.Walls
+    source: semantic
+    kind: categorical
+    semantic_field: Walls
+    unit: null
+    default: null
+    description: null
+  - name: feature.semantic.Region
+    source: semantic
+    kind: categorical
+    semantic_field: Region
+    unit: null
+    default: null
+    description: null
+  - name: feature.semantic.Cooling
+    source: semantic
+    kind: categorical
+    semantic_field: Cooling
+    unit: null
+    default: null
+    description: null
+  - name: feature.semantic.Heating
+    source: semantic
+    kind: categorical
+    semantic_field: Heating
+    unit: null
+    default: null
+    description: null
+  - name: feature.semantic.Windows
+    source: semantic
+    kind: categorical
+    semantic_field: Windows
+    unit: null
+    default: null
+    description: null
+  - name: feature.semantic.Lighting
+    source: semantic
+    kind: categorical
+    semantic_field: Lighting
+    unit: null
+    default: null
+    description: null
+  - name: feature.semantic.Typology
+    source: semantic
+    kind: categorical
+    semantic_field: Typology
+    unit: null
+    default: null
+    description: null
+  - name: feature.semantic.Equipment
+    source: semantic
+    kind: categorical
+    semantic_field: Equipment
+    unit: null
+    default: null
+    description: null
+  - name: feature.semantic.Thermostat
+    source: semantic
+    kind: categorical
+    semantic_field: Thermostat
+    unit: null
+    default: null
+    description: null
+  - name: feature.semantic.Age_bracket
+    source: semantic
+    kind: categorical
+    semantic_field: Age_bracket
+    unit: null
+    default: null
+    description: null
+  - name: feature.semantic.Distribution
+    source: semantic
+    kind: categorical
+    semantic_field: Distribution
+    unit: null
+    default: null
+    description: null
+  - name: feature.semantic.RoofInsulation
+    source: semantic
+    kind: categorical
+    semantic_field: RoofInsulation
+    unit: null
+    default: null
+    description: null
+  - name: feature.semantic.Weatherization
+    source: semantic
+    kind: categorical
+    semantic_field: Weatherization
+    unit: null
+    default: null
+    description: null
+  - name: feature.semantic.AtticVentilation
+    source: semantic
+    kind: categorical
+    semantic_field: AtticVentilation
+    unit: null
+    default: null
+    description: null
+  - name: feature.semantic.AtticFloorInsulation
+    source: semantic
+    kind: categorical
+    semantic_field: AtticFloorInsulation
+    unit: null
+    default: null
+    description: null
+  - name: feature.semantic.GroundSlabInsulation
+    source: semantic
+    kind: categorical
+    semantic_field: GroundSlabInsulation
+    unit: null
+    default: null
+    description: null
+  - name: feature.semantic.BasementWallsInsulation
+    source: semantic
+    kind: categorical
+    semantic_field: BasementWallsInsulation
+    unit: null
+    default: null
+    description: null
+  - name: feature.semantic.BasementCeilingInsulation
+    source: semantic
+    kind: categorical
+    semantic_field: BasementCeilingInsulation
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.file
+    source: weather
+    kind: categorical
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.annual.daily_max_median
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.annual.daily_median_median
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.annual.daily_min_median
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.annual.daily_range_median
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.annual.dd_cooling
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.annual.dd_heating
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.latitude
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.longitude
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_max.01
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_max.02
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_max.03
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_max.04
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_max.05
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_max.06
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_max.07
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_max.08
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_max.09
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_max.10
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_max.11
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_max.12
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_max_median.01
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_max_median.02
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_max_median.03
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_max_median.04
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_max_median.05
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_max_median.06
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_max_median.07
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_max_median.08
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_max_median.09
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_max_median.10
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_max_median.11
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_max_median.12
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_median_median.01
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_median_median.02
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_median_median.03
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_median_median.04
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_median_median.05
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_median_median.06
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_median_median.07
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_median_median.08
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_median_median.09
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_median_median.10
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_median_median.11
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_median_median.12
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_min.01
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_min.02
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_min.03
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_min.04
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_min.05
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_min.06
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_min.07
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_min.08
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_min.09
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_min.10
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_min.11
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_min.12
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_min_median.01
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_min_median.02
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_min_median.03
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_min_median.04
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_min_median.05
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_min_median.06
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_min_median.07
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_min_median.08
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_min_median.09
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_min_median.10
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_min_median.11
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_min_median.12
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_range_median.01
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_range_median.02
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_range_median.03
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_range_median.04
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_range_median.05
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_range_median.06
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_range_median.07
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_range_median.08
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_range_median.09
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_range_median.10
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_range_median.11
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.daily_range_median.12
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.dd_cooling.01
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.dd_cooling.02
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.dd_cooling.03
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.dd_cooling.04
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.dd_cooling.05
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.dd_cooling.06
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.dd_cooling.07
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.dd_cooling.08
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.dd_cooling.09
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.dd_cooling.10
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.dd_cooling.11
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.dd_cooling.12
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.dd_heating.01
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.dd_heating.02
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.dd_heating.03
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.dd_heating.04
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.dd_heating.05
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.dd_heating.06
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.dd_heating.07
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.dd_heating.08
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.dd_heating.09
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.dd_heating.10
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.dd_heating.11
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.weather.monthly.dd_heating.12
+    source: weather
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.extra_spaces.basement.exists
+    source: extra_space
+    kind: categorical
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.extra_spaces.basement.occupied
+    source: extra_space
+    kind: categorical
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.extra_spaces.basement.conditioned
+    source: extra_space
+    kind: categorical
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.extra_spaces.basement.use_fraction
+    source: extra_space
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.extra_spaces.attic.exists
+    source: extra_space
+    kind: categorical
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.extra_spaces.attic.occupied
+    source: extra_space
+    kind: categorical
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.extra_spaces.attic.conditioned
+    source: extra_space
+    kind: categorical
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+  - name: feature.extra_spaces.attic.use_fraction
+    source: extra_space
+    kind: continuous
+    semantic_field: null
+    unit: null
+    default: null
+    description: null
+weather_options: []
+targets:
+  - name: Energy.Cooling
+    unit: kWh/m2/yr, per conditioned floor area
+    description: Annual Cooling demand, before system efficiency (COP)
+  - name: Energy.Domestic Hot Water
+    unit: kWh/m2/yr, per conditioned floor area
+    description: Annual Domestic Hot Water demand, before system efficiency (COP)
+  - name: Energy.Equipment
+    unit: kWh/m2/yr, per conditioned floor area
+    description: Annual Equipment demand, before system efficiency (COP)
+  - name: Energy.Heating
+    unit: kWh/m2/yr, per conditioned floor area
+    description: Annual Heating demand, before system efficiency (COP)
+  - name: Energy.Lighting
+    unit: kWh/m2/yr, per conditioned floor area
+    description: Annual Lighting demand, before system efficiency (COP)
+  - name: Peak.Cooling
+    unit: kW/m2, per conditioned floor area
+    description: Peak Cooling demand, before system efficiency (COP)
+  - name: Peak.Domestic Hot Water
+    unit: kW/m2, per conditioned floor area
+    description: Peak Domestic Hot Water demand, before system efficiency (COP)
+  - name: Peak.Equipment
+    unit: kW/m2, per conditioned floor area
+    description: Peak Equipment demand, before system efficiency (COP)
+  - name: Peak.Heating
+    unit: kW/m2, per conditioned floor area
+    description: Peak Heating demand, before system efficiency (COP)
+  - name: Peak.Lighting
+    unit: kW/m2, per conditioned floor area
+    description: Peak Lighting demand, before system efficiency (COP)
+derived_outputs: []
+metrics:
+  split: test
+  n_folds: null
+  converged: null
+  per_target: {}
+  source_uri: null
+provenance:
+  input:
+    partner: MA
+    version: v001
+    manifest_path: inputs/partners/MA/v001/input-version.yml
+    manifest_sha256: 5e7870efe45298c3bb3b6c3bb138e7ec1513c7f5c5087a6af1ac8662c0e3460b
+    bundle_sha256: d53a3ab202de33c5d25f132c40302f058776efcad7ec5e5d572b25d0dde54ebb
+    confidence: inferred
+    gis_file:
+      sha256: null
+      bytes: null
+    uploaded_artifacts: {}
+  code:
+    globi_partners_data: null
+    globi: null
+    scythe_engine: null
+    python: null
+  storage:
+    bucket: ml-for-bem
+    bucket_prefix: hatchet
+    run_prefix: s3://ml-for-bem/hatchet/ma-webapp/v5-20251001-105947/iter-002/train/0/models
+  training:
+    experiment_id: ma-webapp/v5-20251001-105947/iter-002/train/0/models
+    previous_experiment_ids: []
+    summary_uri: null
+    data_uris: {}
+    n_samples: null
+    n_iterations: null
+    sampler: null
+    stratification: null

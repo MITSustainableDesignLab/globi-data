@@ -24,7 +24,7 @@ from __future__ import annotations
 
 from typing import Any, Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 Impact = Literal["simulation-affecting", "metadata-only"]
 # `draft` is a version that exists but is not yet published: it lives on a
@@ -432,3 +432,172 @@ class OutputBatchManifest(_Base):
     result_index: ResultIndex
     allocation: AllocationInfo = Field(default_factory=AllocationInfo)
     totals: Totals
+
+
+# --------------------------------------------------------------------------- #
+# Surrogates
+# --------------------------------------------------------------------------- #
+
+FeatureSource = Literal["semantic", "weather", "geometry", "extra_space"]
+
+
+class SurrogateModelPart(_Base):
+    """One file of a model stored as one regressor per target (epengine's layout)."""
+
+    target: str
+    s3_uri: str
+    size_bytes: int | None = Field(default=None, alias="bytes")
+    sha256: str | None = None
+
+
+class SurrogateModelFile(_Base):
+    """The trained regressor. Too large and too binary for git, so it stays in S3.
+
+    Either one file (``s3_uri``) predicting every target, or ``files``: one
+    file per target.
+    """
+
+    backend: Literal["xgb", "lgb", "nn"]
+    format: str
+    s3_uri: str | None = None
+    size_bytes: int | None = Field(default=None, alias="bytes")
+    sha256: str | None = None
+    files: list[SurrogateModelPart] = Field(default_factory=list)
+    hyperparameters: dict[str, Any] = Field(default_factory=dict)
+
+    @model_validator(mode="after")
+    def _one_layout(self) -> SurrogateModelFile:
+        if (self.s3_uri is None) == (not self.files):
+            raise ValueError("model needs exactly one of s3_uri or files")
+        return self
+
+
+class TransformsRef(_Base):
+    """The transforms file stored beside the manifest.
+
+    This is the model's input/output contract — feature order, category lists,
+    scalers, target names — and is small text, so it is versioned here where
+    anyone can read it without credentials. ``format`` says whose dump it is:
+    globi's ``Transformers`` or epengine's ``RegressorInputSpec`` (``space.yml``).
+    """
+
+    path: str = "transforms.yml"
+    format: Literal["globi-transformers", "epengine-space"] = "globi-transformers"
+    sha256: str
+    s3_uri: str | None = None
+
+
+class SurrogateFeature(_Base):
+    """One model input, annotated so a user knows where its value comes from.
+
+    ``default`` is what to pass when the user only has semantic fields. Without
+    it, a surrogate trained on geometry features cannot be driven from
+    semantic fields alone.
+    """
+
+    name: str
+    source: FeatureSource
+    kind: Literal["categorical", "continuous"]
+    semantic_field: str | None = None
+    unit: str | None = None
+    default: str | float | int | None = None
+    description: str | None = None
+
+
+class WeatherOption(_Base):
+    """One value of the weather feature, tied to a file in the pinned input bundle."""
+
+    value: str
+    label: str
+    input_file: str
+
+
+class SurrogateTarget(_Base):
+    """One model output."""
+
+    name: str
+    unit: str
+    description: str | None = None
+
+
+class DerivedOutput(_Base):
+    """A quantity computed from targets rather than predicted directly (e.g. EUI)."""
+
+    name: str
+    unit: str
+    formula: str
+
+
+class TargetMetrics(_Base):
+    """Held-out performance for one target, averaged over CV folds."""
+
+    r2: float | None = None
+    cvrmse: float | None = None
+    nmbe: float | None = None
+    mae: float | None = None
+
+
+class SurrogateMetrics(_Base):
+    """How well the surrogate reproduces EnergyPlus on data it did not train on."""
+
+    split: Literal["test"] = "test"
+    n_folds: int | None = None
+    converged: bool | None = None
+    per_target: dict[str, TargetMetrics] = Field(default_factory=dict)
+    source_uri: str | None = None
+
+
+class TrainingProvenance(_Base):
+    """The iterative-training run that produced the model.
+
+    Training data are *sampled* buildings simulated for this purpose, not the
+    deterministic partner runs, so the sampler is part of the provenance.
+    """
+
+    experiment_id: str
+    previous_experiment_ids: list[str] = Field(default_factory=list)
+    summary_uri: str | None = None
+    data_uris: dict[str, str] = Field(default_factory=dict)
+    n_samples: int | None = None
+    n_iterations: int | None = None
+    sampler: str | None = None
+    stratification: str | None = None
+
+
+class SurrogateProvenance(_Base):
+    """Everything needed to answer "what produced this model"."""
+
+    input: InputPin
+    code: CodeProvenance = Field(default_factory=CodeProvenance)
+    storage: StorageProvenance = Field(default_factory=StorageProvenance)
+    training: TrainingProvenance
+
+
+class SurrogateVersionManifest(_Base):
+    """`surrogate-version.yml` — a trained surrogate for one partner, plus provenance.
+
+    Weather is a model input rather than a directory level, so one surrogate
+    covers both current and future climate for its partner.
+    """
+
+    schema_version: int = 1
+    kind: Literal["surrogate-version"] = "surrogate-version"
+
+    partner: str
+    surrogate_version: str
+    parent_version: str | None = None
+    status: VersionStatus = "draft"
+    created_at: str
+    created_by: Author = Field(default_factory=Author)
+    summary: str = ""
+    # An illustrative entry: its URIs and metrics are placeholders, not records.
+    example: bool = False
+
+    model: SurrogateModelFile
+    transforms: TransformsRef
+    features: list[SurrogateFeature]
+    weather_options: list[WeatherOption] = Field(default_factory=list)
+    targets: list[SurrogateTarget]
+    derived_outputs: list[DerivedOutput] = Field(default_factory=list)
+    metrics: SurrogateMetrics = Field(default_factory=SurrogateMetrics)
+    provenance: SurrogateProvenance
