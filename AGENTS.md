@@ -13,19 +13,25 @@ in versions. The simulations themselves live in the sibling repository
 | `inputs/partners/<Partner>/versions.yml` | Mutable status of every version |
 | `outputs/runs/<Partner>/<weather>/<Scenario>/vNNN/` | Where a run's results live in S3, plus provenance |
 | `outputs/batches/<Batch>/vNNN/` | Same, for run families too numerous to list individually |
+| `outputs/surrogates/<Partner>/vNNN/` | A trained surrogate: manifest + `transforms.yml`; model in S3 |
 | `outputs/STATUS.md` | Generated: which results are stale |
 | `published.yml` | Append-only ledger of frozen directories |
+| `countries.yml` | Mutable: ISO country code of each partner (input folder name) |
 | `src/globi_data/` | The `globi-data` CLI |
 | `docs/SCHEMA.md` | Every manifest field |
+| `docs/DATA-COMPONENTS.md` | The components of a region; minimum GIS requirements |
 
-## Rules that are enforced, not conventions
+## Rules
 
-1. **Directories listed in `published.yml` are immutable.** The pre-commit hook
-   and CI reject edits. Create a new version; never edit in place. To mark a bad
-   version, use `globi-data inputs retract` — it touches `versions.yml` only.
+1. **Directories listed in `published.yml` are immutable.** Create a new version;
+   never edit in place. To mark a bad version, use `globi-data inputs retract` —
+   it touches `versions.yml` only. Currently advisory: `globi-data check --since
+   <ref>` reports violations and CI surfaces them, but neither blocks, and the
+   pre-commit hook is not installed by default.
 2. **Mutable state lives outside version directories.** `CURRENT.yml` and
    `versions.yml` sit beside the `vNNN/` folders. Do not move them in.
 3. **No git-lfs, and nothing over 25 MB, under `inputs/`.** CI fails on both.
+   This one *is* a hard gate.
 4. **Generated files are generated.** Do not hand-edit `inputs/README.md`,
    `*/index.yml`, `outputs/STATUS.md`, or per-partner `README.md`. Run
    `globi-data index --write`.
@@ -34,7 +40,6 @@ in versions. The simulations themselves live in the sibling repository
 
 ```bash
 uv sync                                   # add --extra s3 for S3 commands
-uv run globi-data init-hooks              # once per clone
 
 uv run globi-data inputs list
 uv run globi-data inputs show Lisbon
@@ -42,7 +47,16 @@ uv run globi-data inputs diff Lisbon v001 v002
 uv run globi-data inputs verify --all
 uv run globi-data status
 uv run globi-data check                   # everything CI runs
+
+uv run globi-data surrogates list
+uv run globi-data surrogates show MA
+uv run globi-data surrogates fetch MA     # -> ~/.cache/globi-data/surrogates/MA/vNNN/
+uv run globi-data surrogates record MA --from s3://... --summary "..."   # draft
+uv run globi-data surrogates promote MA vNNN
 ```
+
+`examples/ma-surrogate.ipynb` downloads and runs the MA surrogate
+(`uv sync --extra surrogate`).
 
 Validation before pushing:
 
@@ -80,6 +94,10 @@ was recorded at run time. Do not upgrade these to `exact`.
 version.** That field name is fixed by compatibility with
 `globi-partners latest-results --yaml-dir`. The globi-data version is
 `output_version`.
+
+**Surrogate outputs are per m², before COP.** The MA surrogate predicts thermal
+demand per conditioned floor area, so changing the heating system does not move
+`Energy.Heating`. `targets[].unit` in the manifest is the authority.
 
 **`impact` decides staleness.** A version that only changes documentation is
 `metadata-only` and must not mark results stale. Do not override the automatic
