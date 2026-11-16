@@ -7,7 +7,7 @@ on:
   pull_request:
     types: [closed]
     paths:
-      - "inputs/partners/**"
+      - "inputs/**"
 
 permissions:
   contents: write
@@ -40,7 +40,7 @@ jobs:
 
           root = paths.repo_root(Path.cwd())
           promoted = []
-          for partner in sorted(p.name for p in (root / paths.INPUTS_DIR).iterdir() if p.is_dir()):
+          for partner in paths.list_partners(root):
               ledger = paths.read_versions(paths.partner_dir(root, partner))
               for entry in list(ledger.versions):
                   if entry.status != "draft":

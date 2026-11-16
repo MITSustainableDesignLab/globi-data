@@ -4,8 +4,8 @@ No software required. Everything here is done in a web browser.
 
 ## The quick way
 
-1. Go to [`inputs/partners/`](../inputs/partners/).
-2. Click the partner you want — for example `Lisbon`.
+1. Go to [`inputs/`](../inputs/) and open the country folder (e.g. `PT` for Portugal).
+2. Click the city you want — for example `Lisbon`.
 3. The page tells you which version is current, with a link to it.
 4. Click that version's folder, then **Download** on any file you need.
 

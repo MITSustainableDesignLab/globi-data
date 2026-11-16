@@ -42,7 +42,7 @@ jobs:
               --summary "${{ inputs.summary }}"
           # The draft is the highest-numbered directory; CURRENT.yml still points
           # at the published one, which is the whole point of a draft.
-          draft=$(basename "$(ls -d inputs/partners/"${{ inputs.partner }}"/v* | sort -V | tail -1)")
+          draft=$(basename "$(ls -d inputs/*/"${{ inputs.partner }}"/v* | sort -V | tail -1)")
           echo "version=$draft" >> "$GITHUB_OUTPUT"
 
       - name: Open a pull request
@@ -59,7 +59,7 @@ jobs:
 
             ### What to do next
 
-            1. Open `inputs/partners/${{ inputs.partner }}/${{ steps.draft.outputs.version }}/`
+            1. Open `inputs/<ISO>/${{ inputs.partner }}/${{ steps.draft.outputs.version }}/`
                on the **Files changed** tab, or browse to it on this branch.
             2. Replace, add or delete files using GitHub's **Add file → Upload files**
                and **Delete file** buttons. You do not need anything installed.

@@ -8,7 +8,7 @@ on:
   pull_request:
     types: [opened, synchronize]
     paths:
-      - "inputs/partners/**"
+      - "inputs/**"
 
 permissions:
   contents: write
@@ -41,7 +41,7 @@ jobs:
           from globi_data import paths
 
           root = paths.repo_root(Path.cwd())
-          for partner in sorted(p.name for p in (root / paths.INPUTS_DIR).iterdir() if p.is_dir()):
+          for partner in paths.list_partners(root):
               ledger = paths.read_versions(paths.partner_dir(root, partner))
               for entry in ledger.versions:
                   if entry.status != "draft":
