@@ -3,6 +3,7 @@ name = "globi-data"
 version = "0.1.0"
 description = "Versioned inputs and outputs for Global Building Inventory (GloBI) simulation runs"
 readme = "README.md"
+license = { text = "MIT" }
 authors = [
     { name = "Darya Guettler", email = "daryag@mit.edu" }
 ]
@@ -124,6 +125,7 @@ max-complexity = 15
 # S603/S607: the fixtures shell out to `git` with literal arguments to build
 # throwaway repositories in tmp_path. No untrusted input is involved.
 "tests/*" = ["S101", "S603", "S607"]
+"scripts/*" = ["D103", "SIM105"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"

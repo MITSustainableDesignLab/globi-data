@@ -8,10 +8,12 @@ in versions. The simulations themselves live in the sibling repository
 
 | Path | What it is |
 |---|---|
-| `inputs/partners/<Partner>/vNNN/` | A frozen, self-contained input bundle |
-| `inputs/partners/<Partner>/CURRENT.yml` | Which version is current |
-| `inputs/partners/<Partner>/versions.yml` | Mutable status of every version |
-| `outputs/runs/<Partner>/<weather>/<Scenario>/vNNN/` | Where a run's results live in S3, plus provenance |
+| `inputs/<ISO>/<City>/vNNN/` | A frozen, self-contained input bundle |
+| `inputs/<ISO>/<City>/CURRENT.yml` | Which version is current |
+| `inputs/<ISO>/<City>/versions.yml` | Mutable status of every version |
+| `outputs/runs/<ISO>/<City>/<weather>/<Scenario>/vNNN/` | Processed results in S3, plus provenance |
+| `public_storage.yml` | Public bucket/prefix and product keys |
+| `docs/PUBLIC-PRODUCT.md` | What downloaders get (not raw scythe) |
 | `outputs/batches/<Batch>/vNNN/` | Same, for run families too numerous to list individually |
 | `outputs/surrogates/<Partner>/vNNN/` | A trained surrogate: manifest + `transforms.yml`; model in S3 |
 | `outputs/STATUS.md` | Generated: which results are stale |

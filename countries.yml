@@ -1,0 +1,17 @@
+# Country of each partner (input folder name), as an ISO 3166-1 alpha-2 code.
+# Mutable: it lives outside every frozen version, so adding or correcting a
+# country never needs a new version. `globi-data check` warns about partners
+# missing from this list.
+schema_version: 1
+# run folder names that differ from the input partner folder
+run_aliases:
+  Sao_Paulo_Bela_Vista: Sao_Paulo
+partners:
+  Ahmedabad: IN
+  Lisbon: PT
+  MA: US
+  Manchester: GB
+  Nairobi: KE
+  Sao_Paulo: BR
+  Singapore: SG
+  Trondheim: "NO"
