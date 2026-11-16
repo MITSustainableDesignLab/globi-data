@@ -291,6 +291,7 @@ def outputs_index_readme(rows: list[dict[str, Any]]) -> str:
     ]
     table = [
         [
+            row.get("country") or "?",
             f"[{row['experiment']}](runs/{row['experiment']}/)",
             f"`{row['current']}`",
             row.get("scythe_version", ""),
@@ -302,7 +303,15 @@ def outputs_index_readme(rows: list[dict[str, Any]]) -> str:
     ]
     lines.append(
         _table(
-            ["Experiment", "Version", "Run", "Date", "Results", "Built from input"],
+            [
+                "Country",
+                "Experiment",
+                "Version",
+                "Run",
+                "Date",
+                "Results",
+                "Built from input",
+            ],
             table,
         )
     )

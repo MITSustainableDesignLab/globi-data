@@ -27,6 +27,7 @@ OUTPUT_RUNS_DIR = "outputs/runs"
 OUTPUT_BATCHES_DIR = "outputs/batches"
 OUTPUT_SURROGATES_DIR = "outputs/surrogates"
 PUBLISHED_FILE = "published.yml"
+COUNTRIES_FILE = "countries.yml"
 
 INPUT_MANIFEST_NAME = "input-version.yml"
 OUTPUT_MANIFEST_NAME = "output-version.yml"
@@ -189,6 +190,13 @@ def read_published(root: Path) -> PublishedLedger:
     if not data:
         return PublishedLedger()
     return PublishedLedger.model_validate(data)
+
+
+def read_countries(root: Path) -> dict[str, str]:
+    """Map each partner (input folder name) to its ISO 3166-1 alpha-2 country."""
+    path = root / COUNTRIES_FILE
+    data = (yamlio.read(path) if path.exists() else None) or {}
+    return dict(data.get("partners") or {})
 
 
 def write_published(root: Path, ledger: PublishedLedger) -> None:

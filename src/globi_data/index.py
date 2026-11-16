@@ -119,11 +119,14 @@ def rebuild(
     # --- outputs ------------------------------------------------------------
     output_rows: list[dict[str, Any]] = []
     output_entries: list[dict[str, Any]] = []
+    countries = paths.read_countries(root)
     for experiment in paths.list_experiments(root):
         edir = paths.experiment_dir(root, experiment)
         current = paths.resolve_version(edir, "current")
         manifest = outputs_mod.read_output_manifest(edir / current)
+        country = countries.get(manifest.partner or "")
         output_rows.append({
+            "country": country,
             "experiment": experiment,
             "current": current,
             "scythe_version": manifest.version,
@@ -132,6 +135,7 @@ def rebuild(
             "input_version": manifest.provenance.input.version or "?",
         })
         output_entries.append({
+            "country": country,
             "experiment": experiment,
             "current": current,
             "scythe_version": manifest.version,
@@ -141,6 +145,7 @@ def rebuild(
         })
 
     if output_rows:
+        output_rows.sort(key=lambda row: (row["country"] or "~", row["experiment"]))
         _write_if_changed(
             root / "outputs" / "README.md",
             render.outputs_index_readme(output_rows),

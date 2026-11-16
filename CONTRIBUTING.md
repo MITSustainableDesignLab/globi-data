@@ -7,10 +7,14 @@ from that; everything else is ordinary.
 
 **Never edit a published version.** Directories listed in `published.yml` are
 permanent records — results elsewhere pin them by fingerprint, so changing one
-silently breaks that lineage. The pre-commit hook and CI both refuse it. To
-change an input, create a new version. To mark a bad one, use
-`globi-data inputs retract`, which edits `versions.yml` outside the frozen
-folder.
+silently breaks that lineage. To change an input, create a new version. To mark
+a bad one, use `globi-data inputs retract`, which edits `versions.yml` outside
+the frozen folder.
+
+This is currently a convention, not a gate: `globi-data check --since <ref>`
+reports violations and CI surfaces them, but neither blocks. Turn it into a gate
+by installing the hook (`globi-data init-hooks`) and dropping `continue-on-error`
+from the corresponding step in `.github/workflows/validate.yml`.
 
 **Never put large files under `inputs/`.** The 25 MB warning and 90 MB hard limit
 exist because the whole design rests on this repository staying quick to clone
@@ -34,8 +38,10 @@ step.
 
 ```bash
 uv sync                      # add --extra s3 for the S3 commands
-uv run globi-data init-hooks # once per clone
 ```
+
+`uv run globi-data init-hooks` additionally installs the pre-commit immutability
+check. It is optional and off by default.
 
 ## Before you push
 

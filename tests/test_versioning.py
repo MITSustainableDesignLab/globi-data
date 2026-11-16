@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 
-from globi_data import check, index, inputs, outputs, paths, roles, status
+from globi_data import check, index, inputs, outputs, paths, roles, status, yamlio
 from globi_data.hashing import bundle_sha256
 from globi_data.paths import GlobiDataError
 
@@ -439,6 +439,33 @@ def test_full_check_passes_on_a_seeded_repo(seeded):
     index.rebuild(root, write=True)
     problems = [p for p in check.run_checks(root) if p.level == "error"]
     assert problems == [], problems
+
+
+def test_outputs_are_listed_by_country(seeded):
+    """Countries come from countries.yml via the input partner, aliases included."""
+    root, _ = seeded
+    (root / paths.COUNTRIES_FILE).write_text(
+        "schema_version: 1\npartners:\n  Lisbon: PT\n  Sao_Paulo: BR\n"
+    )
+    for experiment in ("Lisbon/tmy/Baseline", "Sao_Paulo_Bela_Vista/tmy/noAC"):
+        outputs.record_experiment(
+            root,
+            experiment,
+            _results(experiment),
+            summary="x",
+            partner_aliases={"Sao_Paulo_Bela_Vista": "Sao_Paulo"},
+        )
+    index.rebuild(root, write=True)
+
+    readme = (root / "outputs" / "README.md").read_text()
+    assert readme.index("| BR |") < readme.index("| PT |")
+    entries = yamlio.read(root / "outputs" / "index.yml")["experiments"]
+    assert {e["experiment"]: e["country"] for e in entries} == {
+        "Lisbon/tmy/Baseline": "PT",
+        "Sao_Paulo_Bela_Vista/tmy/noAC": "BR",
+    }
+    missing = [p.where for p in check.run_checks(root) if "no country" in p.message]
+    assert missing == ["Trondheim"]
 
 
 def test_index_generation_is_idempotent(seeded):

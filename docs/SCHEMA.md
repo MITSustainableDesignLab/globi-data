@@ -252,6 +252,140 @@ block.
 
 ---
 
+## `surrogate-version.yml`
+
+A trained surrogate model for one partner: semantic fields, weather and
+geometry go in; end-use energy (and so EUI) comes out. It lives at
+`outputs/surrogates/<Partner>/vNNN/`, beside a `transforms.yml`.
+
+Weather is a model **input**, not a directory level, so one surrogate covers
+current and future climate. That is why there is no `<weather>/` in the path,
+unlike `outputs/runs/`.
+
+The only surrogate so far is MA residential,
+[`outputs/surrogates/MA/v001/`](../outputs/surrogates/MA/v001/). It uses
+epengine's LightGBM layout: one `.lgb` per target under `model.files`, with
+`space.yml` as the transforms. It was recorded with `globi-data surrogates
+record`. The schema also accepts globi's single-file layout (`model.s3_uri` plus
+a `transforms.yml`), for when globi saves a final model.
+
+`CURRENT.yml` and `versions.yml` sit beside the `vNNN/` folders, as they do for
+inputs. `surrogates promote` writes both.
+
+```yaml
+schema_version: 1
+kind: surrogate-version
+partner: MA
+surrogate_version: v001
+status: active                      # draft | active | superseded | retracted
+summary: 'ma-webapp v5 (2025-10-01) iteration 2: ...'
+
+model:                              # the regressor itself stays in S3
+  backend: lgb                      # xgb | lgb | nn
+  format: lightgbm-text
+  files:                            # one file per target, each pinned by sha256
+    - {target: Energy.Heating, s3_uri: s3://ml-for-bem/hatchet/ma-webapp/.../Energy.Heating.lgb, bytes: 11768755, sha256: 5bb6...}
+  # or, a single file predicting every target, instead of files:
+  # s3_uri: s3://.../model.ubj
+  # sha256: ...
+
+transforms:                         # stored HERE, pinned by hash
+  path: space.yml                   # transforms.yml for globi
+  format: epengine-space            # globi-transformers | epengine-space
+  sha256: ...
+  s3_uri: s3://ml-for-bem/hatchet/ma-webapp/.../space.yml
+
+features:                           # one entry per model input
+  - {name: feature.semantic.Heating, source: semantic, kind: categorical, semantic_field: Heating}
+  - {name: feature.weather.file, source: weather, kind: categorical}
+  - {name: feature.geometry.long_edge, source: geometry, kind: continuous}
+
+weather_options: []                 # optional: each weather value -> a file in the pinned input bundle
+
+targets:
+  - {name: Energy.Heating, unit: "kWh/m2/yr, per conditioned floor area",
+     description: "Annual Heating demand, before system efficiency (COP)"}
+derived_outputs: []                 # e.g. {name: EUI, unit: ..., formula: "sum(Energy.*)"}
+
+metrics:                            # held-out folds, averaged; empty when unknown
+  split: test
+  per_target: {}
+
+provenance:
+  input: {partner: MA, version: v001, manifest_sha256: 5e7870ef..., confidence: inferred}
+  code: {...}
+  storage: {bucket: ml-for-bem, bucket_prefix: hatchet, run_prefix: s3://ml-for-bem/hatchet/ma-webapp/...}
+  training:
+    experiment_id: ma-webapp/v5-20251001-105947/iter-002/train/0/models
+    previous_experiment_ids: []       # earlier iterations of the training loop
+```
+
+### `transforms.yml` / `space.yml`
+
+`format: epengine-space` is epengine's `RegressorInputSpec`: an ordered list of
+features, each with either `values` (categorical, index-encoded) or `min`/`max`
+(continuous, min-max scaled). It has no targets, which come from
+`model.files[].target`.
+
+`format: globi-transformers` is a verbatim dump of globi's `Transformers`
+(`globi/models/surrogate/transforms.py`). It is the model's contract: the
+ordered feature list, which features are continuous and how they are scaled,
+the category list for every categorical feature (`cat_map`), and the target
+names with the output scaler. It is small text, so it is kept in git where
+anyone can read it without credentials.
+
+### Feature sources
+
+| `source` | Where a user gets the value | `default` |
+|---|---|---|
+| `semantic` | A semantic field of the pinned input version | not used; the user supplies it |
+| `weather` | One of `weather_options` | the current-climate file |
+| `geometry` | The GIS preprocessor (height, floors, footprint, shading) | **required** to run from semantic fields alone |
+| `extra_space` | Basement/attic flags | as for geometry |
+
+A feature with no `default` that is not `semantic` raises a warning. A
+surrogate trained on geometry cannot be driven from semantic fields alone
+unless every such input has a documented value.
+
+Features that are constant in the training data are dropped by globi.
+epengine keeps them: MA's `feature.semantic.Region` has one value, and two
+monthly cooling-degree-day features have `min == max`, so they scale to NaN,
+which LightGBM treats as missing. That matches training.
+
+### What `globi-data check` verifies
+
+| Check | Level |
+|---|---|
+| `transforms.yml` matches its `sha256` | error |
+| `features` and `targets` name exactly what `transforms.yml` lists, with matching kinds | error |
+| Every trained category of a `semantic` feature is an Option in the pinned semantic fields | error |
+| An Option the model never saw (globi would encode it as `-1` and still predict) | warning |
+| `weather_options` equal the weather feature's categories, and each `input_file` is in the pinned bundle | error |
+| The pinned input manifest still matches `manifest_sha256` | error |
+| `example: true` together with `status: active` | error |
+| A model file without `sha256` | warning |
+
+`globi-data surrogates fetch` re-checks each model file's `sha256` on every
+call. An S3 object that was overwritten after recording is an error, never a
+silent model swap.
+
+### Before this is usable
+
+- **globi does not save a final model.** The training loop keeps one model
+  per CV fold, and `finalize` leaves a `TODO: save the final model?`
+  (`globi/pipelines/training.py`). Until it writes one model and its
+  `transforms.yml`, there is nothing for `model.s3_uri` to point at.
+- **The weather feature is commented out.**
+  `feature.weather.file` is disabled in
+  `GloBIBuildingSpec.computed_features` (`globi/models/tasks.py`). The example
+  assumes it is turned back on under that name.
+- **Not yet in generated pages.** Surrogates are validated by `globi-data
+  check` and have their own CLI (`globi-data surrogates`), but `index --write`
+  does not list them in `outputs/README.md` or `STATUS.md` yet. `record` only
+  understands epengine's layout so far.
+
+---
+
 ## `published.yml`
 
 The append-only immutability ledger, at the repository root.
@@ -266,11 +400,15 @@ entries:
     published_commit: null
 ```
 
-Anything listed here must never be modified. Enforced by
-[`.githooks/pre-commit`](../.githooks/pre-commit) locally and by
-`globi-data check --since <base>` in CI, which reads the ledger *as of the merge
-base* — so a version created inside a pull request stays editable there and
-freezes the moment it merges.
+Anything listed here must never be modified. `globi-data check --since <base>`
+reports violations; it reads the ledger *as of the merge base*, so a version
+created inside a pull request stays editable there and freezes the moment it
+merges. A version is only treated as frozen once its files are actually in the
+baseline, so a version's own first commit is never mistaken for tampering.
+
+This is advisory by default. To make it a gate, install the optional pre-commit
+hook with `globi-data init-hooks` and drop `continue-on-error` from the
+corresponding step in `.github/workflows/validate.yml`.
 
 It lives at the repository root deliberately: adding entries never perturbs the
 directories it records.

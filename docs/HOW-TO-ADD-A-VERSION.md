@@ -87,7 +87,7 @@ keeps [`outputs/STATUS.md`](../outputs/STATUS.md) honest.
 ## Something is wrong with a version I already published
 
 Do not edit it — results recorded elsewhere pin it by fingerprint, and changing
-it silently breaks that lineage. The git hook and CI will both refuse the edit.
+it silently breaks that lineage. `globi-data check` reports any such edit.
 
 Instead, either publish a corrected version, or mark the bad one as retracted:
 
@@ -108,3 +108,34 @@ globi-data inputs diff Lisbon v001 v002
 
 Lists every file added, removed or modified, with sizes and fingerprints. This
 is how you decide whether a re-run is genuinely needed.
+
+---
+
+## Recording a new surrogate model
+
+Surrogates follow the same draft → promote route. For an epengine LightGBM
+model (one `*.lgb` per target plus a `space.yml`, as the MA model is):
+
+```bash
+uv sync --extra s3
+globi-data surrogates record MA \
+  --from s3://ml-for-bem/hatchet/ma-webapp/<run>/iter-NNN/train/0/models/ \
+  --summary "what changed in this model"
+```
+
+This copies `space.yml` in, downloads every model file once to record its
+sha256, annotates the features from their names, and writes the next `vNNN` as a
+draft. Target units are written as `unconfirmed`. Set them in the draft's
+`surrogate-version.yml`, along with any metrics you have, then run:
+
+```bash
+globi-data surrogates promote MA v002
+```
+
+`promote` refuses while any unit is `unconfirmed` or `check` reports an error.
+The new version becomes current, the old one is marked superseded, and the
+directory is frozen. Anyone who fetches `current` gets the new model. Anyone who
+pinned `v001` keeps the old one.
+
+To use a model, see [`examples/ma-surrogate.ipynb`](../examples/ma-surrogate.ipynb),
+or run `globi-data surrogates fetch MA`.

@@ -34,10 +34,15 @@ class Problem:
 def _check_inputs(root: Path, gis_root: Path | None) -> list[Problem]:
     """Validate every input version: schema, hashes, pointers, ledger."""
     problems: list[Problem] = []
+    countries = paths.read_countries(root)
     for partner in paths.list_partners(root):
         pdir = paths.partner_dir(root, partner)
         versions = paths.list_versions(pdir)
         ledger = paths.read_versions(pdir)
+        if partner not in countries:
+            problems.append(
+                Problem("warning", partner, f"no country in {paths.COUNTRIES_FILE}")
+            )
 
         for version in versions:
             try:
