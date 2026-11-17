@@ -101,8 +101,14 @@ def changed_paths(repo: Path, base: str, head: str = "HEAD") -> list[tuple[str, 
     changes: list[tuple[str, str]] = []
     for line in out.splitlines():
         parts = line.split("\t")
-        if len(parts) >= 2:
-            changes.append((parts[0], parts[-1]))
+        if not parts:
+            continue
+        status = parts[0]
+        if status.startswith("R") and len(parts) >= 3:
+            changes.append((status, parts[1]))
+            changes.append((status, parts[2]))
+        elif len(parts) >= 2:
+            changes.append((status, parts[-1]))
     return changes
 
 
@@ -114,8 +120,14 @@ def staged_paths(repo: Path) -> list[tuple[str, str]]:
     changes: list[tuple[str, str]] = []
     for line in out.splitlines():
         parts = line.split("\t")
-        if len(parts) >= 2:
-            changes.append((parts[0], parts[-1]))
+        if not parts:
+            continue
+        status = parts[0]
+        if status.startswith("R") and len(parts) >= 3:
+            changes.append((status, parts[1]))
+            changes.append((status, parts[2]))
+        elif len(parts) >= 2:
+            changes.append((status, parts[-1]))
     return changes
 
 

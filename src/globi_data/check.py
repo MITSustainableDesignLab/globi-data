@@ -14,7 +14,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 
-from . import gitutil, index, paths, yamlio
+from . import gitutil, index, paths, public_product, yamlio
 from . import inputs as inputs_mod
 from . import outputs as outputs_mod
 from . import surrogates as surrogates_mod
@@ -145,10 +145,23 @@ def _check_outputs(root: Path) -> list[Problem]:
                         Problem(
                             "warning",
                             where,
-                            f"{entry.result_key}: URI does not match the expected "
-                            "<prefix>/<experiment>/<version>/<timestamp>/final/<key>.pq shape",
+                            f"{entry.result_key}: URI does not match a known result layout",
                         )
                     )
+                if public_product.is_raw_scythe_uri(entry.s3_uri):
+                    ledger = paths.read_versions(edir)
+                    entry_meta = ledger.get(version)
+                    pointer = paths.read_current(edir)
+                    is_current = pointer is not None and pointer.current == version
+                    if is_current or (entry_meta and entry_meta.status == "active"):
+                        problems.append(
+                            Problem(
+                                "error",
+                                where,
+                                f"{entry.result_key} points at raw scythe storage; "
+                                "public CURRENT must use processed URIs only",
+                            )
+                        )
             if manifest.results != {
                 e.result_key: e.s3_uri for e in manifest.result_files
             }:
@@ -177,7 +190,8 @@ def _check_surrogates(root: Path) -> list[Problem]:
     problems: list[Problem] = []
     for partner in paths.list_surrogates(root):
         for version in paths.list_versions(paths.surrogate_dir(root, partner)):
-            where = f"surrogates/{partner}/{version}"
+            iso = paths.iso_for_partner(root, partner)
+            where = f"surrogates/{iso}/{partner}/{version}"
             problems.extend(
                 Problem(f.level, where, f.message)
                 for f in surrogates_mod.validate_surrogate(root, partner, version)

@@ -254,7 +254,7 @@ def inputs_index_readme(rows: list[dict[str, Any]]) -> str:
     ]
     table = [
         [
-            f"[{row['partner']}](partners/{row['partner']}/)",
+            f"[{row['partner']}]({row.get('iso', '?')}/{row['partner']}/)",
             f"`{row['current']}`",
             str(row["versions"]),
             row["updated"][:10],
@@ -279,12 +279,12 @@ def outputs_index_readme(rows: list[dict[str, Any]]) -> str:
     lines = [
         "# Outputs",
         "",
-        "One folder per simulation run, named the way the run is named:",
-        "`<Partner>/<weather>/<Scenario>`. Each holds numbered versions recording where",
-        "the result files live in S3 and exactly which inputs and code produced them.",
+        "One folder per simulation run, indexed by country:",
+        "`<ISO>/<City>/<weather>/<Scenario>`. Each holds numbered versions recording where",
+        "the processed result files live in S3 and which inputs produced them.",
         "",
-        "The result files themselves are not stored in git — there are about 11 GB of them.",
-        "Download them with `globi-data outputs download <experiment>`.",
+        "Download with `globi-data outputs download <experiment>`.",
+        "See [docs/PUBLIC-PRODUCT.md](../docs/PUBLIC-PRODUCT.md) for the public file set.",
         "",
         "See [STATUS.md](STATUS.md) for which results are up to date.",
         "",

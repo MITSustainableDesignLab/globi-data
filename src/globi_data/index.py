@@ -75,8 +75,10 @@ def rebuild(
             write=write,
         )
 
+        iso = paths.iso_for_partner(root, partner)
         input_rows.append({
             "partner": partner,
+            "iso": iso,
             "current": current,
             "versions": len(versions),
             "updated": manifest.created_at,
@@ -85,6 +87,7 @@ def rebuild(
         })
         index_entries.append({
             "partner": partner,
+            "iso": iso,
             "current": current,
             "versions": [
                 {
@@ -124,7 +127,12 @@ def rebuild(
         edir = paths.experiment_dir(root, experiment)
         current = paths.resolve_version(edir, "current")
         manifest = outputs_mod.read_output_manifest(edir / current)
-        country = countries.get(manifest.partner or "")
+        exp_parts = experiment.split("/")
+        country = (
+            exp_parts[0]
+            if exp_parts and paths._looks_iso(exp_parts[0])
+            else countries.get(manifest.partner or "")
+        )
         output_rows.append({
             "country": country,
             "experiment": experiment,

@@ -22,7 +22,7 @@ from .models import (
     VersionsLedger,
 )
 
-INPUTS_DIR = "inputs/partners"
+INPUTS_DIR = "inputs"
 OUTPUT_RUNS_DIR = "outputs/runs"
 OUTPUT_BATCHES_DIR = "outputs/batches"
 OUTPUT_SURROGATES_DIR = "outputs/surrogates"
@@ -100,9 +100,45 @@ def format_version(number: int) -> str:
 # --------------------------------------------------------------------------- #
 
 
+def read_run_aliases(root: Path) -> dict[str, str]:
+    """Map scythe run names to input partner folder names."""
+    path = root / COUNTRIES_FILE
+    data = (yamlio.read(path) if path.exists() else None) or {}
+    return dict(data.get("run_aliases") or {})
+
+
+def input_partner_for_run(root: Path, run_partner: str) -> str:
+    """Resolve an output run name to the input bundle partner key."""
+    countries = read_countries(root)
+    if run_partner in countries:
+        return run_partner
+    alias = read_run_aliases(root).get(run_partner)
+    if alias and alias in countries:
+        return alias
+    if run_partner in countries.values():
+        raise GlobiDataError(f"{run_partner!r} is an ISO code, not a partner name.")
+    raise GlobiDataError(
+        f"{run_partner!r} is not in {COUNTRIES_FILE} partners or run_aliases."
+    )
+
+
+def iso_for_partner(root: Path, partner: str) -> str:
+    """Return ISO 3166-1 alpha-2 for an input partner folder name."""
+    countries = read_countries(root)
+    iso = countries.get(partner)
+    if not iso:
+        raise GlobiDataError(f"{partner!r} missing from {COUNTRIES_FILE}")
+    return str(iso)
+
+
+def iso_for_run_partner(root: Path, run_partner: str) -> str:
+    """Return ISO for a run's first path segment (city / run name)."""
+    return iso_for_partner(root, input_partner_for_run(root, run_partner))
+
+
 def partner_dir(root: Path, partner: str) -> Path:
     """Return the directory holding all versions of one partner's inputs."""
-    return root / INPUTS_DIR / partner
+    return root / INPUTS_DIR / iso_for_partner(root, partner) / partner
 
 
 def input_version_dir(root: Path, partner: str, version: str) -> Path:
@@ -115,7 +151,12 @@ def list_partners(root: Path) -> list[str]:
     base = root / INPUTS_DIR
     if not base.is_dir():
         return []
-    return sorted(p.name for p in base.iterdir() if p.is_dir() and list_versions(p))
+    partners: list[str] = []
+    for iso_dir in sorted(p for p in base.iterdir() if p.is_dir()):
+        for city_dir in iso_dir.iterdir():
+            if city_dir.is_dir() and list_versions(city_dir):
+                partners.append(city_dir.name)
+    return sorted(partners)
 
 
 def list_versions(directory: Path) -> list[str]:
@@ -196,7 +237,8 @@ def read_countries(root: Path) -> dict[str, str]:
     """Map each partner (input folder name) to its ISO 3166-1 alpha-2 country."""
     path = root / COUNTRIES_FILE
     data = (yamlio.read(path) if path.exists() else None) or {}
-    return dict(data.get("partners") or {})
+    raw = data.get("partners") or {}
+    return {str(k): str(v) for k, v in raw.items()}
 
 
 def write_published(root: Path, ledger: PublishedLedger) -> None:
@@ -282,10 +324,31 @@ def resolve_version(directory: Path, requested: str = "current") -> str:
 def experiment_dir(root: Path, experiment: str) -> Path:
     """Return the directory holding all versions of one experiment's outputs.
 
-    ``experiment`` is the scythe run name, e.g. ``Ahmedabad/tmy/BAU``; the
-    directory layout mirrors it exactly.
+    ``experiment`` is indexed by country, e.g. ``IN/Ahmedabad/tmy/BAU``.
     """
     return root / OUTPUT_RUNS_DIR / experiment
+
+
+def _looks_iso(segment: str) -> bool:
+    return len(segment) == 2 and segment.isalpha()
+
+
+def resolve_experiment(root: Path, experiment: str) -> str:
+    """Normalize CLI experiment args to ``<ISO>/<City>/...`` form."""
+    parts = experiment.split("/")
+    if parts and _looks_iso(parts[0]):
+        return experiment
+    if len(parts) == 3:
+        iso = iso_for_run_partner(root, parts[0])
+        return f"{iso}/{experiment}"
+    if len(parts) == 4 and not _looks_iso(parts[0]):
+        # legacy MA-style without ISO — not used for current regional set
+        iso = iso_for_run_partner(root, parts[0])
+        return f"{iso}/{experiment}"
+    raise GlobiDataError(
+        f"cannot resolve experiment {experiment!r}; use ISO/City/weather/scenario "
+        f"or City/weather/scenario."
+    )
 
 
 def batch_dir(root: Path, batch: str) -> Path:
@@ -314,12 +377,17 @@ def list_batches(root: Path) -> list[str]:
 
 def surrogate_dir(root: Path, partner: str) -> Path:
     """Return the directory holding all versions of one partner's surrogate."""
-    return root / OUTPUT_SURROGATES_DIR / partner
+    return root / OUTPUT_SURROGATES_DIR / iso_for_partner(root, partner) / partner
 
 
 def list_surrogates(root: Path) -> list[str]:
-    """Return every partner that has at least one surrogate version."""
+    """Return every partner under ``outputs/surrogates/<ISO>/<Partner>/``."""
     base = root / OUTPUT_SURROGATES_DIR
     if not base.is_dir():
         return []
-    return sorted(p.name for p in base.iterdir() if p.is_dir() and list_versions(p))
+    partners: list[str] = []
+    for iso_dir in sorted(p for p in base.iterdir() if p.is_dir()):
+        for city_dir in iso_dir.iterdir():
+            if city_dir.is_dir() and list_versions(city_dir):
+                partners.append(city_dir.name)
+    return sorted(partners)

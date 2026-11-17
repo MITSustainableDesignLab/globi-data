@@ -46,6 +46,23 @@ def _partners_repo(explicit: str | None, root: Path) -> Path | None:
     return sibling if sibling.is_dir() else None
 
 
+def _experiment_edir(root: Path, experiment: str) -> tuple[str, Path]:
+    """Resolve experiment name and return (canonical, directory)."""
+    try:
+        resolved = paths.resolve_experiment(root, experiment)
+    except GlobiDataError:
+        resolved = experiment
+        edir = paths.experiment_dir(root, resolved)
+        if not edir.is_dir():
+            raise
+    else:
+        edir = paths.experiment_dir(root, resolved)
+    if not edir.is_dir():
+        _fail(f"no recorded results for {experiment!r} (expected {resolved}).")
+        raise SystemExit(1)
+    return resolved, edir
+
+
 def _fail(message: str) -> None:
     """Print an error and exit non-zero."""
     err_console.print(f"[bold red]error[/] {message}")
@@ -518,8 +535,9 @@ def outputs_list(ctx: click.Context, experiment: str | None, as_json: bool) -> N
     """List every experiment with recorded results."""
     root = _root(ctx)
     rows = []
+    filter_name = paths.resolve_experiment(root, experiment) if experiment else None
     for name in paths.list_experiments(root):
-        if experiment and name != experiment:
+        if filter_name and name != filter_name:
             continue
         edir = paths.experiment_dir(root, name)
         current = paths.resolve_version(edir, "current")
@@ -560,7 +578,7 @@ def outputs_list(ctx: click.Context, experiment: str | None, as_json: bool) -> N
 def outputs_show(ctx: click.Context, experiment: str, version: str) -> None:
     """Show one output version's results and provenance."""
     root = _root(ctx)
-    edir = paths.experiment_dir(root, experiment)
+    resolved_exp, edir = _experiment_edir(root, experiment)
     try:
         resolved = paths.resolve_version(edir, version)
     except GlobiDataError as exc:
@@ -569,7 +587,7 @@ def outputs_show(ctx: click.Context, experiment: str, version: str) -> None:
     manifest = outputs_mod.read_output_manifest(edir / resolved)
     pin = manifest.provenance.input
 
-    console.print(f"[bold]{experiment} {resolved}[/]")
+    console.print(f"[bold]{resolved_exp} {resolved}[/]")
     console.print(f"run: {manifest.version} @ {manifest.run_timestamp}")
     console.print(
         f"built from input [bold]{pin.version or '?'}[/] "
@@ -625,11 +643,13 @@ def outputs_record(
     repo = _partners_repo(partners_repo, root)
 
     if from_csv:
+        resolved = paths.resolve_experiment(root, experiment)
         grouped = outputs_mod.load_latest_results_csv(Path(from_csv).expanduser())
-        results = grouped.get(experiment)
+        results = grouped.get(resolved) or grouped.get(experiment)
         if not results:
             _fail(f"{experiment} not found in {from_csv}.")
             return
+        experiment = resolved
     elif from_s3:
         _fail(
             "--from-s3 needs the globi-partners-data result resolver. Export with "
@@ -682,7 +702,11 @@ def outputs_record(
 def outputs_verify(ctx: click.Context, experiment: str | None, check_all: bool) -> None:
     """Check that every recorded S3 object still exists."""
     root = _root(ctx)
-    names = [experiment] if experiment else paths.list_experiments(root)
+    names = (
+        [_experiment_edir(root, experiment)[0]]
+        if experiment
+        else paths.list_experiments(root)
+    )
     if not names:
         console.print("No recorded outputs.")
         return
@@ -722,7 +746,7 @@ def outputs_download(
 ) -> None:
     """Download an experiment's result parquets from S3."""
     root = _root(ctx)
-    edir = paths.experiment_dir(root, experiment)
+    experiment, edir = _experiment_edir(root, experiment)
     try:
         resolved = paths.resolve_version(edir, version)
     except GlobiDataError as exc:

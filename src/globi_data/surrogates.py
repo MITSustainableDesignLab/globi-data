@@ -308,6 +308,13 @@ def validate_surrogate(root: Path, partner: str, version: str) -> list[Finding]:
 # --------------------------------------------------------------------------- #
 
 DEFAULT_CACHE = Path("~/.cache/globi-data/surrogates")
+
+
+def _surrogate_cache(
+    root: Path, partner: str, version: str, dest: Path | None
+) -> Path:
+    iso = paths.iso_for_partner(root, partner)
+    return (dest or DEFAULT_CACHE).expanduser() / iso / partner / version
 # Placeholder unit written by `record`; `promote` refuses until it is replaced.
 UNCONFIRMED = "unconfirmed"
 _SOURCES: dict[str, FeatureSource] = {
@@ -368,13 +375,13 @@ def fetch_surrogate(
 ) -> Path:
     """Download a surrogate's model files and transforms; return the local directory.
 
-    Files land in ``<dest>/<partner>/<version>/`` (default
+    Files land in ``<dest>/<ISO>/<partner>/<version>/`` (default
     ``~/.cache/globi-data/surrogates``). A second call only re-hashes.
     """
     sdir = paths.surrogate_dir(root, partner)
     version = paths.resolve_version(sdir, version)
     s = read_surrogate_manifest(sdir / version)
-    out = (dest or DEFAULT_CACHE).expanduser() / partner / version
+    out = _surrogate_cache(root, partner, version, dest)
     _download_parts(model_parts(s), out)
     shutil.copy2(sdir / version / s.transforms.path, out / s.transforms.path)
     return out
@@ -437,7 +444,7 @@ def record_surrogate(
         )
         for k in lgb_keys
     ]
-    cache = (dest or DEFAULT_CACHE).expanduser() / partner / version
+    cache = _surrogate_cache(root, partner, version, dest)
     shutil.rmtree(cache, ignore_errors=True)  # never hash a stale earlier attempt
     _download_parts(parts, cache)
     for part in parts:

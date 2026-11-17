@@ -256,14 +256,14 @@ block.
 
 A trained surrogate model for one partner: semantic fields, weather and
 geometry go in; end-use energy (and so EUI) comes out. It lives at
-`outputs/surrogates/<Partner>/vNNN/`, beside a `transforms.yml`.
+`outputs/surrogates/<ISO>/<Partner>/vNNN/`, beside a `transforms.yml`.
 
 Weather is a model **input**, not a directory level, so one surrogate covers
 current and future climate. That is why there is no `<weather>/` in the path,
 unlike `outputs/runs/`.
 
 The only surrogate so far is MA residential,
-[`outputs/surrogates/MA/v001/`](../outputs/surrogates/MA/v001/). It uses
+[`outputs/surrogates/US/MA/v001/`](../outputs/surrogates/US/MA/v001/). It uses
 epengine's LightGBM layout: one `.lgb` per target under `model.files`, with
 `space.yml` as the transforms. It was recorded with `globi-data surrogates
 record`. The schema also accepts globi's single-file layout (`model.s3_uri` plus

@@ -76,21 +76,33 @@ def parse_s3_uri(uri: str) -> S3Ref:
             version = parts[idx - 2]
             prefix = parts[0]
             experiment = "/".join(parts[1 : idx - 2])
+        return S3Ref(bucket, key, prefix, experiment, version, timestamp)
+
+    # public processed layout: <prefix>/<experiment>/<output_version>/<file>
+    if len(parts) >= 4 and paths.VERSION_RE.match(parts[-2]):
+        prefix = parts[0]
+        experiment = "/".join(parts[1:-2])
+        version = parts[-2]
+        return S3Ref(bucket, key, prefix, experiment, version, None)
     return S3Ref(bucket, key, prefix, experiment, version, timestamp)
 
 
 def split_experiment(experiment: str) -> tuple[str, str | None, str | None]:
-    """Split a run name into ``(partner, weather, scenario)``.
+    """Split a run name into ``(run_partner, weather, scenario)``.
 
-    Handles both the three-part partner form (``Ahmedabad/tmy/BAU``) and the
-    four-part MA tract form (``MA/000101/tmy/baseline``).
+    Accepts ``IN/Ahmedabad/tmy/BAU`` and legacy ``Ahmedabad/tmy/BAU``.
     """
     parts = experiment.split("/")
     if len(parts) == 1:
         return parts[0], None, None
     if len(parts) == 2:
         return parts[0], None, parts[1]
-    return parts[0], parts[-2], parts[-1]
+    if len(parts) == 3:
+        return parts[0], parts[1], parts[2]
+    # ISO/City/weather/scenario or US/MA/tract/tmy/scenario
+    if len(parts) == 4:
+        return parts[1], parts[-2], parts[-1]
+    return parts[1], parts[-2], parts[-1]
 
 
 def read_output_manifest(version_dir: Path) -> OutputVersionManifest:
@@ -229,11 +241,16 @@ def record_experiment(
         )
 
     run_prefix = None
-    if first.prefix and first.experiment and first.version and first.run_timestamp:
-        run_prefix = (
-            f"s3://{first.bucket}/{first.prefix}/{first.experiment}/"
-            f"{first.version}/{first.run_timestamp}"
-        )
+    if first.prefix and first.experiment:
+        if first.run_timestamp:
+            run_prefix = (
+                f"s3://{first.bucket}/{first.prefix}/{first.experiment}/"
+                f"{first.version}/{first.run_timestamp}"
+            )
+        elif first.version:
+            run_prefix = (
+                f"s3://{first.bucket}/{first.prefix}/{first.experiment}/{first.version}"
+            )
 
     manifest = OutputVersionManifest(
         experiment=experiment,
@@ -258,8 +275,8 @@ def record_experiment(
                 run_prefix=run_prefix,
             ),
             run=RunProvenance(
-                scythe_version=first.version,
-                run_timestamp=first.run_timestamp,
+                scythe_version=first.version if first.run_timestamp else None,
+                run_timestamp=first.run_timestamp or first.version,
             ),
         ),
         result_files=result_files,
@@ -280,6 +297,15 @@ def record_experiment(
 def _output_version_readme(manifest: OutputVersionManifest) -> str:
     """Render the README inside an output version directory."""
     m = manifest
+    try:
+        root = paths.repo_root()
+        iso = paths.iso_for_partner(root, m.partner)
+        input_rel = (
+            f"../../../../../../inputs/{iso}/{m.partner}/"
+            f"{m.provenance.input.version or ''}/"
+        )
+    except Exception:
+        input_rel = f"inputs/{m.partner}/{m.provenance.input.version or ''}/"
     lines = [
         f"# {m.experiment} — results {m.output_version}",
         "",
@@ -287,8 +313,7 @@ def _output_version_readme(manifest: OutputVersionManifest) -> str:
         "",
         f"- **Simulation run:** `{m.version}` at `{m.run_timestamp}`",
         f"- **Built from inputs:** "
-        f"[`{m.provenance.input.version or 'unknown'}`]"
-        f"(../../../../../inputs/partners/{m.partner}/{m.provenance.input.version or ''}/)"
+        f"[`{m.provenance.input.version or 'unknown'}`]({input_rel})"
         f" ({m.provenance.input.confidence})",
         f"- **Recorded:** {m.created_at}",
         "",
