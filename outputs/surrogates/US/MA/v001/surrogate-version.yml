@@ -1468,7 +1468,7 @@ provenance:
   input:
     partner: MA
     version: v001
-    manifest_path: inputs/partners/MA/v001/input-version.yml
+    manifest_path: inputs/US/MA/v001/input-version.yml
     manifest_sha256: 5e7870efe45298c3bb3b6c3bb138e7ec1513c7f5c5087a6af1ac8662c0e3460b
     bundle_sha256: d53a3ab202de33c5d25f132c40302f058776efcad7ec5e5d572b25d0dde54ebb
     confidence: inferred
