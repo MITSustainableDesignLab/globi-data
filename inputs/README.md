@@ -4,16 +4,7 @@ One folder per partner. Each contains numbered versions (`v001`, `v002`, …);
 the current one is named in that partner's `CURRENT.yml` and at the top of its
 README.
 
-| Partner | Current | Versions | Updated | Size | Kind |
-|---|---|---|---|---|---|
-| [Ahmedabad](IN/Ahmedabad/) | `v001` | 1 | 2026-08-24 | 4.7 MB | experiment |
-| [Lisbon](PT/Lisbon/) | `v001` | 1 | 2026-08-24 | 5.0 MB | experiment |
-| [MA](US/MA/) | `v001` | 1 | 2026-08-24 | 21.9 MB | raw |
-| [Manchester](GB/Manchester/) | `v001` | 1 | 2026-08-24 | 7.0 MB | experiment |
-| [Nairobi](KE/Nairobi/) | `v001` | 1 | 2026-08-24 | 4.6 MB | experiment |
-| [Sao_Paulo](BR/Sao_Paulo/) | `v001` | 1 | 2026-08-24 | 4.3 MB | experiment |
-| [Singapore](SG/Singapore/) | `v001` | 1 | 2026-08-24 | 4.3 MB | experiment |
-| [Trondheim](NO/Trondheim/) | `v001` | 1 | 2026-08-24 | 4.9 MB | experiment |
+_None._
 
 > Building footprint files (`buildings.geojson`) are not stored here — they are
 > too large. Each version records their exact fingerprint and where to find them.
