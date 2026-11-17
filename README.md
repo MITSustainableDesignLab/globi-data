@@ -92,6 +92,8 @@ globi-data check
 - [docs/HOW-TO-DOWNLOAD-INPUTS.md](docs/HOW-TO-DOWNLOAD-INPUTS.md)
 - [docs/HOW-TO-ADD-A-VERSION.md](docs/HOW-TO-ADD-A-VERSION.md)
 - [docs/PUBLIC-PRODUCT.md](docs/PUBLIC-PRODUCT.md)
+- [docs/PUBLIC-DATA.md](docs/PUBLIC-DATA.md) (public S3 / Registry documentation)
+- [registry/draft/](registry/draft/) (draft open-data-registry YAML)
 - [docs/GIS-ACCESS.md](docs/GIS-ACCESS.md)
 - [docs/SCHEMA.md](docs/SCHEMA.md)
 - [SECURITY.md](SECURITY.md)

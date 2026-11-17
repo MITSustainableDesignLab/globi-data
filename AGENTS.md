@@ -12,7 +12,7 @@ in versions. The simulations themselves live in the sibling repository
 | `inputs/<ISO>/<City>/CURRENT.yml` | Which version is current |
 | `inputs/<ISO>/<City>/versions.yml` | Mutable status of every version |
 | `outputs/runs/<ISO>/<City>/<weather>/<Scenario>/vNNN/` | Processed results in S3, plus provenance |
-| `public_storage.yml` | Public bucket/prefix and product keys |
+| `public_storage.yml` | Public bucket, `globi-inputs/` + `globi-public/` prefixes, product keys |
 | `docs/PUBLIC-PRODUCT.md` | What downloaders get (not raw scythe) |
 | `outputs/batches/<Batch>/vNNN/` | Same, for run families too numerous to list individually |
 | `outputs/surrogates/<Partner>/vNNN/` | A trained surrogate: manifest + `transforms.yml`; model in S3 |

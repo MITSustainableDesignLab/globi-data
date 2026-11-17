@@ -1,0 +1,17 @@
+# public aws layout — mutable launch config (not a frozen version)
+# bucket/region: TBD after AWS Open Data onboarding; values below are staging until cutover
+schema_version: 1
+bucket: ml-for-bem
+inputs_prefix: globi-inputs
+outputs_prefix: globi-public
+# frozen input bundles mirrored from inputs/<ISO>/<City>/vNNN/ (no buildings.geojson)
+# inputs/<ISO>/<City>/vNNN/** mirrors globi-data layout
+#
+# processed run outputs (no raw scythe final/*.pq)
+products:
+  - result_key: energy_and_peak
+    filename: energy_and_peak.parquet
+  - result_key: overheating
+    filename: overheating.parquet
+  - result_key: emissions_by_building
+    filename: emissions_by_building.parquet
